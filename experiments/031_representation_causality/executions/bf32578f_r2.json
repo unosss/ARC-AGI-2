@@ -1,0 +1,57 @@
+{
+  "task_id": "bf32578f",
+  "source_representation": "representations/bf32578f_r2.json",
+  "representation_parse": {
+    "target_instance": "test_0",
+    "height": 8,
+    "width": 8,
+    "background_color": 0,
+    "foreground_color": 1,
+    "given_boundary": [[1,3],[2,1],[2,2],[3,0],[4,0],[5,1],[5,2],[6,3]],
+    "reflection_rule": "M(r,c)=(r,7-c)",
+    "connectivity": "4-neighbor",
+    "rendering": "Color only non-wall cells enclosed by the union of the given and reflected boundaries."
+  },
+  "execution_steps": [
+    {
+      "step": 1,
+      "result": "Allocated an 8 by 8 domain with zero-based coordinates."
+    },
+    {
+      "step": 2,
+      "result": "Reflected the given boundary to [[1,4],[2,6],[2,5],[3,7],[4,7],[5,6],[5,5],[6,4]]."
+    },
+    {
+      "step": 3,
+      "result": "Formed the closed wall as the set union of the supplied and reflected boundary cells."
+    },
+    {
+      "step": 4,
+      "result": "Flood-filled all non-wall cells reachable orthogonally from non-wall perimeter cells."
+    },
+    {
+      "step": 5,
+      "result": "Classified [[2,3],[2,4],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[5,3],[5,4]] as enclosed."
+    },
+    {
+      "step": 6,
+      "result": "Rendered enclosed cells as color 1 and left wall and exterior cells as color 0."
+    }
+  ],
+  "unavailable_information": [],
+  "test": [
+    {
+      "id": "test_0",
+      "output": [
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,1,1,0,0,0],
+        [0,1,1,1,1,1,1,0],
+        [0,1,1,1,1,1,1,0],
+        [0,0,0,1,1,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0]
+      ]
+    }
+  ]
+}

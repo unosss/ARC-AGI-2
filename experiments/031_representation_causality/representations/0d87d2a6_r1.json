@@ -1,0 +1,283 @@
+{
+  "task_id": "0d87d2a6",
+  "run": "r1",
+  "vocabulary": {
+    "background": {
+      "color": 0,
+      "meaning": "empty cell"
+    },
+    "guide_seed": {
+      "color": 1,
+      "meaning": "a marker belonging to an axis-aligned guide"
+    },
+    "payload_component": {
+      "color": 2,
+      "meaning": "a maximal 4-connected set of payload cells"
+    },
+    "guide": {
+      "meaning": "the inclusive horizontal or vertical segment joining a pair of aligned color-1 seeds"
+    },
+    "overlap": {
+      "meaning": "a payload component and a guide have at least one coordinate in common"
+    },
+    "contact_only": {
+      "meaning": "a payload component has no overlap with a guide but has a cell at Manhattan distance 1 from a guide cell"
+    },
+    "selected_component": {
+      "meaning": "a payload component that overlaps at least one guide"
+    },
+    "coordinate_notation": {
+      "system": "zero-based [row,column], origin at top-left",
+      "rect": "[r0,r1,c0,c1] denotes every cell r0<=row<=r1 and c0<=column<=c1",
+      "segment": "horizontal [row,c0,c1] or vertical [column,r0,r1], endpoints inclusive"
+    }
+  },
+  "extraction": {
+    "dimensions": "Count input rows and columns.",
+    "guide_seeds": "Collect every input cell whose color is 1.",
+    "guides": [
+      "For each row containing exactly two guide seeds, create the inclusive horizontal segment between those seeds.",
+      "For each column containing exactly two guide seeds, create the inclusive vertical segment between those seeds.",
+      "A seed may participate in one horizontal and/or one vertical guide. In these instances the intended pairs are unambiguous and lie on opposing borders."
+    ],
+    "payload_components": "On the input color-2 cells, before adding guides or recoloring anything, compute maximal 4-neighbor connected components.",
+    "component_encoding": "Every component in this task is a filled axis-aligned rectangle, so it is encoded losslessly by an inclusive rect plus its area.",
+    "relations": {
+      "overlap": "True iff at least one component coordinate lies on at least one extracted guide segment.",
+      "contact_only": "True iff overlap is false and at least one component coordinate is 4-neighbor adjacent to a guide coordinate."
+    }
+  },
+  "instances": {
+    "train": [
+      {
+        "id": "train_0",
+        "dimensions": [10, 20],
+        "guide_seeds": [[0, 6], [9, 6]],
+        "guides": [
+          {"id": "G0", "orientation": "vertical", "segment": [6, 0, 9]}
+        ],
+        "components": [
+          {"id": "C0", "rect": [2, 5, 3, 7], "area": 20, "overlaps": ["G0"], "contact_only": [], "output_color": 1},
+          {"id": "C1", "rect": [2, 3, 14, 17], "area": 8, "overlaps": [], "contact_only": [], "output_color": 2},
+          {"id": "C2", "rect": [5, 7, 9, 11], "area": 9, "overlaps": [], "contact_only": [], "output_color": 2},
+          {"id": "C3", "rect": [5, 7, 16, 19], "area": 12, "overlaps": [], "contact_only": [], "output_color": 2},
+          {"id": "C4", "rect": [7, 8, 2, 3], "area": 4, "overlaps": [], "contact_only": [], "output_color": 2}
+        ],
+        "observed_output_delta": {
+          "added_guide_cells": "All cells of G0 that were background become color 1.",
+          "recolored_components": ["C0"],
+          "unchanged_components": ["C1", "C2", "C3", "C4"]
+        }
+      },
+      {
+        "id": "train_1",
+        "dimensions": [20, 20],
+        "guide_seeds": [[0, 7], [8, 0], [8, 19], [19, 7]],
+        "guides": [
+          {"id": "G0", "orientation": "vertical", "segment": [7, 0, 19]},
+          {"id": "G1", "orientation": "horizontal", "segment": [8, 0, 19]}
+        ],
+        "components": [
+          {"id": "C0", "rect": [0, 2, 14, 17], "area": 12, "overlaps": [], "contact_only": [], "output_color": 2},
+          {"id": "C1", "rect": [2, 5, 6, 10], "area": 20, "overlaps": ["G0"], "contact_only": [], "output_color": 1},
+          {"id": "C2", "rect": [7, 9, 2, 5], "area": 12, "overlaps": ["G1"], "contact_only": [], "output_color": 1},
+          {"id": "C3", "rect": [8, 10, 11, 14], "area": 12, "overlaps": ["G1"], "contact_only": [], "output_color": 1},
+          {"id": "C4", "rect": [13, 15, 2, 5], "area": 12, "overlaps": [], "contact_only": [], "output_color": 2},
+          {"id": "C5", "rect": [16, 17, 14, 18], "area": 10, "overlaps": [], "contact_only": [], "output_color": 2}
+        ],
+        "observed_output_delta": {
+          "added_guide_cells": "All background cells of G0 and G1 become color 1.",
+          "recolored_components": ["C1", "C2", "C3"],
+          "unchanged_components": ["C0", "C4", "C5"]
+        }
+      },
+      {
+        "id": "train_2",
+        "dimensions": [13, 14],
+        "guide_seeds": [[0, 7], [2, 0], [2, 13], [12, 7]],
+        "guides": [
+          {"id": "G0", "orientation": "vertical", "segment": [7, 0, 12]},
+          {"id": "G1", "orientation": "horizontal", "segment": [2, 0, 13]}
+        ],
+        "components": [
+          {"id": "C0", "rect": [0, 3, 2, 4], "area": 12, "overlaps": ["G1"], "contact_only": [], "output_color": 1},
+          {"id": "C1", "rect": [2, 3, 7, 9], "area": 6, "overlaps": ["G0", "G1"], "contact_only": [], "output_color": 1},
+          {"id": "C2", "rect": [5, 6, 0, 1], "area": 4, "overlaps": [], "contact_only": [], "output_color": 2},
+          {"id": "C3", "rect": [5, 9, 4, 9], "area": 30, "overlaps": ["G0"], "contact_only": [], "output_color": 1},
+          {"id": "C4", "rect": [7, 11, 11, 13], "area": 15, "overlaps": [], "contact_only": [], "output_color": 2},
+          {"id": "C5", "rect": [11, 12, 1, 5], "area": 10, "overlaps": [], "contact_only": [], "output_color": 2}
+        ],
+        "observed_output_delta": {
+          "added_guide_cells": "All background cells of G0 and G1 become color 1.",
+          "recolored_components": ["C0", "C1", "C3"],
+          "unchanged_components": ["C2", "C4", "C5"]
+        }
+      }
+    ],
+    "test": [
+      {
+        "id": "test_0",
+        "dimensions": [23, 25],
+        "guide_seeds": [[0, 5], [4, 0], [4, 24], [11, 0], [11, 24], [22, 5]],
+        "guides": [
+          {"id": "G0", "orientation": "vertical", "segment": [5, 0, 22]},
+          {"id": "G1", "orientation": "horizontal", "segment": [4, 0, 24]},
+          {"id": "G2", "orientation": "horizontal", "segment": [11, 0, 24]}
+        ],
+        "components": [
+          {"id": "C0", "rect": [0, 3, 9, 11], "area": 12, "overlaps": [], "contact_only": ["G1"]},
+          {"id": "C1", "rect": [1, 4, 19, 22], "area": 16, "overlaps": ["G1"], "contact_only": []},
+          {"id": "C2", "rect": [3, 5, 4, 6], "area": 9, "overlaps": ["G0", "G1"], "contact_only": []},
+          {"id": "C3", "rect": [3, 7, 13, 17], "area": 25, "overlaps": ["G1"], "contact_only": []},
+          {"id": "C4", "rect": [6, 8, 22, 23], "area": 6, "overlaps": [], "contact_only": []},
+          {"id": "C5", "rect": [9, 11, 9, 10], "area": 6, "overlaps": ["G2"], "contact_only": []},
+          {"id": "C6", "rect": [10, 13, 1, 5], "area": 20, "overlaps": ["G0", "G2"], "contact_only": []},
+          {"id": "C7", "rect": [16, 20, 5, 13], "area": 45, "overlaps": ["G0"], "contact_only": []},
+          {"id": "C8", "rect": [16, 18, 21, 23], "area": 9, "overlaps": [], "contact_only": []},
+          {"id": "C9", "rect": [18, 19, 17, 18], "area": 4, "overlaps": [], "contact_only": []}
+        ]
+      }
+    ]
+  },
+  "invariances": {
+    "preserved": [
+      "Output dimensions equal input dimensions.",
+      "Every input color-1 seed remains color 1.",
+      "Every background cell not lying on a guide remains background.",
+      "Every nonselected payload component retains color 2, shape, and position.",
+      "Every selected payload component retains all of its occupied coordinates but changes uniformly from color 2 to color 1."
+    ],
+    "discarded_for_selection": [
+      "Component area, width, height, and aspect ratio.",
+      "Component order and absolute distance from guides when there is no overlap.",
+      "Whether overlap is with a horizontal guide, vertical guide, or both.",
+      "The number of overlap cells and the number of guides overlapped."
+    ],
+    "equivariances": [
+      "Translating or reflecting a complete arrangement while preserving guide/component incidence preserves the transformation.",
+      "Adding another aligned seed pair adds another guide governed by the same overlap rule."
+    ]
+  },
+  "candidate_models": [
+    {
+      "id": "M_overlap",
+      "rule": "Draw every guide in color 1 and recolor exactly the payload components sharing at least one cell with a guide to color 1.",
+      "status": "selected",
+      "test_implication": {
+        "selected_components": ["C1", "C2", "C3", "C5", "C6", "C7"],
+        "unselected_components": ["C0", "C4", "C8", "C9"]
+      }
+    },
+    {
+      "id": "M_contact",
+      "rule": "Draw every guide in color 1 and recolor payload components that overlap or are 4-neighbor adjacent to a guide.",
+      "status": "not distinguished from M_overlap by the training examples because no training component is contact-only",
+      "test_implication": {
+        "selected_components": ["C0", "C1", "C2", "C3", "C5", "C6", "C7"],
+        "unselected_components": ["C4", "C8", "C9"],
+        "difference_from_M_overlap": "Only C0, whose bottom edge at row 3 is directly above horizontal guide G1 at row 4."
+      }
+    },
+    {
+      "id": "M_recolor_only_intersections",
+      "rule": "Draw guides but recolor only payload cells lying directly on guides, leaving the remainder of each intersected component color 2.",
+      "status": "contradicted"
+    },
+    {
+      "id": "M_recolor_all_payload",
+      "rule": "Draw guides and recolor every payload component.",
+      "status": "contradicted"
+    }
+  ],
+  "train_validation": {
+    "exact_validation": [
+      {
+        "instance": "train_0",
+        "result": "M_overlap reproduces all 200 output cells exactly: G0 is completed, all 20 cells of intersecting C0 become 1, and the 33 cells in C1-C4 stay 2."
+      },
+      {
+        "instance": "train_1",
+        "result": "M_overlap reproduces all 400 output cells exactly: both guides are completed; C1-C3 become 1; C0, C4, and C5 stay 2."
+      },
+      {
+        "instance": "train_2",
+        "result": "M_overlap reproduces all 182 output cells exactly: both guides are completed; C0, C1, and C3 become 1; C2, C4, and C5 stay 2."
+      }
+    ],
+    "aggregate": {
+      "exact_pairs": "3/3",
+      "exact_cells": "782/782",
+      "overlapping_components_recolored": "7/7",
+      "nonoverlapping_components_preserved": "10/10"
+    },
+    "contradictions": [
+      {
+        "model": "M_recolor_only_intersections",
+        "evidence": "In train_0, cells of C0 away from column 6 also become color 1; analogous whole-component propagation occurs in all training pairs."
+      },
+      {
+        "model": "M_recolor_all_payload",
+        "evidence": "Ten nonoverlapping training components remain color 2."
+      }
+    ],
+    "limits": "The train pairs contain no component that is adjacent to a guide without overlapping it, so they do not empirically separate M_overlap from M_contact."
+  },
+  "selected_model": {
+    "id": "M_overlap",
+    "rationale": "It is the minimal incidence rule exactly fitting every training output: selection requires a shared cell. Adjacency is an unsupported extension and is retained only as an explicit competing model."
+  },
+  "remaining_ambiguities": [
+    {
+      "issue": "overlap versus 4-neighbor contact",
+      "training_identifiability": "unresolved",
+      "selected_resolution": "Use strict overlap.",
+      "test_sensitivity": "C0 is the sole contact-only test component, so changing this relation changes only C0."
+    },
+    {
+      "issue": "Guide pairing in arbitrary inputs with more than two seeds on one row or column",
+      "training_identifiability": "not observed",
+      "selected_resolution": "Not needed here; all encoded instances have exactly two aligned seeds for each guide."
+    }
+  ],
+  "execution_spec": {
+    "target_instance": "test_0",
+    "output_dimensions": [23, 25],
+    "coordinate_convention": "Zero-based [row,column], origin top-left; all rectangle and segment endpoints are inclusive.",
+    "initialization": {
+      "instruction": "Create a 23 by 25 array filled with color 0.",
+      "payload_rectangles": [
+        {"id": "C0", "rect": [0, 3, 9, 11]},
+        {"id": "C1", "rect": [1, 4, 19, 22]},
+        {"id": "C2", "rect": [3, 5, 4, 6]},
+        {"id": "C3", "rect": [3, 7, 13, 17]},
+        {"id": "C4", "rect": [6, 8, 22, 23]},
+        {"id": "C5", "rect": [9, 11, 9, 10]},
+        {"id": "C6", "rect": [10, 13, 1, 5]},
+        {"id": "C7", "rect": [16, 20, 5, 13]},
+        {"id": "C8", "rect": [16, 18, 21, 23]},
+        {"id": "C9", "rect": [18, 19, 17, 18]}
+      ],
+      "guide_segments": [
+        {"id": "G0", "orientation": "vertical", "segment": [5, 0, 22]},
+        {"id": "G1", "orientation": "horizontal", "segment": [4, 0, 24]},
+        {"id": "G2", "orientation": "horizontal", "segment": [11, 0, 24]}
+      ],
+      "selected_by_M_overlap": ["C1", "C2", "C3", "C5", "C6", "C7"],
+      "not_selected_by_M_overlap": ["C0", "C4", "C8", "C9"]
+    },
+    "ordered_construction": [
+      "1. Fill every cell of each payload rectangle C0-C9 with color 2.",
+      "2. Fill every cell of guide segments G0, G1, and G2 with color 1.",
+      "3. For every selected component C1, C2, C3, C5, C6, and C7, fill its entire rectangle with color 1.",
+      "4. Leave C0, C4, C8, and C9 color 2 and leave all other cells color 0."
+    ],
+    "collision_behavior": {
+      "guide_with_background": "Guide wins: write color 1.",
+      "guide_with_payload": "Guide wins and the whole overlapped payload component is selected and written color 1.",
+      "horizontal_with_vertical_guide": "Color 1 remains color 1.",
+      "payload_rectangles": "No two payload rectangles overlap in this instance."
+    },
+    "boundary_behavior": "Segments stop at their listed inclusive endpoints, which here are opposing grid boundaries. Never write outside rows 0..22 or columns 0..24.",
+    "completeness_note": "The dimensions, every nonbackground test entity, all guide/component relations, selected set, colors, construction order, and collision rules are included; the raw challenge is unnecessary for execution."
+  }
+}

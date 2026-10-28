@@ -1,0 +1,22 @@
+{
+  "mode": "single_pass_smoke",
+  "task_ids": ["0934a4d8", "36a08778", "981571dc", "aa4ec2a5"],
+  "n_train_aug": 16,
+  "n_eval_aug": 2,
+  "task_cap_seconds": 1200,
+  "lora_seed": 42,
+  "train_aug_seed": 1,
+  "eval_aug_seed": 2,
+  "score_seed_offset": 0,
+  "order": "sorted",
+  "nprocs": 4,
+  "smoke_deadline_seconds": 3300,
+  "submission_deadline_seconds": 42600,
+  "selection": "score_kgmon_top2",
+  "lora": {"type": "RSLoRA", "rank": 256},
+  "report_filename": "smoke_report.json",
+  "upstream_notebook_id": 139041342,
+  "kernel_source": "sorokin/pip-install-unsloth-flash-patch",
+  "model_source": "sorokin/qwen3_4b_grids15_sft139/Transformers/bfloat16/1",
+  "competition_source": "arc-prize-2026-arc-agi-2"
+}

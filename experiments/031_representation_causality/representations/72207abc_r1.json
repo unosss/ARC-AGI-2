@@ -1,0 +1,270 @@
+{
+  "task_id": "72207abc",
+  "run": "r1",
+  "vocabulary": {
+    "background": {
+      "cell_value": 0,
+      "meaning": "empty cell"
+    },
+    "active_row": {
+      "meaning": "the unique row containing non-background cells"
+    },
+    "triangular_index": {
+      "symbol": "T(n)",
+      "definition": "T(n) = n*(n+1)/2 for integer n >= 0"
+    },
+    "seed_prefix": {
+      "meaning": "an ordered color word s[0..k-1] stored at the consecutive triangular columns T(0), T(1), ..., T(k-1) of the active row"
+    },
+    "periodic_word": {
+      "meaning": "the infinite sequence whose item n is s[n mod k]"
+    },
+    "mark": {
+      "fields": [
+        "row",
+        "column",
+        "color"
+      ],
+      "meaning": "a non-background cell"
+    }
+  },
+  "extraction": {
+    "coordinate_convention": "Zero-based [row,column], with rows increasing downward and columns increasing rightward.",
+    "dimensions": "Count rows H and columns W directly from the rectangular grid.",
+    "active_row": "Collect rows containing values other than 0. The task instances have exactly one such row; record its index r.",
+    "seed_length": "Starting with n=0, inspect active-row columns T(n). Append each nonzero value to s, and stop at the first n for which T(n) is outside the grid or the cell at T(n) is 0. Set k to the number appended.",
+    "seed_validity": "All nonzero input cells must be exactly the cells [r,T(n)] for 0 <= n < k; k must be positive.",
+    "symbolic_grid_encoding": "Represent a grid by H, W, background value 0, active row r, and its complete ordered list of nonzero marks. Every unlisted cell is 0."
+  },
+  "instances": {
+    "train": [
+      {
+        "pair": 0,
+        "input": {
+          "H": 3,
+          "W": 19,
+          "background": 0,
+          "active_row": 1,
+          "marks": [
+            [1, 0, 6],
+            [1, 1, 8],
+            [1, 3, 1]
+          ],
+          "seed": [6, 8, 1],
+          "k": 3
+        },
+        "output": {
+          "H": 3,
+          "W": 19,
+          "background": 0,
+          "active_row": 1,
+          "marks": [
+            [1, 0, 6],
+            [1, 1, 8],
+            [1, 3, 1],
+            [1, 6, 6],
+            [1, 10, 8],
+            [1, 15, 1]
+          ]
+        }
+      },
+      {
+        "pair": 1,
+        "input": {
+          "H": 3,
+          "W": 29,
+          "background": 0,
+          "active_row": 1,
+          "marks": [
+            [1, 0, 2],
+            [1, 1, 3]
+          ],
+          "seed": [2, 3],
+          "k": 2
+        },
+        "output": {
+          "H": 3,
+          "W": 29,
+          "background": 0,
+          "active_row": 1,
+          "marks": [
+            [1, 0, 2],
+            [1, 1, 3],
+            [1, 3, 2],
+            [1, 6, 3],
+            [1, 10, 2],
+            [1, 15, 3],
+            [1, 21, 2],
+            [1, 28, 3]
+          ]
+        }
+      },
+      {
+        "pair": 2,
+        "input": {
+          "H": 3,
+          "W": 19,
+          "background": 0,
+          "active_row": 1,
+          "marks": [
+            [1, 0, 1],
+            [1, 1, 2]
+          ],
+          "seed": [1, 2],
+          "k": 2
+        },
+        "output": {
+          "H": 3,
+          "W": 19,
+          "background": 0,
+          "active_row": 1,
+          "marks": [
+            [1, 0, 1],
+            [1, 1, 2],
+            [1, 3, 1],
+            [1, 6, 2],
+            [1, 10, 1],
+            [1, 15, 2]
+          ]
+        }
+      }
+    ],
+    "test": [
+      {
+        "case": 0,
+        "input": {
+          "H": 3,
+          "W": 29,
+          "background": 0,
+          "active_row": 1,
+          "marks": [
+            [1, 0, 2],
+            [1, 1, 1],
+            [1, 3, 8]
+          ],
+          "seed": [2, 1, 8],
+          "k": 3
+        }
+      }
+    ]
+  },
+  "invariances": {
+    "preserved": [
+      "grid height and width",
+      "background value 0",
+      "active-row index",
+      "seed color order and multiplicity",
+      "all seed marks"
+    ],
+    "discarded": [
+      "no semantic meaning is assigned to the numeric identities of nonzero colors",
+      "absolute grid width does not alter the sequence rule; it only truncates it",
+      "inactive rows carry no structure beyond remaining background"
+    ],
+    "equivariances": [
+      "Replacing seed colors consistently would replace the generated colors in the same way.",
+      "Increasing width would reveal a longer prefix of the same construction."
+    ]
+  },
+  "candidate_models": [
+    {
+      "id": "M1_triangular_periodic",
+      "rule": "At every in-bounds triangular column T(n), write seed color s[n mod k] in the active row; leave all other cells 0.",
+      "status": "selected",
+      "support": "Exactly reproduces every cell of all three training outputs with one shared index rule and a seed-dependent period."
+    },
+    {
+      "id": "M2_interleaved_quadratic_tracks",
+      "rule": "For each seed item j, extend that color along columns T(j + q*k) for q = 0,1,2,... while in bounds.",
+      "status": "observationally equivalent reformulation",
+      "support": "Exactly reproduces all training outputs and partitions the triangular sequence into one track per seed position.",
+      "distinction": "This is algebraically equivalent to M1 on every possible valid instance, so training cannot distinguish it as a different causal description."
+    },
+    {
+      "id": "M3_repeat_at_constant_stride",
+      "rule": "Repeat seed colors at one fixed horizontal spacing.",
+      "status": "rejected",
+      "contradiction": "Successive occupied-column gaps in every output are 1,2,3,4,5,... rather than a constant."
+    },
+    {
+      "id": "M4_repeat_literal_seed_block",
+      "rule": "Copy the initial occupied pattern by a constant translation.",
+      "status": "rejected",
+      "contradiction": "Later occurrences are at triangular columns, so neither the three-mark pattern in train pair 0 nor the two-mark patterns in pairs 1 and 2 recur under one constant translation."
+    }
+  ],
+  "train_validation": {
+    "method": "For each pair, enumerate n from 0 through the largest n with T(n) < W, place s[n mod k] at [active_row,T(n)], set every other cell to 0, and compare cell-for-cell with the recorded output.",
+    "pair_results": [
+      {
+        "pair": 0,
+        "in_bounds_n": [0, 1, 2, 3, 4, 5],
+        "columns": [0, 1, 3, 6, 10, 15],
+        "generated_colors": [6, 8, 1, 6, 8, 1],
+        "exact_match": true,
+        "mismatched_cells": 0
+      },
+      {
+        "pair": 1,
+        "in_bounds_n": [0, 1, 2, 3, 4, 5, 6, 7],
+        "columns": [0, 1, 3, 6, 10, 15, 21, 28],
+        "generated_colors": [2, 3, 2, 3, 2, 3, 2, 3],
+        "exact_match": true,
+        "mismatched_cells": 0
+      },
+      {
+        "pair": 2,
+        "in_bounds_n": [0, 1, 2, 3, 4, 5],
+        "columns": [0, 1, 3, 6, 10, 15],
+        "generated_colors": [1, 2, 1, 2, 1, 2],
+        "exact_match": true,
+        "mismatched_cells": 0
+      }
+    ],
+    "global_result": "M1 produces exact dimensions and exact values at every training cell."
+  },
+  "selected_model": {
+    "id": "M1_triangular_periodic",
+    "rationale": "It is the simplest unified description: occupied columns are triangular numbers and colors cycle through the ordered seed prefix."
+  },
+  "remaining_ambiguities": [
+    {
+      "issue": "M1 versus M2 wording",
+      "impact": "None for execution; they are mathematically identical."
+    },
+    {
+      "issue": "All observed grids have one active row and seeds beginning at column 0.",
+      "impact": "Behavior for malformed inputs with multiple active rows, shifted seeds, holes in the triangular seed prefix, or nonzero off-prefix cells is not identified. The represented test case has none of these conditions."
+    },
+    {
+      "issue": "Only heights of 3 and active-row index 1 are observed.",
+      "impact": "Vertical generalization is underdetermined, but the test has the same observed geometry and requires no extrapolation."
+    }
+  ],
+  "execution_spec": {
+    "test_case": 0,
+    "input_facts": {
+      "H": 3,
+      "W": 29,
+      "background": 0,
+      "active_row": 1,
+      "seed": [2, 1, 8],
+      "seed_length": 3
+    },
+    "coordinate_convention": "Use zero-based [row,column] coordinates.",
+    "output_dimensions": "Create exactly H=3 rows and W=29 columns.",
+    "ordered_construction": [
+      "Create a 3 by 29 grid and initialize every cell to background value 0.",
+      "Set n=0.",
+      "Compute c=n*(n+1)/2.",
+      "If c is greater than or equal to 29, stop and return the grid.",
+      "Otherwise write seed[n mod 3] at row 1, column c.",
+      "Increment n by 1 and return to the column computation step."
+    ],
+    "collision_behavior": "Triangular columns are strictly increasing for n >= 0, so generated marks never collide. If implemented by overwriting, each target receives exactly one identical prescribed write.",
+    "boundary_behavior": "Generate a mark only when 0 <= column < W. Do not wrap, clip to an edge, add a partial mark, or resize the grid.",
+    "inactive_rows": "Rows other than row 1 remain entirely 0.",
+    "non_target_cells": "Every cell not generated by the ordered construction remains 0.",
+    "sufficiency_note": "The dimensions, background, active row, complete seed word, index formula, color assignment, stopping condition, and all collision/boundary rules are specified; the raw challenge is unnecessary for execution."
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "task_id": "7ee1c6ea",
+  "observations": [
+    {
+      "grid": "train_1",
+      "input_shape": [10, 10],
+      "output_shape": [10, 10],
+      "frame": "Color 5 forms the perimeter at rows 1 and 8, columns 1 and 8, enclosing rows 2-7 and columns 2-7.",
+      "changed_cells": 30,
+      "change_summary": "Inside the frame, every 6 becomes 8 and every 8 becomes 6; zeros stay 0. The frame and all cells outside it are unchanged."
+    },
+    {
+      "grid": "train_2",
+      "input_shape": [10, 10],
+      "output_shape": [10, 10],
+      "frame": "Color 5 forms a 6-by-6 perimeter around rows 3-6 and columns 3-6 in one-based coordinates.",
+      "changed_cells": 8,
+      "change_summary": "Inside the frame, every 9 becomes 4 and every 4 becomes 9; zeros stay 0. The frame and exterior are unchanged."
+    },
+    {
+      "grid": "train_3",
+      "input_shape": [10, 10],
+      "output_shape": [10, 10],
+      "frame": "The color-5 frame has the same location and dimensions as in train_1.",
+      "changed_cells": 28,
+      "change_summary": "Inside the frame, every 3 becomes 2 and every 2 becomes 3; zeros stay 0. The frame and exterior are unchanged."
+    },
+    {
+      "grid": "test_1",
+      "input_shape": [10, 10],
+      "frame": "The color-5 frame again encloses rows 2-7 and columns 2-7 in zero-based coordinates.",
+      "change_summary": "The two candidate payload colors are 1 and 7; both also occur outside the frame, allowing the scope of the transformation to matter."
+    }
+  ],
+  "correspondences": [
+    {
+      "scope": "frame",
+      "input": "All color-5 perimeter cells",
+      "output": "Same positions and color 5"
+    },
+    {
+      "scope": "interior",
+      "input": "Color 0",
+      "output": "Color 0 at the same position"
+    },
+    {
+      "scope": "interior",
+      "input": "Train 1 colors 6 and 8",
+      "output": "6 maps to 8 and 8 maps to 6 at the same positions"
+    },
+    {
+      "scope": "interior",
+      "input": "Train 2 colors 9 and 4",
+      "output": "9 maps to 4 and 4 maps to 9 at the same positions"
+    },
+    {
+      "scope": "interior",
+      "input": "Train 3 colors 3 and 2",
+      "output": "3 maps to 2 and 2 maps to 3 at the same positions"
+    },
+    {
+      "scope": "exterior",
+      "input": "Any cell, including occurrences of the payload colors",
+      "output": "Unchanged at the same position"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "rule": "Locate the rectangular color-5 frame. Within its strict interior only, exchange the two nonzero, non-5 colors and preserve zeros; preserve the frame and exterior.",
+      "predicted_train_outputs": [
+        [
+          [0,0,8,6,0,6,0,8,0,8],
+          [8,5,5,5,5,5,5,5,5,0],
+          [0,5,0,6,6,8,8,0,5,8],
+          [6,5,8,8,8,6,0,8,5,8],
+          [0,5,8,8,6,8,0,8,5,8],
+          [6,5,6,6,6,8,6,0,5,8],
+          [6,5,8,6,8,6,8,6,5,8],
+          [0,5,8,0,8,6,6,6,5,8],
+          [8,5,5,5,5,5,5,5,5,6],
+          [8,8,8,0,8,8,6,0,6,6]
+        ],
+        [
+          [9,4,0,0,4,9,0,0,9,9],
+          [4,9,9,4,9,9,0,0,9,0],
+          [0,0,5,5,5,5,5,5,0,9],
+          [9,4,5,4,0,4,4,5,0,4],
+          [4,4,5,0,0,9,0,5,4,4],
+          [9,4,5,9,4,0,4,5,0,0],
+          [0,9,5,0,9,0,0,5,0,4],
+          [0,4,5,5,5,5,5,5,4,4],
+          [9,0,9,9,4,0,9,0,0,0],
+          [9,9,9,0,9,4,9,9,0,0]
+        ],
+        [
+          [0,0,3,3,3,3,2,0,2,0],
+          [3,5,5,5,5,5,5,5,5,3],
+          [3,5,2,3,3,3,3,0,5,2],
+          [0,5,0,2,0,2,3,3,5,2],
+          [3,5,3,0,3,2,3,3,5,3],
+          [3,5,2,2,0,3,2,2,5,3],
+          [3,5,2,2,2,0,2,3,5,2],
+          [0,5,2,0,2,2,2,0,5,3],
+          [0,5,5,5,5,5,5,5,5,3],
+          [2,0,3,3,3,2,3,2,3,0]
+        ]
+      ],
+      "train_exact": [true, true, true],
+      "contradictions": [],
+      "status": "selected"
+    },
+    {
+      "id": "H2",
+      "rule": "Exchange the two nonzero, non-5 colors everywhere in the 10-by-10 grid, preserving only colors 0 and 5.",
+      "predicted_train_outputs": [
+        [
+          [0,0,6,8,0,8,0,6,0,6],
+          [6,5,5,5,5,5,5,5,5,0],
+          [0,5,0,6,6,8,8,0,5,6],
+          [8,5,8,8,8,6,0,8,5,6],
+          [0,5,8,8,6,8,0,8,5,6],
+          [8,5,6,6,6,8,6,0,5,6],
+          [8,5,8,6,8,6,8,6,5,6],
+          [0,5,8,0,8,6,6,6,5,6],
+          [6,5,5,5,5,5,5,5,5,8],
+          [6,6,6,0,6,6,8,0,8,8]
+        ],
+        [
+          [4,9,0,0,9,4,0,0,4,4],
+          [9,4,4,9,4,4,0,0,4,0],
+          [0,0,5,5,5,5,5,5,0,4],
+          [4,9,5,4,0,4,4,5,0,9],
+          [9,9,5,0,0,9,0,5,9,9],
+          [4,9,5,9,4,0,4,5,0,0],
+          [0,4,5,0,9,0,0,5,0,9],
+          [0,9,5,5,5,5,5,5,9,9],
+          [4,0,4,4,9,0,4,0,0,0],
+          [4,4,4,0,4,9,4,4,0,0]
+        ],
+        [
+          [0,0,2,2,2,2,3,0,3,0],
+          [2,5,5,5,5,5,5,5,5,2],
+          [2,5,2,3,3,3,3,0,5,3],
+          [0,5,0,2,0,2,3,3,5,3],
+          [2,5,3,0,3,2,3,3,5,2],
+          [2,5,2,2,0,3,2,2,5,2],
+          [2,5,2,2,2,0,2,3,5,3],
+          [0,5,2,0,2,2,2,0,5,2],
+          [0,5,5,5,5,5,5,5,5,2],
+          [3,0,2,2,2,3,2,3,2,0]
+        ]
+      ],
+      "train_exact": [false, false, false],
+      "contradictions": [
+        "Train 1 input (row 1, column 3) is exterior color 8; H2 predicts 6, but the observed output remains 8.",
+        "Train 2 input (row 1, column 1) is exterior color 9; H2 predicts 4, but the observed output remains 9.",
+        "Train 3 input (row 1, column 3) is exterior color 3; H2 predicts 2, but the observed output remains 3."
+      ],
+      "status": "rejected"
+    }
+  ],
+  "revision_history": [
+    {
+      "step": 1,
+      "proposal": "The paired payload colors may be exchanged globally.",
+      "result": "Rejected after comparing exterior occurrences: all three outputs preserve payload-colored exterior cells."
+    },
+    {
+      "step": 2,
+      "proposal": "Use the color-5 rectangle as a scope delimiter and exchange the paired colors only in its strict interior.",
+      "result": "Retained because it predicts every cell of all three training outputs exactly."
+    }
+  ],
+  "selected_rule": {
+    "hypothesis_id": "H1",
+    "rule": "Swap the two nonzero, non-5 colors only within the strict interior of the color-5 frame; leave zero, the frame, and the exterior unchanged.",
+    "why": "It is exact on all three training pairs and explains why occurrences of the same colors outside the frame do not change."
+  },
+  "test_construction": {
+    "frame_bounds_zero_based": {
+      "top": 1,
+      "bottom": 8,
+      "left": 1,
+      "right": 8
+    },
+    "interior_bounds_zero_based": {
+      "rows": [2, 7],
+      "columns": [2, 7]
+    },
+    "payload_mapping": {
+      "1": 7,
+      "7": 1,
+      "0": 0
+    },
+    "summary": "Copy the test input, replace 1 by 7 and 7 by 1 in rows 2-7 and columns 2-7 only, and leave every other cell unchanged."
+  },
+  "test": [
+    [
+      [7,0,1,1,7,0,0,7,7,7],
+      [1,5,5,5,5,5,5,5,5,7],
+      [1,5,0,0,7,0,7,1,5,7],
+      [0,5,1,7,1,0,7,1,5,1],
+      [7,5,1,1,0,7,1,7,5,1],
+      [7,5,0,7,1,0,1,1,5,1],
+      [1,5,1,1,7,7,7,7,5,0],
+      [0,5,7,1,1,1,1,0,5,7],
+      [0,5,5,5,5,5,5,5,5,0],
+      [0,1,7,1,0,7,0,0,7,7]
+    ]
+  ]
+}

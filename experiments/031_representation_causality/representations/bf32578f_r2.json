@@ -1,0 +1,181 @@
+{
+  "task_id": "bf32578f",
+  "run": "r2",
+  "vocabulary": {
+    "cell": "A location (r,c) in a finite rectangular grid.",
+    "background": "Color 0.",
+    "ink_color": "The unique nonzero color in an instance; it is preserved in the output.",
+    "given_boundary": "The set B of all nonzero input cells. It is the supplied left portion of a boundary.",
+    "vertical_midline": "For width W, the vertical reflection axis at column coordinate (W-1)/2; in all observed instances W is even, so this lies between the two central columns.",
+    "mirror": "The involution M(r,c)=(r,W-1-c).",
+    "closed_wall": "The union C=B union M(B), interpreted as an impassable one-cell-thick wall.",
+    "orthogonal_neighbor": "Two cells whose coordinates differ by exactly one in one coordinate and are equal in the other.",
+    "exterior": "Non-wall cells connected by orthogonal-neighbor steps to any non-wall perimeter cell.",
+    "enclosed_region": "All grid cells that are neither in the closed wall nor in the exterior.",
+    "strict_interior_rendering": "Render only the enclosed region in the ink color; erase both the supplied and reflected boundary cells."
+  },
+  "extraction": {
+    "coordinate_convention": "Use zero-based (row,column) coordinates, with rows increasing downward and columns increasing rightward.",
+    "dimensions": "H is the number of rows and W is the number of columns of the input.",
+    "color": "Set ink_color to the sole value different from 0.",
+    "given_boundary": "Collect exactly the coordinates of all input cells equal to ink_color.",
+    "mirror_and_wall": "Reflect every given-boundary coordinate by M(r,c)=(r,W-1-c), then take the set union with the given boundary.",
+    "topological_partition": "Treat closed-wall cells as blocked. Starting simultaneously from every perimeter cell not in the wall, traverse only in-bounds non-wall cells using orthogonal neighbors. The reached set is exterior. Every remaining non-wall cell is enclosed_region.",
+    "output": "Create an H by W grid initially filled with 0. Set exactly the enclosed_region cells to ink_color. Closed-wall cells remain 0."
+  },
+  "instances": {
+    "train": [
+      {
+        "id": "train_0",
+        "height": 6,
+        "width": 6,
+        "ink_color": 8,
+        "given_boundary": [[0,0],[0,1],[0,2],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2]],
+        "derived_mirror_boundary": [[0,5],[0,4],[0,3],[1,5],[2,5],[3,5],[4,5],[4,4],[4,3]],
+        "observed_output_foreground": [[1,1],[1,2],[1,3],[1,4],[2,1],[2,2],[2,3],[2,4],[3,1],[3,2],[3,3],[3,4]]
+      },
+      {
+        "id": "train_1",
+        "height": 10,
+        "width": 10,
+        "ink_color": 7,
+        "given_boundary": [[3,4],[4,3],[5,2],[6,2],[7,3],[8,4]],
+        "derived_mirror_boundary": [[3,5],[4,6],[5,7],[6,7],[7,6],[8,5]],
+        "observed_output_foreground": [[4,4],[4,5],[5,3],[5,4],[5,5],[5,6],[6,3],[6,4],[6,5],[6,6],[7,4],[7,5]]
+      },
+      {
+        "id": "train_2",
+        "height": 6,
+        "width": 6,
+        "ink_color": 6,
+        "given_boundary": [[1,2],[2,1],[3,0],[4,1],[5,2]],
+        "derived_mirror_boundary": [[1,3],[2,4],[3,5],[4,4],[5,3]],
+        "observed_output_foreground": [[2,2],[2,3],[3,1],[3,2],[3,3],[3,4],[4,2],[4,3]]
+      }
+    ],
+    "test": [
+      {
+        "id": "test_0",
+        "height": 8,
+        "width": 8,
+        "ink_color": 1,
+        "given_boundary": [[1,3],[2,1],[2,2],[3,0],[4,0],[5,1],[5,2],[6,3]],
+        "vertical_midline_column_coordinate": 3.5,
+        "mirror_rule": "M(r,c)=(r,7-c)"
+      }
+    ]
+  },
+  "invariances": {
+    "preserved": [
+      "Input height and width.",
+      "The unique nonzero color.",
+      "Absolute placement relative to the grid's vertical midline.",
+      "The exact geometry of the supplied boundary, including horizontal or vertical runs."
+    ],
+    "discarded": [
+      "The distinction between supplied and reflected cells after they are united into the closed wall.",
+      "The input boundary ink itself in the rendered output.",
+      "Ordering of coordinates within any set."
+    ],
+    "equivariances": [
+      "Changing the nonzero color changes only the output foreground color.",
+      "Vertical translation of a boundary and its available surrounding space vertically translates the enclosed region.",
+      "Reflecting the supplied half to the opposite side leaves the same closed wall and therefore the same result."
+    ]
+  },
+  "candidate_models": [
+    {
+      "name": "midline_reflection_then_strict_interior",
+      "procedure": "Reflect the given boundary across the grid's vertical midline, use the union as a closed wall, compute its orthogonally enclosed non-wall cells, output only those cells in the input color.",
+      "status": "selected",
+      "support": "Exactly reconstructs every foreground and background cell in all three training outputs."
+    },
+    {
+      "name": "reflect_or_complete_boundary",
+      "procedure": "Add the vertically reflected copy of the input boundary and retain the completed outline as output.",
+      "status": "rejected",
+      "contradiction": "Every training output erases boundary cells and colors strict interior cells instead; for example train_0 input cell (0,0) becomes background while interior cell (1,1) becomes color 8."
+    },
+    {
+      "name": "fill_axis_aligned_bounding_rectangle",
+      "procedure": "Use the boundary's extrema to color a rectangular interior, independent of row-specific contour.",
+      "status": "rejected",
+      "contradiction": "Train_1 and train_2 have tapered outputs: their top and bottom occupied output rows are narrower than their middle rows, so a single rectangle introduces extra cells."
+    },
+    {
+      "name": "horizontal_extrusion_to_midline",
+      "procedure": "For each occupied input row, color cells only between the supplied boundary and the central axis.",
+      "status": "rejected",
+      "contradiction": "The outputs extend symmetrically onto both sides of the midline, as in train_2 row 3, whose output spans columns 1 through 4 despite the supplied boundary being at column 0."
+    }
+  ],
+  "train_validation": {
+    "method": "For each training instance, form closed_wall from given_boundary and its listed mirror, flood the non-wall perimeter through orthogonal neighbors, and compare the complement of exterior and wall to observed_output_foreground.",
+    "results": [
+      {
+        "id": "train_0",
+        "predicted_foreground_count": 12,
+        "observed_foreground_count": 12,
+        "false_positive_count": 0,
+        "false_negative_count": 0,
+        "exact_grid_match": true
+      },
+      {
+        "id": "train_1",
+        "predicted_foreground_count": 12,
+        "observed_foreground_count": 12,
+        "false_positive_count": 0,
+        "false_negative_count": 0,
+        "exact_grid_match": true
+      },
+      {
+        "id": "train_2",
+        "predicted_foreground_count": 8,
+        "observed_foreground_count": 8,
+        "false_positive_count": 0,
+        "false_negative_count": 0,
+        "exact_grid_match": true
+      }
+    ],
+    "global_result": "The selected procedure matches all 252 training output cells exactly."
+  },
+  "selected_model": {
+    "name": "midline_reflection_then_strict_interior",
+    "formal_definition": "Given grid domain D, B={(r,c):input[r][c]!=0}, M(B)={(r,W-1-c):(r,c) in B}, and C=B union M(B). Let X be the subset of D\\C reachable from a cell in the perimeter of D\\C by paths in D\\C using 4-neighbor adjacency. The output foreground is E=D\\(C union X), colored with the unique input nonzero color; all other cells are 0."
+  },
+  "remaining_ambiguities": [
+    "The training set does not independently test an odd-width grid; the reflection formula is specified geometrically and remains deterministic there.",
+    "The examples support orthogonal flood connectivity. An 8-neighbor exterior definition would leak through diagonal wall joins and contradict the observed filled interiors.",
+    "No example contains multiple disjoint closed regions; the formal rule deliberately fills every enclosed component."
+  ],
+  "execution_spec": {
+    "target_instance": "test_0",
+    "output_dimensions": {
+      "height": 8,
+      "width": 8
+    },
+    "coordinate_convention": "Zero-based (row,column); row increases downward and column increases rightward.",
+    "background_color": 0,
+    "foreground_color": 1,
+    "test_input_entities": {
+      "given_boundary": [[1,3],[2,1],[2,2],[3,0],[4,0],[5,1],[5,2],[6,3]],
+      "reflection_axis": "Vertical line at column coordinate 3.5.",
+      "reflection_relation": "Each (r,c) maps to (r,7-c)."
+    },
+    "ordered_construction": [
+      "Allocate an 8 by 8 coordinate domain.",
+      "Copy the given_boundary coordinate set from test_input_entities.",
+      "Apply (r,c)->(r,7-c) to every given-boundary cell.",
+      "Take the set union of the given and reflected boundary cells; this is the closed wall.",
+      "Mark every non-wall perimeter cell as an exterior seed.",
+      "Repeatedly mark any in-bounds non-wall cell orthogonally adjacent to an exterior cell, until no mark can be added.",
+      "Classify every cell that is neither wall nor exterior as enclosed.",
+      "Create an 8 by 8 grid of color 0.",
+      "Write color 1 at every enclosed cell. Leave exterior cells and all wall cells at color 0."
+    ],
+    "collision_behavior": "If reflected boundary cells coincide with supplied boundary cells or with one another, keep one wall cell via set union. No colored output is written onto a wall cell.",
+    "boundary_behavior": "Never traverse outside the 8 by 8 domain. Every in-domain perimeter cell that is not wall is an exterior seed; perimeter wall cells remain blocked.",
+    "connectivity": "Use only 4-neighbor adjacency for flood traversal; diagonal adjacency does not connect exterior cells.",
+    "completeness_note": "The dimensions, color, full supplied test boundary, reflection relation, topology, rendering order, collision rule, and edge rule are all explicit; no raw challenge cells are required."
+  }
+}

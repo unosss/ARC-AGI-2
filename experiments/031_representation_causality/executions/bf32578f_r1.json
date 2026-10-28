@@ -1,0 +1,43 @@
+{
+  "task_id": "bf32578f",
+  "source_representation": "representations/bf32578f_r1.json",
+  "representation_parse": {
+    "selected_model": "M1_reflect_close_fill_asymmetric_boundary",
+    "coordinate_convention": "Zero-based [row,column]; intervals are inclusive.",
+    "output_dimensions": [8, 8],
+    "foreground_color": 1,
+    "reflection_axis_column": 3,
+    "active_rows": [2, 3, 4, 5],
+    "source_runs_by_row": {
+      "2": [1, 2],
+      "3": [0, 0],
+      "4": [0, 0],
+      "5": [1, 2]
+    },
+    "rule": "For each active row r, write the foreground color from u_r+1 through 2*a-l_r inclusive; all other cells are 0."
+  },
+  "execution_steps": [
+    "Allocated an 8-by-8 grid initialized to 0.",
+    "For row 2, source [1,2] gives generated interval [3,5].",
+    "For row 3, source [0,0] gives generated interval [1,6].",
+    "For row 4, source [0,0] gives generated interval [1,6].",
+    "For row 5, source [1,2] gives generated interval [3,5].",
+    "Left endpoint rows, non-active rows, and cells outside generated intervals at 0."
+  ],
+  "unavailable_information": [],
+  "test": [
+    {
+      "id": "test_0",
+      "output": [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 1, 1, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0]
+      ]
+    }
+  ]
+}

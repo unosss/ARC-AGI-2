@@ -1,0 +1,117 @@
+{
+  "experiment": 32,
+  "family": "reflection",
+  "condition": "center_strict",
+  "coordinate_convention": "zero-based [row,column], inclusive bounds where ranges are used",
+  "colors": {
+    "background": 0,
+    "fill": 1
+  },
+  "rule": "For each source run [l,u] in width W, paint fill color from u+1 through W-2-u inclusive. Emit nothing when the interval is empty. Source cells are not retained.",
+  "cases": [
+    {
+      "id": "reflection_0",
+      "dimensions": [
+        7,
+        8
+      ],
+      "anchor": 3,
+      "source_runs": [
+        {
+          "row": 1,
+          "cols": [
+            2,
+            2
+          ]
+        },
+        {
+          "row": 2,
+          "cols": [
+            1,
+            2
+          ]
+        },
+        {
+          "row": 3,
+          "cols": [
+            0,
+            2
+          ]
+        },
+        {
+          "row": 4,
+          "cols": [
+            1,
+            1
+          ]
+        },
+        {
+          "row": 5,
+          "cols": [
+            2,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reflection_1",
+      "dimensions": [
+        8,
+        10
+      ],
+      "anchor": 4,
+      "source_runs": [
+        {
+          "row": 1,
+          "cols": [
+            3,
+            3
+          ]
+        },
+        {
+          "row": 2,
+          "cols": [
+            2,
+            3
+          ]
+        },
+        {
+          "row": 3,
+          "cols": [
+            1,
+            3
+          ]
+        },
+        {
+          "row": 4,
+          "cols": [
+            0,
+            2
+          ]
+        },
+        {
+          "row": 5,
+          "cols": [
+            2,
+            2
+          ]
+        },
+        {
+          "row": 6,
+          "cols": [
+            1,
+            2
+          ]
+        }
+      ]
+    }
+  ],
+  "construction": [
+    "Initialize the output to background.",
+    "For every source run, calculate the output interval from the rule.",
+    "Clip only to grid bounds and paint that interval fill color."
+  ],
+  "precomputed_memberships_included": false,
+  "literal_output_grids_included": false
+}

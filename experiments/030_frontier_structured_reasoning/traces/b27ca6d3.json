@@ -1,0 +1,140 @@
+{
+  "task_id": "b27ca6d3",
+  "observations": [
+    {
+      "grid": "train_0_input",
+      "shape": [15, 16],
+      "colors": [0, 2],
+      "facts": [
+        "There are 17 red cells.",
+        "The orthogonally connected red dominoes are horizontal (0,8)-(0,9), vertical (0,13)-(1,13), and vertical (4,15)-(5,15), using zero-based coordinates.",
+        "All other red cells are isolated under 4-connectivity."
+      ]
+    },
+    {
+      "grid": "train_0_output",
+      "shape": [15, 16],
+      "colors": [0, 2, 3],
+      "facts": [
+        "All red cells and all grid dimensions are preserved.",
+        "Green fills the in-bounds one-cell Chebyshev neighborhood around each of the three red dominoes, excluding the red cells themselves.",
+        "No green is placed around isolated red cells."
+      ]
+    },
+    {
+      "grid": "train_1_input",
+      "shape": [15, 18],
+      "colors": [0, 2],
+      "facts": [
+        "There are 10 red cells.",
+        "The only orthogonally connected red domino is vertical (2,7)-(3,7).",
+        "The other eight red cells are isolated under 4-connectivity."
+      ]
+    },
+    {
+      "grid": "train_1_output",
+      "shape": [15, 18],
+      "colors": [0, 2, 3],
+      "facts": [
+        "All red cells and dimensions are preserved.",
+        "The six side cells and four diagonal-corner cells in the clipped one-cell border around the vertical domino become green.",
+        "No isolated red cell receives a border."
+      ]
+    },
+    {
+      "grid": "test_0_input",
+      "shape": [17, 16],
+      "colors": [0, 2],
+      "facts": [
+        "The orthogonally connected red dominoes are horizontal (4,8)-(4,9), horizontal (7,2)-(7,3), vertical (8,14)-(9,14), vertical (11,9)-(12,9), and horizontal (13,6)-(13,7).",
+        "Diagonal contacts such as (9,6)-(10,7), (12,2)-(13,1), and (15,7)-(16,8) are not 4-connected.",
+        "Several unrelated red cells lie near, but not inside, the selected domino neighborhoods."
+      ]
+    }
+  ],
+  "correspondences": [
+    {
+      "train_pair": 0,
+      "input_feature": "Three 4-connected red dominoes",
+      "output_feature": "Exactly their clipped Chebyshev-radius-1 neighborhoods are green, with original red cells preserved"
+    },
+    {
+      "train_pair": 1,
+      "input_feature": "One 4-connected vertical red domino",
+      "output_feature": "Its complete 3-by-4 surrounding rectangle is green except for the two original red cells"
+    },
+    {
+      "train_pair": "both",
+      "input_feature": "Isolated red cells",
+      "output_feature": "Unchanged and receive no green decoration"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1_chebyshev_domino_border",
+      "rule": "Find every maximal 4-connected red component of two cells. Preserve the input, and recolor every in-bounds zero cell at Chebyshev distance at most one from either component cell to green.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,3,2,2,3,0,3,2,3,0],[2,0,0,0,0,0,0,3,3,3,3,0,3,2,3,0],[0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,3,3],[0,0,2,0,0,0,0,0,0,0,2,0,0,2,3,2],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2],[0,0,0,0,0,0,0,0,0,0,2,0,0,0,3,3],[0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0],[0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0]],
+        [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,3,3,3,0,0,0,0,0,0,0,0,0],[0,0,2,0,0,0,3,2,3,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,3,2,3,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,3,3,3,0,0,0,0,2,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0],[2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2]]
+      ],
+      "train_exact": [true, true],
+      "contradictions": [],
+      "status": "selected"
+    },
+    {
+      "id": "H2_manhattan_domino_border",
+      "rule": "Find each 4-connected red domino, but color only zero cells sharing an edge with one of its red cells; do not color diagonal corners.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,3,2,2,3,0,3,2,3,0],[2,0,0,0,0,0,0,0,3,3,0,0,3,2,3,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,3],[0,0,2,0,0,0,0,0,0,0,2,0,0,2,3,2],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2],[0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,3],[0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0],[0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0]],
+        [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0],[0,0,2,0,0,0,3,2,3,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,3,2,3,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,0,0,0,0,0,2,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0],[2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2]]
+      ],
+      "train_exact": [false, false],
+      "contradictions": [
+        "On train pair 0, predicted row 1 columns 7 and 10 stay zero, but both observed cells are green corners of the top horizontal domino border.",
+        "On train pair 0, predicted row 2 columns 12 and 14 stay zero, but both observed cells are green corners below the vertical domino at column 13.",
+        "On train pair 1, predicted cells (1,6), (1,8), (4,6), and (4,8) stay zero, while all four observed diagonal corners are green."
+      ],
+      "status": "rejected"
+    }
+  ],
+  "revision_history": [
+    {
+      "step": 1,
+      "proposal": "Decorate red cells that have an orthogonally adjacent red partner.",
+      "result": "Retained as the trigger because all and only such red components are decorated in both training pairs."
+    },
+    {
+      "step": 2,
+      "proposal": "Use only an edge-adjacent, Manhattan border.",
+      "result": "Rejected because observed outputs also contain every available diagonal corner."
+    },
+    {
+      "step": 3,
+      "proposal": "Use the full Chebyshev-radius-1 border, clipped at grid edges.",
+      "result": "Accepted after exact equality on both complete training outputs."
+    },
+    {
+      "step": 4,
+      "proposal": "Treat diagonal red contacts as dominoes.",
+      "result": "Not adopted: every demonstrated trigger is 4-connected, while the test has diagonal contacts that are not supported by training evidence."
+    }
+  ],
+  "selected_rule": {
+    "hypothesis_id": "H1_chebyshev_domino_border",
+    "rule": "For each maximal two-cell 4-connected red component, preserve all input cells and turn every in-bounds zero in the component's one-cell Chebyshev neighborhood green.",
+    "why": "It exactly reproduces both full training outputs, including corner cells and boundary clipping, while leaving all isolated red cells untouched."
+  },
+  "test_construction": {
+    "source_dominoes_zero_based": [
+      [[4,8],[4,9]],
+      [[7,2],[7,3]],
+      [[8,14],[9,14]],
+      [[11,9],[12,9]],
+      [[13,6],[13,7]]
+    ],
+    "summary": "Copied the 17-by-16 test input, preserved every red cell, and overlaid green on each in-bounds zero within Chebyshev distance one of the five listed orthogonal dominoes. Overlapping borders were unioned. Diagonal-only contacts were left undecorated."
+  },
+  "test": [
+    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],[0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,3,3,3,0,0,2,0,2],[0,0,0,0,0,0,0,3,2,2,3,0,0,0,0,0],[0,0,0,0,0,0,0,3,3,3,3,0,2,0,0,0],[0,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0],[0,3,2,2,3,0,0,0,0,0,0,0,0,3,3,3],[0,3,3,3,3,0,0,0,0,0,0,0,0,3,2,3],[0,0,0,0,0,0,2,0,0,0,0,0,0,3,2,3],[2,0,0,0,0,0,0,2,3,3,3,0,0,3,3,3],[0,0,0,0,0,0,0,0,3,2,3,2,0,0,0,0],[0,0,2,0,2,3,3,3,3,2,3,0,0,0,0,0],[0,2,0,0,0,3,2,2,3,3,3,2,0,2,0,0],[0,0,0,2,0,3,3,3,3,0,0,0,0,0,0,2],[0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0]]
+  ]
+}

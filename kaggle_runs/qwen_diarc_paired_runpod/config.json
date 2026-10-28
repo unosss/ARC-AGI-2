@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "experiment": 36,
+  "checkpoint": "sorokin/qwen3_4b_grids15_sft139",
+  "diarc_adapter": "yyxdnmd/DiARC-adapters/qwen3-4b/arc-agi-2",
+  "arms": ["base", "diarc"],
+  "seed": 36036,
+  "structure": {"arm": "text_control", "scale": 0.0, "trainable": false},
+  "global_max_sequence_length": 8192,
+  "task_local": {
+    "type": "RSLoRA",
+    "rank": 256,
+    "alpha": 32,
+    "dropout": 0.0,
+    "steps": 128,
+    "learning_rate": 0.00005,
+    "train_color_permutations": 16,
+    "train_geometries": 8,
+    "decode_color_permutations": 1,
+    "decode_geometries": 8,
+    "rescore_views": 8,
+    "rescore_batch_size": 1,
+    "merge_for_inference": false
+  },
+  "diarc_expected": {
+    "rank": 256,
+    "use_rslora": false,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj",
+      "embed_tokens",
+      "lm_head"
+    ]
+  },
+  "dfs": {
+    "batch_size": 4,
+    "max_nodes_per_view": 4096,
+    "max_model_forward_tokens_per_view": 12288,
+    "max_candidates_per_view": 128,
+    "max_new_tokens": 931,
+    "emergency_seconds_per_view": 900,
+    "min_prob": 0.2
+  },
+  "calibration": {
+    "task_id": "195c6913",
+    "task_steps": 2,
+    "train_color_permutations": 1,
+    "train_geometries": 2,
+    "decode_color_permutations": 1,
+    "decode_geometries": 1,
+    "rescore_views": 1,
+    "dfs": {
+      "batch_size": 1,
+      "max_nodes_per_view": 64,
+      "max_model_forward_tokens_per_view": 512,
+      "max_candidates_per_view": 8,
+      "max_new_tokens": 256,
+      "emergency_seconds_per_view": 120,
+      "min_prob": 0.2
+    }
+  },
+  "hard_exploratory": {"default_task_ids": ["195c6913"]}
+}

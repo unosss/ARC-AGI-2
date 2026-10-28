@@ -1,0 +1,3769 @@
+{
+  "abstained_items": 0,
+  "experiment": "019_hybrid_2d_solver",
+  "label_free_inference": true,
+  "phase": "deterministic_2d_perception",
+  "posthoc_evaluation": {
+    "item_count": 1,
+    "item_top1_exact": 1,
+    "item_top2_exact": 1,
+    "task_count": 1,
+    "task_top1_exact": 1,
+    "task_top2_exact": 1,
+    "tasks": {
+      "0934a4d8": {
+        "items": [
+          {
+            "index": 0,
+            "top1_exact": true,
+            "top2_exact": true
+          }
+        ],
+        "task_top1_exact": true,
+        "task_top2_exact": true
+      }
+    }
+  },
+  "runtime_seconds_before_label_load": 3.3298114450881258,
+  "runtime_seconds_total": 3.3316908089909703,
+  "task_ids": [
+    "0934a4d8"
+  ],
+  "task_reports": {
+    "0934a4d8": [
+      {
+        "abstained": false,
+        "candidate_count": 1,
+        "candidates": [
+          {
+            "grid": [
+              [
+                7,
+                7,
+                9
+              ],
+              [
+                7,
+                2,
+                9
+              ],
+              [
+                7,
+                2,
+                9
+              ],
+              [
+                7,
+                7,
+                9
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                6,
+                6,
+                1
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                6,
+                1
+              ]
+            ],
+            "program": "global_reflections_then_two_local_axis_witnesses",
+            "rank": 1,
+            "score": [
+              19,
+              2,
+              34,
+              2386,
+              -3
+            ],
+            "witnesses": [
+              {
+                "frame_support": 0,
+                "kind": "global",
+                "mismatch": 0,
+                "relation": "reflect_columns+(0,31)",
+                "source_bbox": null,
+                "support": 822,
+                "target_bbox": null
+              },
+              {
+                "frame_support": 0,
+                "kind": "global",
+                "mismatch": 0,
+                "relation": "reflect_rows+(31,0)",
+                "source_bbox": null,
+                "support": 798,
+                "target_bbox": null
+              },
+              {
+                "frame_support": 0,
+                "kind": "global",
+                "mismatch": 0,
+                "relation": "rotate_180+(31,31)",
+                "source_bbox": null,
+                "support": 766,
+                "target_bbox": null
+              },
+              {
+                "frame_support": 17,
+                "kind": "local_axis_swap",
+                "mismatch": 0,
+                "relation": "rotate_90+(0,31)",
+                "source_bbox": [
+                  0,
+                  3,
+                  9,
+                  18
+                ],
+                "support": 27,
+                "target_bbox": [
+                  14,
+                  23,
+                  0,
+                  3
+                ]
+              },
+              {
+                "frame_support": 17,
+                "kind": "local_axis_swap",
+                "mismatch": 0,
+                "relation": "transpose+(0,0)",
+                "source_bbox": [
+                  0,
+                  3,
+                  14,
+                  23
+                ],
+                "support": 27,
+                "target_bbox": [
+                  14,
+                  23,
+                  0,
+                  3
+                ]
+              }
+            ]
+          }
+        ],
+        "rejected_programs": [],
+        "runtime_seconds": 3.3060086929472163,
+        "solver": "hybrid2d-v1",
+        "test_programs": [
+          {
+            "candidate_count": 1,
+            "diagnostics": {
+              "occluder": {
+                "area": 27,
+                "bbox": [
+                  14,
+                  23,
+                  0,
+                  3
+                ],
+                "color": 8,
+                "score": [
+                  27,
+                  3,
+                  873,
+                  -8
+                ]
+              },
+              "reconstruction": {
+                "global_coverage": 19,
+                "global_witnesses": [
+                  {
+                    "frame_support": 0,
+                    "kind": "global",
+                    "mismatch": 0,
+                    "relation": "reflect_columns+(0,31)",
+                    "source_bbox": null,
+                    "support": 822,
+                    "target_bbox": null
+                  },
+                  {
+                    "frame_support": 0,
+                    "kind": "global",
+                    "mismatch": 0,
+                    "relation": "reflect_rows+(31,0)",
+                    "source_bbox": null,
+                    "support": 798,
+                    "target_bbox": null
+                  },
+                  {
+                    "frame_support": 0,
+                    "kind": "global",
+                    "mismatch": 0,
+                    "relation": "rotate_180+(31,31)",
+                    "source_bbox": null,
+                    "support": 766,
+                    "target_bbox": null
+                  }
+                ],
+                "local_prediction_groups": [
+                  {
+                    "agreement": 2,
+                    "grid": [
+                      [
+                        7,
+                        7,
+                        9
+                      ],
+                      [
+                        7,
+                        2,
+                        9
+                      ],
+                      [
+                        7,
+                        2,
+                        9
+                      ],
+                      [
+                        7,
+                        7,
+                        9
+                      ],
+                      [
+                        4,
+                        4,
+                        7
+                      ],
+                      [
+                        4,
+                        4,
+                        7
+                      ],
+                      [
+                        6,
+                        6,
+                        1
+                      ],
+                      [
+                        6,
+                        6,
+                        6
+                      ],
+                      [
+                        1,
+                        6,
+                        1
+                      ]
+                    ]
+                  }
+                ],
+                "local_witnesses": [
+                  {
+                    "frame_support": 17,
+                    "kind": "local_axis_swap",
+                    "mismatch": 0,
+                    "relation": "rotate_90+(0,31)",
+                    "source_bbox": [
+                      0,
+                      3,
+                      9,
+                      18
+                    ],
+                    "support": 27,
+                    "target_bbox": [
+                      14,
+                      23,
+                      0,
+                      3
+                    ]
+                  },
+                  {
+                    "frame_support": 17,
+                    "kind": "local_axis_swap",
+                    "mismatch": 0,
+                    "relation": "transpose+(0,0)",
+                    "source_bbox": [
+                      0,
+                      3,
+                      14,
+                      23
+                    ],
+                    "support": 27,
+                    "target_bbox": [
+                      14,
+                      23,
+                      0,
+                      3
+                    ]
+                  }
+                ],
+                "missing_before_local": 8,
+                "status": "predicted",
+                "target_area": 27
+              },
+              "rectangle_proposals": [
+                {
+                  "area": 27,
+                  "bbox": [
+                    14,
+                    23,
+                    0,
+                    3
+                  ],
+                  "color": 8,
+                  "score": [
+                    27,
+                    3,
+                    873,
+                    -8
+                  ]
+                },
+                {
+                  "area": 8,
+                  "bbox": [
+                    8,
+                    10,
+                    14,
+                    18
+                  ],
+                  "color": 2,
+                  "score": [
+                    8,
+                    2,
+                    802,
+                    -2
+                  ]
+                },
+                {
+                  "area": 8,
+                  "bbox": [
+                    22,
+                    24,
+                    14,
+                    18
+                  ],
+                  "color": 2,
+                  "score": [
+                    8,
+                    2,
+                    802,
+                    -2
+                  ]
+                },
+                {
+                  "area": 8,
+                  "bbox": [
+                    14,
+                    18,
+                    10,
+                    12
+                  ],
+                  "color": 9,
+                  "score": [
+                    8,
+                    2,
+                    760,
+                    -9
+                  ]
+                },
+                {
+                  "area": 8,
+                  "bbox": [
+                    14,
+                    18,
+                    20,
+                    22
+                  ],
+                  "color": 9,
+                  "score": [
+                    8,
+                    2,
+                    760,
+                    -9
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    13,
+                    15,
+                    15,
+                    17
+                  ],
+                  "color": 2,
+                  "score": [
+                    4,
+                    2,
+                    802,
+                    -2
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    17,
+                    19,
+                    15,
+                    17
+                  ],
+                  "color": 2,
+                  "score": [
+                    4,
+                    2,
+                    802,
+                    -2
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    12,
+                    14,
+                    8,
+                    10
+                  ],
+                  "color": 9,
+                  "score": [
+                    4,
+                    2,
+                    760,
+                    -9
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    12,
+                    14,
+                    22,
+                    24
+                  ],
+                  "color": 9,
+                  "score": [
+                    4,
+                    2,
+                    760,
+                    -9
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    18,
+                    20,
+                    8,
+                    10
+                  ],
+                  "color": 9,
+                  "score": [
+                    4,
+                    2,
+                    760,
+                    -9
+                  ]
+                }
+              ],
+              "shape": [
+                30,
+                30
+              ],
+              "status": "predicted"
+            },
+            "program": "global_reflections_then_two_local_axis_witnesses",
+            "train": [
+              {
+                "candidate_count": 1,
+                "diagnostics": {
+                  "occluder": {
+                    "area": 36,
+                    "bbox": [
+                      14,
+                      23,
+                      25,
+                      29
+                    ],
+                    "color": 8,
+                    "score": [
+                      36,
+                      4,
+                      864,
+                      -8
+                    ]
+                  },
+                  "reconstruction": {
+                    "global_coverage": 36,
+                    "global_witnesses": [
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_rows+(31,0)",
+                        "source_bbox": null,
+                        "support": 784,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_columns+(0,31)",
+                        "source_bbox": null,
+                        "support": 768,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "rotate_180+(31,31)",
+                        "source_bbox": null,
+                        "support": 712,
+                        "target_bbox": null
+                      }
+                    ],
+                    "local_prediction_groups": [],
+                    "local_witnesses": [],
+                    "missing_before_local": 0,
+                    "status": "predicted",
+                    "target_area": 36
+                  },
+                  "rectangle_proposals": [
+                    {
+                      "area": 36,
+                      "bbox": [
+                        14,
+                        23,
+                        25,
+                        29
+                      ],
+                      "color": 8,
+                      "score": [
+                        36,
+                        4,
+                        864,
+                        -8
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        8,
+                        10
+                      ],
+                      "color": 7,
+                      "score": [
+                        8,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        22,
+                        24
+                      ],
+                      "color": 7,
+                      "score": [
+                        8,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        12,
+                        14,
+                        10,
+                        12
+                      ],
+                      "color": 7,
+                      "score": [
+                        4,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        12,
+                        14,
+                        20,
+                        22
+                      ],
+                      "color": 7,
+                      "score": [
+                        4,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        18,
+                        20,
+                        10,
+                        12
+                      ],
+                      "color": 7,
+                      "score": [
+                        4,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        18,
+                        20,
+                        20,
+                        22
+                      ],
+                      "color": 7,
+                      "score": [
+                        4,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        4,
+                        6
+                      ],
+                      "color": 6,
+                      "score": [
+                        4,
+                        2,
+                        829,
+                        -6
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        26,
+                        28
+                      ],
+                      "color": 6,
+                      "score": [
+                        4,
+                        2,
+                        829,
+                        -6
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        6,
+                        8
+                      ],
+                      "color": 6,
+                      "score": [
+                        4,
+                        2,
+                        829,
+                        -6
+                      ]
+                    }
+                  ],
+                  "shape": [
+                    30,
+                    30
+                  ],
+                  "status": "predicted"
+                },
+                "exact": true,
+                "index": 0
+              },
+              {
+                "candidate_count": 1,
+                "diagnostics": {
+                  "occluder": {
+                    "area": 20,
+                    "bbox": [
+                      2,
+                      6,
+                      21,
+                      26
+                    ],
+                    "color": 8,
+                    "score": [
+                      20,
+                      4,
+                      880,
+                      -8
+                    ]
+                  },
+                  "reconstruction": {
+                    "global_coverage": 20,
+                    "global_witnesses": [
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_columns+(0,31)",
+                        "source_bbox": null,
+                        "support": 800,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_rows+(31,0)",
+                        "source_bbox": null,
+                        "support": 800,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "rotate_180+(31,31)",
+                        "source_bbox": null,
+                        "support": 744,
+                        "target_bbox": null
+                      }
+                    ],
+                    "local_prediction_groups": [],
+                    "local_witnesses": [],
+                    "missing_before_local": 0,
+                    "status": "predicted",
+                    "target_area": 20
+                  },
+                  "rectangle_proposals": [
+                    {
+                      "area": 20,
+                      "bbox": [
+                        2,
+                        6,
+                        21,
+                        26
+                      ],
+                      "color": 8,
+                      "score": [
+                        20,
+                        4,
+                        880,
+                        -8
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        4,
+                        6,
+                        14,
+                        18
+                      ],
+                      "color": 9,
+                      "score": [
+                        8,
+                        2,
+                        753,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        4,
+                        6
+                      ],
+                      "color": 9,
+                      "score": [
+                        8,
+                        2,
+                        753,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        26,
+                        28
+                      ],
+                      "color": 9,
+                      "score": [
+                        8,
+                        2,
+                        753,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        26,
+                        28,
+                        14,
+                        18
+                      ],
+                      "color": 9,
+                      "score": [
+                        8,
+                        2,
+                        753,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        8,
+                        10
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        22,
+                        24
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        10,
+                        12
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        10,
+                        12,
+                        2,
+                        4
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        10,
+                        12,
+                        28,
+                        30
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    }
+                  ],
+                  "shape": [
+                    30,
+                    30
+                  ],
+                  "status": "predicted"
+                },
+                "exact": true,
+                "index": 1
+              },
+              {
+                "candidate_count": 1,
+                "diagnostics": {
+                  "occluder": {
+                    "area": 21,
+                    "bbox": [
+                      19,
+                      22,
+                      12,
+                      19
+                    ],
+                    "color": 8,
+                    "score": [
+                      21,
+                      3,
+                      879,
+                      -8
+                    ]
+                  },
+                  "reconstruction": {
+                    "global_coverage": 21,
+                    "global_witnesses": [
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_columns+(0,31)",
+                        "source_bbox": null,
+                        "support": 816,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_rows+(31,0)",
+                        "source_bbox": null,
+                        "support": 798,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "rotate_180+(31,31)",
+                        "source_bbox": null,
+                        "support": 742,
+                        "target_bbox": null
+                      }
+                    ],
+                    "local_prediction_groups": [],
+                    "local_witnesses": [],
+                    "missing_before_local": 0,
+                    "status": "predicted",
+                    "target_area": 21
+                  },
+                  "rectangle_proposals": [
+                    {
+                      "area": 21,
+                      "bbox": [
+                        19,
+                        22,
+                        12,
+                        19
+                      ],
+                      "color": 8,
+                      "score": [
+                        21,
+                        3,
+                        879,
+                        -8
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        10,
+                        12
+                      ],
+                      "color": 6,
+                      "score": [
+                        8,
+                        2,
+                        755,
+                        -6
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        20,
+                        22
+                      ],
+                      "color": 6,
+                      "score": [
+                        8,
+                        2,
+                        755,
+                        -6
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        15,
+                        17,
+                        15,
+                        17
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        861,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        2,
+                        4
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        28,
+                        30
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        8,
+                        10
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        22,
+                        24
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        4,
+                        6,
+                        6,
+                        8
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        4,
+                        6,
+                        24,
+                        26
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    }
+                  ],
+                  "shape": [
+                    30,
+                    30
+                  ],
+                  "status": "predicted"
+                },
+                "exact": true,
+                "index": 2
+              },
+              {
+                "candidate_count": 1,
+                "diagnostics": {
+                  "occluder": {
+                    "area": 16,
+                    "bbox": [
+                      7,
+                      11,
+                      26,
+                      30
+                    ],
+                    "color": 8,
+                    "score": [
+                      16,
+                      4,
+                      884,
+                      -8
+                    ]
+                  },
+                  "reconstruction": {
+                    "global_coverage": 16,
+                    "global_witnesses": [
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_columns+(0,31)",
+                        "source_bbox": null,
+                        "support": 808,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_rows+(31,0)",
+                        "source_bbox": null,
+                        "support": 808,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "rotate_180+(31,31)",
+                        "source_bbox": null,
+                        "support": 752,
+                        "target_bbox": null
+                      }
+                    ],
+                    "local_prediction_groups": [],
+                    "local_witnesses": [],
+                    "missing_before_local": 0,
+                    "status": "predicted",
+                    "target_area": 16
+                  },
+                  "rectangle_proposals": [
+                    {
+                      "area": 16,
+                      "bbox": [
+                        7,
+                        11,
+                        26,
+                        30
+                      ],
+                      "color": 8,
+                      "score": [
+                        16,
+                        4,
+                        884,
+                        -8
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        8,
+                        10
+                      ],
+                      "color": 3,
+                      "score": [
+                        8,
+                        2,
+                        792,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        22,
+                        24
+                      ],
+                      "color": 3,
+                      "score": [
+                        8,
+                        2,
+                        792,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        8,
+                        10
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        22,
+                        24
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        8,
+                        10,
+                        2,
+                        4
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        22,
+                        24,
+                        2,
+                        4
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        22,
+                        24,
+                        28,
+                        30
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        28,
+                        30,
+                        8,
+                        10
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        28,
+                        30,
+                        22,
+                        24
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    }
+                  ],
+                  "shape": [
+                    30,
+                    30
+                  ],
+                  "status": "predicted"
+                },
+                "exact": true,
+                "index": 3
+              }
+            ]
+          },
+          {
+            "candidate_count": 1,
+            "diagnostics": {
+              "occluder": {
+                "area": 27,
+                "bbox": [
+                  14,
+                  23,
+                  0,
+                  3
+                ],
+                "color": 8,
+                "score": [
+                  27,
+                  3,
+                  873,
+                  -8
+                ]
+              },
+              "reconstruction": {
+                "global_coverage": 19,
+                "global_witnesses": [
+                  {
+                    "frame_support": 0,
+                    "kind": "global",
+                    "mismatch": 0,
+                    "relation": "reflect_columns+(0,31)",
+                    "source_bbox": null,
+                    "support": 822,
+                    "target_bbox": null
+                  },
+                  {
+                    "frame_support": 0,
+                    "kind": "global",
+                    "mismatch": 0,
+                    "relation": "reflect_rows+(31,0)",
+                    "source_bbox": null,
+                    "support": 798,
+                    "target_bbox": null
+                  },
+                  {
+                    "frame_support": 0,
+                    "kind": "global",
+                    "mismatch": 0,
+                    "relation": "rotate_180+(31,31)",
+                    "source_bbox": null,
+                    "support": 766,
+                    "target_bbox": null
+                  }
+                ],
+                "local_prediction_groups": [
+                  {
+                    "agreement": 2,
+                    "grid": [
+                      [
+                        7,
+                        7,
+                        9
+                      ],
+                      [
+                        7,
+                        2,
+                        9
+                      ],
+                      [
+                        7,
+                        2,
+                        9
+                      ],
+                      [
+                        7,
+                        7,
+                        9
+                      ],
+                      [
+                        4,
+                        4,
+                        7
+                      ],
+                      [
+                        4,
+                        4,
+                        7
+                      ],
+                      [
+                        6,
+                        6,
+                        1
+                      ],
+                      [
+                        6,
+                        6,
+                        6
+                      ],
+                      [
+                        1,
+                        6,
+                        1
+                      ]
+                    ]
+                  }
+                ],
+                "local_witnesses": [
+                  {
+                    "frame_support": 17,
+                    "kind": "local_axis_swap",
+                    "mismatch": 0,
+                    "relation": "rotate_90+(0,31)",
+                    "source_bbox": [
+                      0,
+                      3,
+                      9,
+                      18
+                    ],
+                    "support": 27,
+                    "target_bbox": [
+                      14,
+                      23,
+                      0,
+                      3
+                    ]
+                  },
+                  {
+                    "frame_support": 17,
+                    "kind": "local_axis_swap",
+                    "mismatch": 0,
+                    "relation": "transpose+(0,0)",
+                    "source_bbox": [
+                      0,
+                      3,
+                      14,
+                      23
+                    ],
+                    "support": 27,
+                    "target_bbox": [
+                      14,
+                      23,
+                      0,
+                      3
+                    ]
+                  }
+                ],
+                "missing_before_local": 8,
+                "status": "predicted",
+                "target_area": 27
+              },
+              "rectangle_proposals": [
+                {
+                  "area": 27,
+                  "bbox": [
+                    14,
+                    23,
+                    0,
+                    3
+                  ],
+                  "color": 8,
+                  "score": [
+                    27,
+                    3,
+                    873,
+                    -8
+                  ]
+                },
+                {
+                  "area": 8,
+                  "bbox": [
+                    8,
+                    10,
+                    14,
+                    18
+                  ],
+                  "color": 2,
+                  "score": [
+                    8,
+                    2,
+                    802,
+                    -2
+                  ]
+                },
+                {
+                  "area": 8,
+                  "bbox": [
+                    22,
+                    24,
+                    14,
+                    18
+                  ],
+                  "color": 2,
+                  "score": [
+                    8,
+                    2,
+                    802,
+                    -2
+                  ]
+                },
+                {
+                  "area": 8,
+                  "bbox": [
+                    14,
+                    18,
+                    10,
+                    12
+                  ],
+                  "color": 9,
+                  "score": [
+                    8,
+                    2,
+                    760,
+                    -9
+                  ]
+                },
+                {
+                  "area": 8,
+                  "bbox": [
+                    14,
+                    18,
+                    20,
+                    22
+                  ],
+                  "color": 9,
+                  "score": [
+                    8,
+                    2,
+                    760,
+                    -9
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    13,
+                    15,
+                    15,
+                    17
+                  ],
+                  "color": 2,
+                  "score": [
+                    4,
+                    2,
+                    802,
+                    -2
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    17,
+                    19,
+                    15,
+                    17
+                  ],
+                  "color": 2,
+                  "score": [
+                    4,
+                    2,
+                    802,
+                    -2
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    12,
+                    14,
+                    8,
+                    10
+                  ],
+                  "color": 9,
+                  "score": [
+                    4,
+                    2,
+                    760,
+                    -9
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    12,
+                    14,
+                    22,
+                    24
+                  ],
+                  "color": 9,
+                  "score": [
+                    4,
+                    2,
+                    760,
+                    -9
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    18,
+                    20,
+                    8,
+                    10
+                  ],
+                  "color": 9,
+                  "score": [
+                    4,
+                    2,
+                    760,
+                    -9
+                  ]
+                }
+              ],
+              "shape": [
+                30,
+                30
+              ],
+              "status": "predicted"
+            },
+            "program": "global_reflections_then_local_axis_witness",
+            "train": [
+              {
+                "candidate_count": 1,
+                "diagnostics": {
+                  "occluder": {
+                    "area": 36,
+                    "bbox": [
+                      14,
+                      23,
+                      25,
+                      29
+                    ],
+                    "color": 8,
+                    "score": [
+                      36,
+                      4,
+                      864,
+                      -8
+                    ]
+                  },
+                  "reconstruction": {
+                    "global_coverage": 36,
+                    "global_witnesses": [
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_rows+(31,0)",
+                        "source_bbox": null,
+                        "support": 784,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_columns+(0,31)",
+                        "source_bbox": null,
+                        "support": 768,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "rotate_180+(31,31)",
+                        "source_bbox": null,
+                        "support": 712,
+                        "target_bbox": null
+                      }
+                    ],
+                    "local_prediction_groups": [],
+                    "local_witnesses": [],
+                    "missing_before_local": 0,
+                    "status": "predicted",
+                    "target_area": 36
+                  },
+                  "rectangle_proposals": [
+                    {
+                      "area": 36,
+                      "bbox": [
+                        14,
+                        23,
+                        25,
+                        29
+                      ],
+                      "color": 8,
+                      "score": [
+                        36,
+                        4,
+                        864,
+                        -8
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        8,
+                        10
+                      ],
+                      "color": 7,
+                      "score": [
+                        8,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        22,
+                        24
+                      ],
+                      "color": 7,
+                      "score": [
+                        8,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        12,
+                        14,
+                        10,
+                        12
+                      ],
+                      "color": 7,
+                      "score": [
+                        4,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        12,
+                        14,
+                        20,
+                        22
+                      ],
+                      "color": 7,
+                      "score": [
+                        4,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        18,
+                        20,
+                        10,
+                        12
+                      ],
+                      "color": 7,
+                      "score": [
+                        4,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        18,
+                        20,
+                        20,
+                        22
+                      ],
+                      "color": 7,
+                      "score": [
+                        4,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        4,
+                        6
+                      ],
+                      "color": 6,
+                      "score": [
+                        4,
+                        2,
+                        829,
+                        -6
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        26,
+                        28
+                      ],
+                      "color": 6,
+                      "score": [
+                        4,
+                        2,
+                        829,
+                        -6
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        6,
+                        8
+                      ],
+                      "color": 6,
+                      "score": [
+                        4,
+                        2,
+                        829,
+                        -6
+                      ]
+                    }
+                  ],
+                  "shape": [
+                    30,
+                    30
+                  ],
+                  "status": "predicted"
+                },
+                "exact": true,
+                "index": 0
+              },
+              {
+                "candidate_count": 1,
+                "diagnostics": {
+                  "occluder": {
+                    "area": 20,
+                    "bbox": [
+                      2,
+                      6,
+                      21,
+                      26
+                    ],
+                    "color": 8,
+                    "score": [
+                      20,
+                      4,
+                      880,
+                      -8
+                    ]
+                  },
+                  "reconstruction": {
+                    "global_coverage": 20,
+                    "global_witnesses": [
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_columns+(0,31)",
+                        "source_bbox": null,
+                        "support": 800,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_rows+(31,0)",
+                        "source_bbox": null,
+                        "support": 800,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "rotate_180+(31,31)",
+                        "source_bbox": null,
+                        "support": 744,
+                        "target_bbox": null
+                      }
+                    ],
+                    "local_prediction_groups": [],
+                    "local_witnesses": [],
+                    "missing_before_local": 0,
+                    "status": "predicted",
+                    "target_area": 20
+                  },
+                  "rectangle_proposals": [
+                    {
+                      "area": 20,
+                      "bbox": [
+                        2,
+                        6,
+                        21,
+                        26
+                      ],
+                      "color": 8,
+                      "score": [
+                        20,
+                        4,
+                        880,
+                        -8
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        4,
+                        6,
+                        14,
+                        18
+                      ],
+                      "color": 9,
+                      "score": [
+                        8,
+                        2,
+                        753,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        4,
+                        6
+                      ],
+                      "color": 9,
+                      "score": [
+                        8,
+                        2,
+                        753,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        26,
+                        28
+                      ],
+                      "color": 9,
+                      "score": [
+                        8,
+                        2,
+                        753,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        26,
+                        28,
+                        14,
+                        18
+                      ],
+                      "color": 9,
+                      "score": [
+                        8,
+                        2,
+                        753,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        8,
+                        10
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        22,
+                        24
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        10,
+                        12
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        10,
+                        12,
+                        2,
+                        4
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        10,
+                        12,
+                        28,
+                        30
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    }
+                  ],
+                  "shape": [
+                    30,
+                    30
+                  ],
+                  "status": "predicted"
+                },
+                "exact": true,
+                "index": 1
+              },
+              {
+                "candidate_count": 1,
+                "diagnostics": {
+                  "occluder": {
+                    "area": 21,
+                    "bbox": [
+                      19,
+                      22,
+                      12,
+                      19
+                    ],
+                    "color": 8,
+                    "score": [
+                      21,
+                      3,
+                      879,
+                      -8
+                    ]
+                  },
+                  "reconstruction": {
+                    "global_coverage": 21,
+                    "global_witnesses": [
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_columns+(0,31)",
+                        "source_bbox": null,
+                        "support": 816,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_rows+(31,0)",
+                        "source_bbox": null,
+                        "support": 798,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "rotate_180+(31,31)",
+                        "source_bbox": null,
+                        "support": 742,
+                        "target_bbox": null
+                      }
+                    ],
+                    "local_prediction_groups": [],
+                    "local_witnesses": [],
+                    "missing_before_local": 0,
+                    "status": "predicted",
+                    "target_area": 21
+                  },
+                  "rectangle_proposals": [
+                    {
+                      "area": 21,
+                      "bbox": [
+                        19,
+                        22,
+                        12,
+                        19
+                      ],
+                      "color": 8,
+                      "score": [
+                        21,
+                        3,
+                        879,
+                        -8
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        10,
+                        12
+                      ],
+                      "color": 6,
+                      "score": [
+                        8,
+                        2,
+                        755,
+                        -6
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        20,
+                        22
+                      ],
+                      "color": 6,
+                      "score": [
+                        8,
+                        2,
+                        755,
+                        -6
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        15,
+                        17,
+                        15,
+                        17
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        861,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        2,
+                        4
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        28,
+                        30
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        8,
+                        10
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        22,
+                        24
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        4,
+                        6,
+                        6,
+                        8
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        4,
+                        6,
+                        24,
+                        26
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    }
+                  ],
+                  "shape": [
+                    30,
+                    30
+                  ],
+                  "status": "predicted"
+                },
+                "exact": true,
+                "index": 2
+              },
+              {
+                "candidate_count": 1,
+                "diagnostics": {
+                  "occluder": {
+                    "area": 16,
+                    "bbox": [
+                      7,
+                      11,
+                      26,
+                      30
+                    ],
+                    "color": 8,
+                    "score": [
+                      16,
+                      4,
+                      884,
+                      -8
+                    ]
+                  },
+                  "reconstruction": {
+                    "global_coverage": 16,
+                    "global_witnesses": [
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_columns+(0,31)",
+                        "source_bbox": null,
+                        "support": 808,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_rows+(31,0)",
+                        "source_bbox": null,
+                        "support": 808,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "rotate_180+(31,31)",
+                        "source_bbox": null,
+                        "support": 752,
+                        "target_bbox": null
+                      }
+                    ],
+                    "local_prediction_groups": [],
+                    "local_witnesses": [],
+                    "missing_before_local": 0,
+                    "status": "predicted",
+                    "target_area": 16
+                  },
+                  "rectangle_proposals": [
+                    {
+                      "area": 16,
+                      "bbox": [
+                        7,
+                        11,
+                        26,
+                        30
+                      ],
+                      "color": 8,
+                      "score": [
+                        16,
+                        4,
+                        884,
+                        -8
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        8,
+                        10
+                      ],
+                      "color": 3,
+                      "score": [
+                        8,
+                        2,
+                        792,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        22,
+                        24
+                      ],
+                      "color": 3,
+                      "score": [
+                        8,
+                        2,
+                        792,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        8,
+                        10
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        22,
+                        24
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        8,
+                        10,
+                        2,
+                        4
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        22,
+                        24,
+                        2,
+                        4
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        22,
+                        24,
+                        28,
+                        30
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        28,
+                        30,
+                        8,
+                        10
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        28,
+                        30,
+                        22,
+                        24
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    }
+                  ],
+                  "shape": [
+                    30,
+                    30
+                  ],
+                  "status": "predicted"
+                },
+                "exact": true,
+                "index": 3
+              }
+            ]
+          },
+          {
+            "candidate_count": 0,
+            "diagnostics": {
+              "occluder": {
+                "area": 27,
+                "bbox": [
+                  14,
+                  23,
+                  0,
+                  3
+                ],
+                "color": 8,
+                "score": [
+                  27,
+                  3,
+                  873,
+                  -8
+                ]
+              },
+              "reconstruction": {
+                "global_coverage": 19,
+                "global_witnesses": [
+                  {
+                    "frame_support": 0,
+                    "kind": "global",
+                    "mismatch": 0,
+                    "relation": "reflect_columns+(0,31)",
+                    "source_bbox": null,
+                    "support": 822,
+                    "target_bbox": null
+                  },
+                  {
+                    "frame_support": 0,
+                    "kind": "global",
+                    "mismatch": 0,
+                    "relation": "reflect_rows+(31,0)",
+                    "source_bbox": null,
+                    "support": 798,
+                    "target_bbox": null
+                  },
+                  {
+                    "frame_support": 0,
+                    "kind": "global",
+                    "mismatch": 0,
+                    "relation": "rotate_180+(31,31)",
+                    "source_bbox": null,
+                    "support": 766,
+                    "target_bbox": null
+                  }
+                ],
+                "local_prediction_groups": [],
+                "local_witnesses": [],
+                "missing_before_local": 8,
+                "status": "abstained_incomplete",
+                "target_area": 27
+              },
+              "rectangle_proposals": [
+                {
+                  "area": 27,
+                  "bbox": [
+                    14,
+                    23,
+                    0,
+                    3
+                  ],
+                  "color": 8,
+                  "score": [
+                    27,
+                    3,
+                    873,
+                    -8
+                  ]
+                },
+                {
+                  "area": 8,
+                  "bbox": [
+                    8,
+                    10,
+                    14,
+                    18
+                  ],
+                  "color": 2,
+                  "score": [
+                    8,
+                    2,
+                    802,
+                    -2
+                  ]
+                },
+                {
+                  "area": 8,
+                  "bbox": [
+                    22,
+                    24,
+                    14,
+                    18
+                  ],
+                  "color": 2,
+                  "score": [
+                    8,
+                    2,
+                    802,
+                    -2
+                  ]
+                },
+                {
+                  "area": 8,
+                  "bbox": [
+                    14,
+                    18,
+                    10,
+                    12
+                  ],
+                  "color": 9,
+                  "score": [
+                    8,
+                    2,
+                    760,
+                    -9
+                  ]
+                },
+                {
+                  "area": 8,
+                  "bbox": [
+                    14,
+                    18,
+                    20,
+                    22
+                  ],
+                  "color": 9,
+                  "score": [
+                    8,
+                    2,
+                    760,
+                    -9
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    13,
+                    15,
+                    15,
+                    17
+                  ],
+                  "color": 2,
+                  "score": [
+                    4,
+                    2,
+                    802,
+                    -2
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    17,
+                    19,
+                    15,
+                    17
+                  ],
+                  "color": 2,
+                  "score": [
+                    4,
+                    2,
+                    802,
+                    -2
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    12,
+                    14,
+                    8,
+                    10
+                  ],
+                  "color": 9,
+                  "score": [
+                    4,
+                    2,
+                    760,
+                    -9
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    12,
+                    14,
+                    22,
+                    24
+                  ],
+                  "color": 9,
+                  "score": [
+                    4,
+                    2,
+                    760,
+                    -9
+                  ]
+                },
+                {
+                  "area": 4,
+                  "bbox": [
+                    18,
+                    20,
+                    8,
+                    10
+                  ],
+                  "color": 9,
+                  "score": [
+                    4,
+                    2,
+                    760,
+                    -9
+                  ]
+                }
+              ],
+              "shape": [
+                30,
+                30
+              ],
+              "status": "abstained_incomplete"
+            },
+            "program": "global_reflections_only",
+            "train": [
+              {
+                "candidate_count": 1,
+                "diagnostics": {
+                  "occluder": {
+                    "area": 36,
+                    "bbox": [
+                      14,
+                      23,
+                      25,
+                      29
+                    ],
+                    "color": 8,
+                    "score": [
+                      36,
+                      4,
+                      864,
+                      -8
+                    ]
+                  },
+                  "reconstruction": {
+                    "global_coverage": 36,
+                    "global_witnesses": [
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_rows+(31,0)",
+                        "source_bbox": null,
+                        "support": 784,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_columns+(0,31)",
+                        "source_bbox": null,
+                        "support": 768,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "rotate_180+(31,31)",
+                        "source_bbox": null,
+                        "support": 712,
+                        "target_bbox": null
+                      }
+                    ],
+                    "local_prediction_groups": [],
+                    "local_witnesses": [],
+                    "missing_before_local": 0,
+                    "status": "predicted",
+                    "target_area": 36
+                  },
+                  "rectangle_proposals": [
+                    {
+                      "area": 36,
+                      "bbox": [
+                        14,
+                        23,
+                        25,
+                        29
+                      ],
+                      "color": 8,
+                      "score": [
+                        36,
+                        4,
+                        864,
+                        -8
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        8,
+                        10
+                      ],
+                      "color": 7,
+                      "score": [
+                        8,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        22,
+                        24
+                      ],
+                      "color": 7,
+                      "score": [
+                        8,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        12,
+                        14,
+                        10,
+                        12
+                      ],
+                      "color": 7,
+                      "score": [
+                        4,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        12,
+                        14,
+                        20,
+                        22
+                      ],
+                      "color": 7,
+                      "score": [
+                        4,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        18,
+                        20,
+                        10,
+                        12
+                      ],
+                      "color": 7,
+                      "score": [
+                        4,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        18,
+                        20,
+                        20,
+                        22
+                      ],
+                      "color": 7,
+                      "score": [
+                        4,
+                        2,
+                        852,
+                        -7
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        4,
+                        6
+                      ],
+                      "color": 6,
+                      "score": [
+                        4,
+                        2,
+                        829,
+                        -6
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        26,
+                        28
+                      ],
+                      "color": 6,
+                      "score": [
+                        4,
+                        2,
+                        829,
+                        -6
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        6,
+                        8
+                      ],
+                      "color": 6,
+                      "score": [
+                        4,
+                        2,
+                        829,
+                        -6
+                      ]
+                    }
+                  ],
+                  "shape": [
+                    30,
+                    30
+                  ],
+                  "status": "predicted"
+                },
+                "exact": true,
+                "index": 0
+              },
+              {
+                "candidate_count": 1,
+                "diagnostics": {
+                  "occluder": {
+                    "area": 20,
+                    "bbox": [
+                      2,
+                      6,
+                      21,
+                      26
+                    ],
+                    "color": 8,
+                    "score": [
+                      20,
+                      4,
+                      880,
+                      -8
+                    ]
+                  },
+                  "reconstruction": {
+                    "global_coverage": 20,
+                    "global_witnesses": [
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_columns+(0,31)",
+                        "source_bbox": null,
+                        "support": 800,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_rows+(31,0)",
+                        "source_bbox": null,
+                        "support": 800,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "rotate_180+(31,31)",
+                        "source_bbox": null,
+                        "support": 744,
+                        "target_bbox": null
+                      }
+                    ],
+                    "local_prediction_groups": [],
+                    "local_witnesses": [],
+                    "missing_before_local": 0,
+                    "status": "predicted",
+                    "target_area": 20
+                  },
+                  "rectangle_proposals": [
+                    {
+                      "area": 20,
+                      "bbox": [
+                        2,
+                        6,
+                        21,
+                        26
+                      ],
+                      "color": 8,
+                      "score": [
+                        20,
+                        4,
+                        880,
+                        -8
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        4,
+                        6,
+                        14,
+                        18
+                      ],
+                      "color": 9,
+                      "score": [
+                        8,
+                        2,
+                        753,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        4,
+                        6
+                      ],
+                      "color": 9,
+                      "score": [
+                        8,
+                        2,
+                        753,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        26,
+                        28
+                      ],
+                      "color": 9,
+                      "score": [
+                        8,
+                        2,
+                        753,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        26,
+                        28,
+                        14,
+                        18
+                      ],
+                      "color": 9,
+                      "score": [
+                        8,
+                        2,
+                        753,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        8,
+                        10
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        22,
+                        24
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        10,
+                        12
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        10,
+                        12,
+                        2,
+                        4
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        10,
+                        12,
+                        28,
+                        30
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        790,
+                        -3
+                      ]
+                    }
+                  ],
+                  "shape": [
+                    30,
+                    30
+                  ],
+                  "status": "predicted"
+                },
+                "exact": true,
+                "index": 1
+              },
+              {
+                "candidate_count": 1,
+                "diagnostics": {
+                  "occluder": {
+                    "area": 21,
+                    "bbox": [
+                      19,
+                      22,
+                      12,
+                      19
+                    ],
+                    "color": 8,
+                    "score": [
+                      21,
+                      3,
+                      879,
+                      -8
+                    ]
+                  },
+                  "reconstruction": {
+                    "global_coverage": 21,
+                    "global_witnesses": [
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_columns+(0,31)",
+                        "source_bbox": null,
+                        "support": 816,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_rows+(31,0)",
+                        "source_bbox": null,
+                        "support": 798,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "rotate_180+(31,31)",
+                        "source_bbox": null,
+                        "support": 742,
+                        "target_bbox": null
+                      }
+                    ],
+                    "local_prediction_groups": [],
+                    "local_witnesses": [],
+                    "missing_before_local": 0,
+                    "status": "predicted",
+                    "target_area": 21
+                  },
+                  "rectangle_proposals": [
+                    {
+                      "area": 21,
+                      "bbox": [
+                        19,
+                        22,
+                        12,
+                        19
+                      ],
+                      "color": 8,
+                      "score": [
+                        21,
+                        3,
+                        879,
+                        -8
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        10,
+                        12
+                      ],
+                      "color": 6,
+                      "score": [
+                        8,
+                        2,
+                        755,
+                        -6
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        20,
+                        22
+                      ],
+                      "color": 6,
+                      "score": [
+                        8,
+                        2,
+                        755,
+                        -6
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        15,
+                        17,
+                        15,
+                        17
+                      ],
+                      "color": 3,
+                      "score": [
+                        4,
+                        2,
+                        861,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        2,
+                        4
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        0,
+                        2,
+                        28,
+                        30
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        8,
+                        10
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        22,
+                        24
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        4,
+                        6,
+                        6,
+                        8
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        4,
+                        6,
+                        24,
+                        26
+                      ],
+                      "color": 4,
+                      "score": [
+                        4,
+                        2,
+                        776,
+                        -4
+                      ]
+                    }
+                  ],
+                  "shape": [
+                    30,
+                    30
+                  ],
+                  "status": "predicted"
+                },
+                "exact": true,
+                "index": 2
+              },
+              {
+                "candidate_count": 1,
+                "diagnostics": {
+                  "occluder": {
+                    "area": 16,
+                    "bbox": [
+                      7,
+                      11,
+                      26,
+                      30
+                    ],
+                    "color": 8,
+                    "score": [
+                      16,
+                      4,
+                      884,
+                      -8
+                    ]
+                  },
+                  "reconstruction": {
+                    "global_coverage": 16,
+                    "global_witnesses": [
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_columns+(0,31)",
+                        "source_bbox": null,
+                        "support": 808,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "reflect_rows+(31,0)",
+                        "source_bbox": null,
+                        "support": 808,
+                        "target_bbox": null
+                      },
+                      {
+                        "frame_support": 0,
+                        "kind": "global",
+                        "mismatch": 0,
+                        "relation": "rotate_180+(31,31)",
+                        "source_bbox": null,
+                        "support": 752,
+                        "target_bbox": null
+                      }
+                    ],
+                    "local_prediction_groups": [],
+                    "local_witnesses": [],
+                    "missing_before_local": 0,
+                    "status": "predicted",
+                    "target_area": 16
+                  },
+                  "rectangle_proposals": [
+                    {
+                      "area": 16,
+                      "bbox": [
+                        7,
+                        11,
+                        26,
+                        30
+                      ],
+                      "color": 8,
+                      "score": [
+                        16,
+                        4,
+                        884,
+                        -8
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        8,
+                        10
+                      ],
+                      "color": 3,
+                      "score": [
+                        8,
+                        2,
+                        792,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 8,
+                      "bbox": [
+                        14,
+                        18,
+                        22,
+                        24
+                      ],
+                      "color": 3,
+                      "score": [
+                        8,
+                        2,
+                        792,
+                        -3
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        8,
+                        10
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        2,
+                        4,
+                        22,
+                        24
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        8,
+                        10,
+                        2,
+                        4
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        22,
+                        24,
+                        2,
+                        4
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        22,
+                        24,
+                        28,
+                        30
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        28,
+                        30,
+                        8,
+                        10
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    },
+                    {
+                      "area": 4,
+                      "bbox": [
+                        28,
+                        30,
+                        22,
+                        24
+                      ],
+                      "color": 9,
+                      "score": [
+                        4,
+                        2,
+                        795,
+                        -9
+                      ]
+                    }
+                  ],
+                  "shape": [
+                    30,
+                    30
+                  ],
+                  "status": "predicted"
+                },
+                "exact": true,
+                "index": 3
+              }
+            ]
+          }
+        ],
+        "train_all_exact_gate": true,
+        "train_exact_program_count": 3,
+        "train_exact_programs": [
+          "global_reflections_then_two_local_axis_witnesses",
+          "global_reflections_then_local_axis_witness",
+          "global_reflections_only"
+        ],
+        "train_pair_count": 4
+      }
+    ]
+  },
+  "train_fit_tasks": 1
+}

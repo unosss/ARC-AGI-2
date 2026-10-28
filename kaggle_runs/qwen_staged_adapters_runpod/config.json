@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "experiment": 34,
+  "profile": "runpod_24gb_confirmatory",
+  "seed": 34034,
+  "split_seed": 34034,
+  "runtime": {
+    "python_min": "3.10",
+    "transformers": ">=4.57,<5",
+    "peft": "0.21.2",
+    "minimum_gpu_memory_bytes": 24000000000,
+    "precision": "bfloat16"
+  },
+  "panel": {
+    "primary_tasks": 32,
+    "reserve_tasks": 100,
+    "pilot_tasks": 2
+  },
+  "arms": [
+    "staged_late",
+    "mixed_late",
+    "staged_early_collision"
+  ],
+  "control_arms": [
+    "reversed_bands",
+    "shuffled_interpretation"
+  ],
+  "stage_budgets": {
+    "perception": 600000,
+    "interpretation": 900000
+  },
+  "global_lora": {
+    "type": "RSLoRA",
+    "rank": 64,
+    "alpha": 16,
+    "dropout": 0.0,
+    "learning_rate": 0.00005
+  },
+  "structure_learning_rate": 0.001,
+  "task_local": {
+    "type": "RSLoRA",
+    "rank": 256,
+    "alpha": 32,
+    "dropout": 0.0,
+    "steps": 128,
+    "learning_rate": 0.00005,
+    "train_color_permutations": 16,
+    "train_geometries": 8,
+    "decode_color_permutations": 2,
+    "decode_geometries": 8,
+    "rescore_views": 8,
+    "rescore_batch_size": 1,
+    "merge_for_inference": false
+  },
+  "corpus": {
+    "synthetic_seeds_per_family": 250,
+    "synthetic_holdout_modulus": 5,
+    "global_max_sequence_length": 8192
+  },
+  "dfs": {
+    "batch_size": 4,
+    "max_nodes_per_view": 4096,
+    "max_model_forward_tokens_per_view": 12288,
+    "max_candidates_per_view": 128,
+    "max_new_tokens": 931,
+    "emergency_seconds_per_view": 900,
+    "min_prob": 0.2
+  },
+  "checkpoint_every_optimizer_steps": 64,
+  "calibration": {
+    "global_loss_tokens_per_stage": 32768,
+    "task_local_steps": 16,
+    "dfs_nodes": 512,
+    "safety_margin": 0.25,
+    "maximum_projected_seconds": 604800
+  },
+  "wall_cap_seconds": 604800,
+  "primary_metric": "paired_task_level_top2_exact"
+}

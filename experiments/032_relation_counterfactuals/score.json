@@ -1,0 +1,229 @@
+{
+  "experiment": 32,
+  "frozen_before_label_read": {
+    "artifacts/incidence_contact.json": "0ae90c215e37e671e1454491e71edf475f88a42eed79a3d530e96341659179aa",
+    "artifacts/incidence_overlap.json": "89b34a02aa9c96a8e3660df26fca5415890c38cb11ec312a1a514a635a3f5eec",
+    "artifacts/reflection_center_strict.json": "2eb8ef1577ad80bdbbbd95da0377243b6ddf5f837381692ac8c6ec01a70de468",
+    "artifacts/reflection_endpoint_interval.json": "389da3a8bb352e9dad3497d91d967c932ced9e8d416e8fb5595d90b2794b37b2",
+    "artifacts/shape_d4.json": "db68efd5dfe5491ad38655cc5e1621e1e5bbbd6247d8217ca588b4de0d682d14",
+    "artifacts/shape_translation.json": "ad150d95b7856dc34950608e894cdca75240e8f8baf6a08465a10e39b15a9030",
+    "executions/incidence_contact.json": "6218f00042e1c9c9973f4a6a09fe68845aca2b27fe9ba6b419445f364f37e2e1",
+    "executions/incidence_overlap.json": "41f138d8973ef7c8de7e34c53c5e27f3676597263db3e3513463f32773f4a48d",
+    "executions/reflection_center_strict.json": "508349e8d6cdd1aee79e08e08752e103bca0f697afbeb410d566761b29443440",
+    "executions/reflection_endpoint_interval.json": "9e118c3120f4a4ded6b55ef41eae6f8a482819cd86d970a602eeab256bb6b380",
+    "executions/shape_d4.json": "e17581ecea70bf82b54a0b37ee474b399a7417b6a23be7212f29980e56307b9c",
+    "executions/shape_translation.json": "25d81c0224189927fe76f495316eff2681596e5b2fe7d4ae260cd5a4112c607b"
+  },
+  "exact_conditions": 6,
+  "condition_count": 6,
+  "exact_cases": 14,
+  "case_count": 14,
+  "micro_cell_accuracy": 1.0,
+  "results": {
+    "incidence_overlap": {
+      "exact": true,
+      "exact_cases": 3,
+      "case_count": 3,
+      "cases": [
+        {
+          "exact": true,
+          "shape_match": true,
+          "correct_cells": 168,
+          "total_cells": 168,
+          "wrong_cells": []
+        },
+        {
+          "exact": true,
+          "shape_match": true,
+          "correct_cells": 100,
+          "total_cells": 100,
+          "wrong_cells": []
+        },
+        {
+          "exact": true,
+          "shape_match": true,
+          "correct_cells": 117,
+          "total_cells": 117,
+          "wrong_cells": []
+        }
+      ]
+    },
+    "incidence_contact": {
+      "exact": true,
+      "exact_cases": 3,
+      "case_count": 3,
+      "cases": [
+        {
+          "exact": true,
+          "shape_match": true,
+          "correct_cells": 168,
+          "total_cells": 168,
+          "wrong_cells": []
+        },
+        {
+          "exact": true,
+          "shape_match": true,
+          "correct_cells": 100,
+          "total_cells": 100,
+          "wrong_cells": []
+        },
+        {
+          "exact": true,
+          "shape_match": true,
+          "correct_cells": 117,
+          "total_cells": 117,
+          "wrong_cells": []
+        }
+      ]
+    },
+    "reflection_center_strict": {
+      "exact": true,
+      "exact_cases": 2,
+      "case_count": 2,
+      "cases": [
+        {
+          "exact": true,
+          "shape_match": true,
+          "correct_cells": 56,
+          "total_cells": 56,
+          "wrong_cells": []
+        },
+        {
+          "exact": true,
+          "shape_match": true,
+          "correct_cells": 80,
+          "total_cells": 80,
+          "wrong_cells": []
+        }
+      ]
+    },
+    "reflection_endpoint_interval": {
+      "exact": true,
+      "exact_cases": 2,
+      "case_count": 2,
+      "cases": [
+        {
+          "exact": true,
+          "shape_match": true,
+          "correct_cells": 56,
+          "total_cells": 56,
+          "wrong_cells": []
+        },
+        {
+          "exact": true,
+          "shape_match": true,
+          "correct_cells": 80,
+          "total_cells": 80,
+          "wrong_cells": []
+        }
+      ]
+    },
+    "shape_translation": {
+      "exact": true,
+      "exact_cases": 2,
+      "case_count": 2,
+      "cases": [
+        {
+          "exact": true,
+          "shape_match": true,
+          "correct_cells": 176,
+          "total_cells": 176,
+          "wrong_cells": []
+        },
+        {
+          "exact": true,
+          "shape_match": true,
+          "correct_cells": 140,
+          "total_cells": 140,
+          "wrong_cells": []
+        }
+      ]
+    },
+    "shape_d4": {
+      "exact": true,
+      "exact_cases": 2,
+      "case_count": 2,
+      "cases": [
+        {
+          "exact": true,
+          "shape_match": true,
+          "correct_cells": 176,
+          "total_cells": 176,
+          "wrong_cells": []
+        },
+        {
+          "exact": true,
+          "shape_match": true,
+          "correct_cells": 140,
+          "total_cells": 140,
+          "wrong_cells": []
+        }
+      ]
+    }
+  },
+  "paired_interventions": [
+    {
+      "left": "incidence_overlap",
+      "right": "incidence_contact",
+      "all_difference_support_exact": true,
+      "cases": [
+        {
+          "case": 0,
+          "predicted_difference_count": 8,
+          "expected_difference_count": 8,
+          "difference_support_exact": true
+        },
+        {
+          "case": 1,
+          "predicted_difference_count": 8,
+          "expected_difference_count": 8,
+          "difference_support_exact": true
+        },
+        {
+          "case": 2,
+          "predicted_difference_count": 10,
+          "expected_difference_count": 10,
+          "difference_support_exact": true
+        }
+      ]
+    },
+    {
+      "left": "reflection_center_strict",
+      "right": "reflection_endpoint_interval",
+      "all_difference_support_exact": true,
+      "cases": [
+        {
+          "case": 0,
+          "predicted_difference_count": 3,
+          "expected_difference_count": 3,
+          "difference_support_exact": true
+        },
+        {
+          "case": 1,
+          "predicted_difference_count": 6,
+          "expected_difference_count": 6,
+          "difference_support_exact": true
+        }
+      ]
+    },
+    {
+      "left": "shape_translation",
+      "right": "shape_d4",
+      "all_difference_support_exact": true,
+      "cases": [
+        {
+          "case": 0,
+          "predicted_difference_count": 10,
+          "expected_difference_count": 10,
+          "difference_support_exact": true
+        },
+        {
+          "case": 1,
+          "predicted_difference_count": 11,
+          "expected_difference_count": 11,
+          "difference_support_exact": true
+        }
+      ]
+    }
+  ]
+}

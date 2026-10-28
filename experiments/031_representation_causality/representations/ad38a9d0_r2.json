@@ -1,0 +1,423 @@
+{
+  "task_id": "ad38a9d0",
+  "run": "r2",
+  "vocabulary": {
+    "cell_colors": {
+      "7": "background",
+      "6": "unclassified foreground in an input",
+      "2": "classified straight triomino",
+      "3": "classified plus pentomino",
+      "4": "classified L triomino",
+      "5": "classified 2-by-3 rectangle",
+      "8": "classified zigzag tetromino",
+      "9": "classified domino"
+    },
+    "entity_types": {
+      "grid": "A finite rectangular array indexed by zero-based (row,column) coordinates.",
+      "foreground_component": "A maximal 4-connected set of input cells whose color is 6.",
+      "normalized_shape": "The component's occupied-coordinate set modulo translation, quarter-turn rotation, and reflection."
+    },
+    "relations": {
+      "member": "A coordinate belongs to a foreground component.",
+      "four_adjacent": "Two coordinates have Manhattan distance one.",
+      "shape_equivalent": "Two components become identical after a translation and a dihedral symmetry of the square.",
+      "class_color": "A normalized shape is associated with one output color."
+    },
+    "shape_classes": {
+      "domino": {
+        "canonical_cells": [[0, 0], [0, 1]],
+        "size": 2,
+        "output_color": 9
+      },
+      "straight_triomino": {
+        "canonical_cells": [[0, 0], [0, 1], [0, 2]],
+        "size": 3,
+        "output_color": 2
+      },
+      "L_triomino": {
+        "canonical_cells": [[0, 0], [0, 1], [1, 0]],
+        "size": 3,
+        "output_color": 4
+      },
+      "zigzag_tetromino": {
+        "canonical_cells": [[0, 0], [0, 1], [1, 1], [1, 2]],
+        "size": 4,
+        "output_color": 8
+      },
+      "plus_pentomino": {
+        "canonical_cells": [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]],
+        "size": 5,
+        "output_color": 3
+      },
+      "rectangle_2x3": {
+        "canonical_cells": [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2]],
+        "size": 6,
+        "output_color": 5
+      }
+    }
+  },
+  "extraction": {
+    "coordinate_convention": "Rows increase downward and columns increase rightward; both are zero-based.",
+    "background_rule": "Treat every color-7 cell as background.",
+    "component_rule": "Collect all color-6 cells and partition them into maximal sets under transitive closure of four_adjacent. Diagonal contact alone does not connect cells.",
+    "canonicalization_rule": [
+      "For each component, generate its coordinate set under each of the eight dihedral transforms: four quarter-turn rotations, with and without reflection.",
+      "For each transformed set, subtract its minimum row from every row and its minimum column from every column.",
+      "Sort each resulting coordinate list lexicographically by row and then column.",
+      "Choose the lexicographically smallest list as canonical_cells and match it exactly against vocabulary.shape_classes."
+    ],
+    "output_relation_extraction": "For each training component, verify that the output has one uniform non-7 color at exactly that component's coordinates, and associate its canonical shape with that color. Verify that all other coordinates remain 7.",
+    "determinism": "Maximal 4-connectivity gives a unique partition; exhaustive D4 canonicalization gives a unique normalized representation."
+  },
+  "instances": {
+    "train": [
+      {
+        "pair_id": "train_0",
+        "dimensions": [9, 9],
+        "background_color": 7,
+        "input_foreground_color": 6,
+        "components": [
+          {
+            "id": "tr0_c0",
+            "cells": [[0, 0], [0, 1], [1, 1]],
+            "shape_class": "L_triomino",
+            "size": 3,
+            "observed_output_color": 4
+          },
+          {
+            "id": "tr0_c1",
+            "cells": [[0, 4], [0, 5], [1, 5], [1, 6]],
+            "shape_class": "zigzag_tetromino",
+            "size": 4,
+            "observed_output_color": 8
+          },
+          {
+            "id": "tr0_c2",
+            "cells": [[2, 3], [3, 2], [3, 3], [3, 4], [4, 3]],
+            "shape_class": "plus_pentomino",
+            "size": 5,
+            "observed_output_color": 3
+          },
+          {
+            "id": "tr0_c3",
+            "cells": [[2, 8], [3, 8], [4, 8]],
+            "shape_class": "straight_triomino",
+            "size": 3,
+            "observed_output_color": 2
+          },
+          {
+            "id": "tr0_c4",
+            "cells": [[3, 6], [4, 6]],
+            "shape_class": "domino",
+            "size": 2,
+            "observed_output_color": 9
+          },
+          {
+            "id": "tr0_c5",
+            "cells": [[4, 1], [5, 1], [6, 1]],
+            "shape_class": "straight_triomino",
+            "size": 3,
+            "observed_output_color": 2
+          },
+          {
+            "id": "tr0_c6",
+            "cells": [[6, 7], [6, 8], [7, 8]],
+            "shape_class": "L_triomino",
+            "size": 3,
+            "observed_output_color": 4
+          },
+          {
+            "id": "tr0_c7",
+            "cells": [[7, 4], [7, 5], [7, 6], [8, 4], [8, 5], [8, 6]],
+            "shape_class": "rectangle_2x3",
+            "size": 6,
+            "observed_output_color": 5
+          }
+        ],
+        "input_foreground_cell_count": 29,
+        "output_changed_cell_count": 29,
+        "unchanged_background_cell_count": 52
+      },
+      {
+        "pair_id": "train_1",
+        "dimensions": [9, 9],
+        "background_color": 7,
+        "input_foreground_color": 6,
+        "components": [
+          {
+            "id": "tr1_c0",
+            "cells": [[1, 1], [2, 0], [2, 1], [2, 2], [3, 1]],
+            "shape_class": "plus_pentomino",
+            "size": 5,
+            "observed_output_color": 3
+          },
+          {
+            "id": "tr1_c1",
+            "cells": [[1, 4], [2, 4]],
+            "shape_class": "domino",
+            "size": 2,
+            "observed_output_color": 9
+          },
+          {
+            "id": "tr1_c2",
+            "cells": [[2, 6], [2, 7], [3, 7]],
+            "shape_class": "L_triomino",
+            "size": 3,
+            "observed_output_color": 4
+          },
+          {
+            "id": "tr1_c3",
+            "cells": [[5, 4], [5, 5], [6, 5], [6, 6]],
+            "shape_class": "zigzag_tetromino",
+            "size": 4,
+            "observed_output_color": 8
+          },
+          {
+            "id": "tr1_c4",
+            "cells": [[7, 1], [7, 2], [7, 3], [8, 1], [8, 2], [8, 3]],
+            "shape_class": "rectangle_2x3",
+            "size": 6,
+            "observed_output_color": 5
+          },
+          {
+            "id": "tr1_c5",
+            "cells": [[6, 8], [7, 8], [8, 8]],
+            "shape_class": "straight_triomino",
+            "size": 3,
+            "observed_output_color": 2
+          }
+        ],
+        "input_foreground_cell_count": 23,
+        "output_changed_cell_count": 23,
+        "unchanged_background_cell_count": 58
+      }
+    ],
+    "test": [
+      {
+        "case_id": "test_0",
+        "dimensions": [9, 9],
+        "background_color": 7,
+        "input_foreground_color": 6,
+        "components": [
+          {
+            "id": "te0_c0",
+            "cells": [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]],
+            "shape_class": "plus_pentomino",
+            "size": 5
+          },
+          {
+            "id": "te0_c1",
+            "cells": [[0, 4], [0, 5], [1, 5], [1, 6]],
+            "shape_class": "zigzag_tetromino",
+            "size": 4
+          },
+          {
+            "id": "te0_c2",
+            "cells": [[2, 8], [3, 8], [4, 8]],
+            "shape_class": "straight_triomino",
+            "size": 3
+          },
+          {
+            "id": "te0_c3",
+            "cells": [[3, 3], [3, 4], [3, 5], [4, 3], [4, 4], [4, 5]],
+            "shape_class": "rectangle_2x3",
+            "size": 6
+          },
+          {
+            "id": "te0_c4",
+            "cells": [[6, 0], [6, 1], [7, 1]],
+            "shape_class": "L_triomino",
+            "size": 3
+          },
+          {
+            "id": "te0_c5",
+            "cells": [[7, 5], [8, 5]],
+            "shape_class": "domino",
+            "size": 2
+          },
+          {
+            "id": "te0_c6",
+            "cells": [[6, 7], [6, 8], [7, 8]],
+            "shape_class": "L_triomino",
+            "size": 3
+          }
+        ],
+        "input_foreground_cell_count": 26,
+        "background_cell_count": 55
+      }
+    ]
+  },
+  "invariances": {
+    "preserved": [
+      "Grid dimensions.",
+      "Every cell coordinate and every component's occupied support.",
+      "Background color 7.",
+      "Component topology and normalized shape."
+    ],
+    "discarded_for_classification": [
+      "Absolute component position.",
+      "Component orientation.",
+      "Reflection or chirality.",
+      "Ordering of components."
+    ],
+    "transformation_scope": "Only the color of input color-6 cells changes; no cell moves, appears, or disappears."
+  },
+  "candidate_models": [
+    {
+      "model_id": "normalized_shape_lookup",
+      "description": "Partition color-6 cells into maximal 4-connected components, canonicalize each component under translation and D4 symmetry, and recolor it using the learned shape-class table.",
+      "fit": "Exact on both training pairs: all 52 foreground cells receive their observed class colors and all 110 background cells remain 7.",
+      "status": "selected"
+    },
+    {
+      "model_id": "component_size_lookup_with_size3_split",
+      "description": "Use component cardinality to choose colors 9, 8, 3, and 5 for sizes 2, 4, 5, and 6; for size 3, use collinearity to choose 2 versus 4.",
+      "fit": "Exact on both training pairs and extensionally identical to normalized_shape_lookup on every observed and test component.",
+      "status": "not distinguishable from selected model on available instances"
+    },
+    {
+      "model_id": "component_size_only",
+      "description": "Assign one output color solely from component cardinality.",
+      "fit": "Contradicted because size-3 straight components have output color 2 while size-3 L components have output color 4.",
+      "status": "rejected"
+    },
+    {
+      "model_id": "absolute_position_or_scan_order",
+      "description": "Assign colors according to component position or discovery order.",
+      "fit": "Contradicted by repeated shapes at different positions and scan orders retaining the same color across and within training pairs.",
+      "status": "rejected"
+    }
+  ],
+  "train_validation": {
+    "exact_pair_results": [
+      {
+        "pair_id": "train_0",
+        "dimensions_match": true,
+        "component_partition_complete": true,
+        "component_count": 8,
+        "foreground_cells_checked": 29,
+        "foreground_color_matches": 29,
+        "background_cells_checked": 52,
+        "background_matches": 52,
+        "total_cell_matches": 81
+      },
+      {
+        "pair_id": "train_1",
+        "dimensions_match": true,
+        "component_partition_complete": true,
+        "component_count": 6,
+        "foreground_cells_checked": 23,
+        "foreground_color_matches": 23,
+        "background_cells_checked": 58,
+        "background_matches": 58,
+        "total_cell_matches": 81
+      }
+    ],
+    "cross_instance_evidence": [
+      "L triominoes occur in three orientations/positions across training and are always color 4.",
+      "Straight triominoes occur horizontally and vertically across training and are always color 2.",
+      "The zigzag tetromino occurs in two orientations and is always color 8.",
+      "The 2-by-3 rectangle occurs in both 2x3 and 3x2 orientations and is always color 5.",
+      "Domino and plus classes repeat across training pairs with stable colors 9 and 3."
+    ],
+    "global_exactness": {
+      "cells_checked": 162,
+      "cells_matched": 162,
+      "foreground_cells_checked": 52,
+      "foreground_cells_matched": 52,
+      "background_cells_checked": 110,
+      "background_cells_matched": 110
+    },
+    "contradictions": []
+  },
+  "selected_model": {
+    "model_id": "normalized_shape_lookup",
+    "reason": "It expresses the shared transformation uniformly for all components and explains repeated colors under translation, rotation, and reflection. It also distinguishes the two non-equivalent size-3 shapes.",
+    "learned_mapping": {
+      "domino": 9,
+      "straight_triomino": 2,
+      "L_triomino": 4,
+      "zigzag_tetromino": 8,
+      "plus_pentomino": 3,
+      "rectangle_2x3": 5
+    }
+  },
+  "remaining_ambiguities": [
+    {
+      "ambiguity": "Full normalized-shape classification versus a compact size-based decision tree.",
+      "details": "Except at size 3, each observed canonical shape has a unique size. A rule using size plus a straight-versus-bent test for size 3 gives exactly the same outputs on all training and test components.",
+      "effect_on_test_execution": "None."
+    },
+    {
+      "ambiguity": "Behavior for an unseen normalized shape.",
+      "details": "No training evidence specifies a color for any shape outside the six listed classes.",
+      "effect_on_test_execution": "None, because every test component belongs to a listed class."
+    }
+  ],
+  "execution_spec": {
+    "case_id": "test_0",
+    "output_dimensions": [9, 9],
+    "coordinate_convention": "Zero-based [row,column], rows downward, columns rightward.",
+    "initialization": "Create a 9-by-9 grid and set every cell to background color 7.",
+    "test_entities": [
+      {
+        "component_id": "te0_c0",
+        "shape_class": "plus_pentomino",
+        "target_color": 3,
+        "cells": [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]]
+      },
+      {
+        "component_id": "te0_c1",
+        "shape_class": "zigzag_tetromino",
+        "target_color": 8,
+        "cells": [[0, 4], [0, 5], [1, 5], [1, 6]]
+      },
+      {
+        "component_id": "te0_c2",
+        "shape_class": "straight_triomino",
+        "target_color": 2,
+        "cells": [[2, 8], [3, 8], [4, 8]]
+      },
+      {
+        "component_id": "te0_c3",
+        "shape_class": "rectangle_2x3",
+        "target_color": 5,
+        "cells": [[3, 3], [3, 4], [3, 5], [4, 3], [4, 4], [4, 5]]
+      },
+      {
+        "component_id": "te0_c4",
+        "shape_class": "L_triomino",
+        "target_color": 4,
+        "cells": [[6, 0], [6, 1], [7, 1]]
+      },
+      {
+        "component_id": "te0_c5",
+        "shape_class": "domino",
+        "target_color": 9,
+        "cells": [[7, 5], [8, 5]]
+      },
+      {
+        "component_id": "te0_c6",
+        "shape_class": "L_triomino",
+        "target_color": 4,
+        "cells": [[6, 7], [6, 8], [7, 8]]
+      }
+    ],
+    "ordered_construction": [
+      "Initialize every one of the 81 output coordinates to color 7.",
+      "Process test_entities in the listed order.",
+      "For each entity, assign its target_color to every coordinate in its cells list.",
+      "After all assignments, verify that exactly 26 coordinates are non-background and 55 coordinates remain color 7.",
+      "Serialize rows from row 0 through row 8, and within each row serialize columns 0 through 8."
+    ],
+    "collision_behavior": "The listed test components are pairwise disjoint. If duplicate writes nevertheless occur, identical-color writes are idempotent; conflicting-color writes indicate an invalid artifact and execution must fail.",
+    "boundary_behavior": "Every listed coordinate is within rows 0..8 and columns 0..8. Do not clip, wrap, reflect, or create any coordinate outside these bounds.",
+    "completeness_check": {
+      "entity_count": 7,
+      "painted_cell_count": 26,
+      "background_cell_count": 55,
+      "total_cell_count": 81
+    },
+    "literal_final_grid_included": false
+  }
+}

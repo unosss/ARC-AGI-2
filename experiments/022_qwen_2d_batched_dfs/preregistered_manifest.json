@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_before_exp022_gpu_run",
+  "experiment": 22,
+  "checkpoint": "sorokin/qwen3_4b_grids15_sft139/Transformers/bfloat16/1",
+  "source_experiment": 21,
+  "phase": "batched_dfs_engine_validation",
+  "opens_heldout_test_outputs": false,
+  "batch_size": 4,
+  "color_permutations": 2,
+  "geometries": 8,
+  "view_count": 16,
+  "geometry_groups": [[0, 2], [1, 3], [4, 6], [5, 7]],
+  "min_prob": 0.2,
+  "per_view_budget": {
+    "max_nodes": 4096,
+    "max_model_forward_tokens": 12288,
+    "max_candidates": 128,
+    "max_new_tokens": 931
+  },
+  "throughput_success_ratio": 2.5,
+  "required_parity": [
+    "batch1_equals_single",
+    "batch4_equals_independent_scripted",
+    "independent_lane_stops",
+    "inactive_padding_is_null",
+    "dynamic_cache_restored",
+    "all_arm_metadata_alignment",
+    "all_views_once_equal_prefix_length"
+  ],
+  "forbidden_interpretations": [
+    "phase_a_is_not_arc_accuracy",
+    "smoke_scores_are_not_results",
+    "no_budget_reduction_is_an_exp021_result"
+  ]
+}

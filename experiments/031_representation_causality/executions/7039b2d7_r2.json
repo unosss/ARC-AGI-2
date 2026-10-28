@@ -1,0 +1,37 @@
+{
+  "task_id": "7039b2d7",
+  "source_representation": "representations/7039b2d7_r2.json",
+  "representation_parse": {
+    "selected_model": "interval_quotient",
+    "test_case_count": 1,
+    "coordinate_convention": "Zero-based [row,column], ordered top-to-bottom and left-to-right.",
+    "test_case_0": {
+      "row_interval_count": 3,
+      "column_interval_count": 5,
+      "output_dimensions": [3, 5],
+      "cell_value": 1
+    }
+  },
+  "execution_steps": [
+    {
+      "case": 0,
+      "steps": [
+        "Allocated a 3 by 5 output grid from the three ordered row intervals and five ordered column intervals.",
+        "Mapped each output coordinate to exactly one row-interval and column-interval compartment.",
+        "Filled every output cell with background_color 1 because every encoded test compartment is uniformly color 1.",
+        "Returned the quotient grid with no divider rows or columns."
+      ]
+    }
+  ],
+  "unavailable_information": [],
+  "test": [
+    {
+      "case": 0,
+      "output": [
+        [1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "profile": "preregistered_phase_a",
+  "experiment": 22,
+  "seed": 21021,
+  "task_id": "484b58aa",
+  "test_index": 0,
+  "arm": "rowcol_component",
+  "batch_size": 4,
+  "color_permutations": 2,
+  "geometries": 8,
+  "max_sequence_length": 8192,
+  "min_prob": 0.2,
+  "nll_tolerance": 0.00001,
+  "timing_repetitions": 3,
+  "throughput_success_ratio": 2.5,
+  "per_view_budget": {
+    "max_nodes": 4096,
+    "max_model_forward_tokens": 12288,
+    "max_candidates": 128,
+    "max_new_tokens": 931,
+    "emergency_seconds": 900
+  }
+}

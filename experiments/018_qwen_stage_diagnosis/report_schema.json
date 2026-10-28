@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.arc-agi-2/experiments/018/stage_diagnosis_report.schema.json",
+  "title": "Experiment 018 stage diagnosis report",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_version",
+    "experiment",
+    "status",
+    "task_id",
+    "test_index",
+    "config",
+    "label_lifecycle",
+    "training_runs",
+    "causal_questions",
+    "limitations",
+    "v1_findings",
+    "v2_hypotheses"
+  ],
+  "properties": {
+    "schema_version": {"const": 2},
+    "run_version": {"const": 2},
+    "experiment": {"const": "018_qwen_stage_diagnosis"},
+    "status": {"enum": ["gpu_run_complete"]},
+    "task_id": {"const": "0934a4d8"},
+    "test_index": {"const": 0},
+    "config": {"type": "object"},
+    "training_runs": {
+      "type": "object",
+      "required": ["ordinary", "oracle_replay_before_payload_open"]
+    },
+    "label_lifecycle": {
+      "type": "object",
+      "required": [
+        "valid",
+        "events",
+        "ordinary_labels_available",
+        "oracle_payload_opened_after_training",
+        "post_label_optimizer_steps"
+      ]
+    },
+    "causal_questions": {
+      "type": "object",
+      "required": [
+        "execution",
+        "localization",
+        "correspondence",
+        "model_likelihood",
+        "decoding",
+        "hinted_correspondence"
+      ]
+    },
+    "limitations": {
+      "type": "object",
+      "required": [
+        "oracle_crop_is_ood",
+        "transpose_probe_is_capability_test_not_fair_solver",
+        "results_require_gpu_execution",
+        "forced_prefix_scores_comparable_across_prefixes"
+      ]
+    },
+    "v1_findings": {"type": "object"},
+    "v2_hypotheses": {"type": "object"}
+  },
+  "additionalProperties": false
+}

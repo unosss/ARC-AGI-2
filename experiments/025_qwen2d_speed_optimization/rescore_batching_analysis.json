@@ -1,0 +1,52 @@
+{
+  "adapter_merged": false,
+  "arm": "rowcol_component",
+  "candidate_counts": [
+    6,
+    10
+  ],
+  "decision": "reject_batched_rescoring_keep_sequential_default",
+  "model_forward_tokens": 168884,
+  "nodes_used": 28294,
+  "parity": {
+    "all_mean_nll_exact": false,
+    "all_scores_exact": false,
+    "all_values_finite": true,
+    "candidate_order_exact": true,
+    "candidate_pool_exact": true,
+    "mean_nll_max_abs_difference": 0.47229069471359253,
+    "metric_schema_exact": true,
+    "per_row_ids_exact": true,
+    "per_view_metric_max_abs_difference": {
+      "first_token_nll": 1.5019781130831689e-05,
+      "mean_nll": 0.0018698126077651978,
+      "per_row_mean_nll": 0.033667683601379395,
+      "sum_nll": 1.7389259338378906
+    },
+    "per_view_metrics_exact": {
+      "first_token_nll": false,
+      "mean_nll": false,
+      "per_row_mean_nll": false,
+      "sum_nll": false
+    },
+    "per_view_values_compared": {
+      "first_token_nll": 128,
+      "mean_nll": 128,
+      "per_row_mean_nll": 3840,
+      "sum_nll": 128
+    },
+    "score_max_abs_difference": 0.47229069471359253,
+    "token_counts_exact": true,
+    "top2_exact": true
+  },
+  "runtime_seconds": {
+    "batched_rescore": 119.11010275999433,
+    "dfs_candidate_generation": 427.44563137498335,
+    "percent_faster": -1.6498638771345315,
+    "sequential_rescore": 117.17684433297836,
+    "speedup": 0.9837691481896252
+  },
+  "single_dfs_candidate_pool": true,
+  "single_training": true,
+  "task_id": "195c6913"
+}

@@ -1,0 +1,39 @@
+{
+  "mode": "paired_rslora_loo",
+  "task_ids": ["0934a4d8", "36a08778", "981571dc", "aa4ec2a5"],
+  "expected_fold_count": 17,
+  "minimum_demos": 2,
+  "n_train_aug": 16,
+  "train_geometries": 8,
+  "n_eval_aug": 2,
+  "eval_geometries": 8,
+  "decode_cap_seconds": 1200,
+  "dfs_window_seconds": 540,
+  "decode_batch": 4,
+  "min_prob": 0.2,
+  "epochs": 1,
+  "learning_rate": 0.00005,
+  "lora_seed": 42,
+  "train_aug_seed": 1,
+  "eval_aug_seed": 2,
+  "score_seed_offset": 0,
+  "order": "sorted",
+  "nprocs": 4,
+  "phase_deadline_seconds": {
+    "base_candidates": 8000,
+    "rslora_candidates": 12000,
+    "nll": 8000
+  },
+  "selection": "score_kgmon_top2",
+  "lora": {
+    "type": "RSLoRA",
+    "rank": 256,
+    "alpha": 32,
+    "dropout": 0.0
+  },
+  "report_filename": "paired_loo_report.json",
+  "upstream_notebook_id": 139041342,
+  "kernel_source": "sorokin/pip-install-unsloth-flash-patch",
+  "model_source": "sorokin/qwen3_4b_grids15_sft139/Transformers/bfloat16/1",
+  "competition_source": "arc-prize-2026-arc-agi-2"
+}

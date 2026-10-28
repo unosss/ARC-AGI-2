@@ -1,0 +1,7 @@
+{
+  "mode": "initial_fixed_evaluation",
+  "task_limit": 120,
+  "conditions": ["baseline", "ttt", "ttt_airv"],
+  "ttt_items": 4800,
+  "inference_items": 2400
+}

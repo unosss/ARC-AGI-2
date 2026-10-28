@@ -1,0 +1,93 @@
+{
+  "task_id": "135a2760",
+  "design": "sequential controlled comparison; Arm A completed and was sealed/scored before Arm B started",
+  "controlled_settings_preserved": true,
+  "llama_cpp_forced_tool_protocol": {
+    "tools_on_forced_turn": [
+      "submit"
+    ],
+    "tool_choice": "required",
+    "preflight_compatible": true,
+    "wrong_type_warning_count_after_b": 3,
+    "wrong_type_warning_count_change_from_prior_corrected_run": 0
+  },
+  "arms": {
+    "prior_baseline_16384": {
+      "status": "failed: token budget",
+      "verified": false,
+      "score": 0.0,
+      "best_ok": -1,
+      "n_train": 2,
+      "turns": 13,
+      "python_calls": 7,
+      "submit_calls": 0,
+      "cut_turns": 6,
+      "forced_turns": 0,
+      "completion_tokens": 120923,
+      "prompt_tokens": 74728,
+      "wall_s": 2726.616969347,
+      "completion_tokens_per_s": 44.34909683297392,
+      "candidate_behavior": "No candidate program was submitted."
+    },
+    "prior_corrected_force6_16384": {
+      "status": "failed: token budget",
+      "verified": false,
+      "score": 0.0,
+      "best_ok": 0,
+      "n_train": 2,
+      "turns": 14,
+      "python_calls": 7,
+      "submit_calls": 1,
+      "cut_turns": 6,
+      "forced_turns": 2,
+      "completion_tokens": 127396,
+      "prompt_tokens": 85607,
+      "wall_s": 2891.457741498947,
+      "completion_tokens_per_s": 44.05943693092234,
+      "candidate_behavior": "Forced identity placeholder reproduced 0/2 demonstrations; after feedback the model returned to python and exhausted the token budget."
+    },
+    "arm_a_thinkcap_4096": {
+      "status": "failed: token budget",
+      "verified": false,
+      "score": 0.0,
+      "best_ok": -1,
+      "n_train": 2,
+      "turns": 33,
+      "python_calls": 5,
+      "submit_calls": 0,
+      "cut_turns": 28,
+      "forced_turns": 0,
+      "completion_tokens": 122648,
+      "prompt_tokens": 221715,
+      "wall_s": 2735.982514858246,
+      "completion_tokens_per_s": 44.82777186401519,
+      "thinkcap_hints_delivered": 28,
+      "next_turn_tool_transitions": 2,
+      "eligible_next_turn_observations": 27,
+      "candidate_behavior": "The model identified periodic-pattern repair but repeatedly re-derived it; no candidate was submitted.",
+      "trace_sha256": "2233142bee377ad5a3a34020eb363aa5225a8b7a09840297e6d9e538471f3ef6"
+    },
+    "arm_b_thinkcap_4096_force2": {
+      "status": "failed: token budget",
+      "verified": false,
+      "score": 0.0,
+      "best_ok": 0,
+      "n_train": 2,
+      "turns": 32,
+      "python_calls": 4,
+      "submit_calls": 1,
+      "cut_turns": 27,
+      "forced_turns": 12,
+      "completion_tokens": 121649,
+      "prompt_tokens": 184332,
+      "wall_s": 2727.2617585659027,
+      "completion_tokens_per_s": 44.60481272760838,
+      "thinkcap_hints_delivered": 27,
+      "next_turn_tool_transitions": 3,
+      "eligible_next_turn_observations": 26,
+      "candidate_behavior": "The first forced request submitted a stale 2x2-uniform-block-to-zero transform, reproducing 0/2 demonstrations. The model used the diff to reason toward periodic-pattern repair but never submitted a refinement; 11 later required-submit requests exhausted 4096 tokens without a call.",
+      "trace_sha256": "80423c59ebc494ec1c2d15999d37d6ebda6db990b29a9c0c006ebace39bb1b38"
+    }
+  },
+  "recommendation": "Do not adopt 4096 alone or force_submit_after=2 as configured. THINKCAP_HINT was delivered after every eligible 4096-token no-call cut, but immediate tool transitions were rare, and forcing submit after two Python calls produced one premature low-quality candidate followed by repeated required-tool length exhaustions. A future arm should change the action policy rather than only the token cap, while preserving the corrected llama.cpp protocol."
+}

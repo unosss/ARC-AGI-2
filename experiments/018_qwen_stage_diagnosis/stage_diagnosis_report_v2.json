@@ -1,0 +1,2886 @@
+{
+  "schema_version": 2,
+  "run_version": 2,
+  "experiment": "018_qwen_stage_diagnosis",
+  "status": "gpu_run_complete",
+  "task_id": "0934a4d8",
+  "test_index": 0,
+  "config": {
+    "mode": "single_task_stage_diagnosis_v2",
+    "run_version": 2,
+    "task_id": "0934a4d8",
+    "test_index": 0,
+    "n_train_aug": 16,
+    "train_geometries": 8,
+    "epochs": 1,
+    "optimizer_steps": 128,
+    "learning_rate": 5e-05,
+    "lora_seed": 42,
+    "train_aug_seed": 1,
+    "eval_seed": 2,
+    "score_seed_offset": 0,
+    "min_prob": 0.2,
+    "dfs_window_seconds": 300,
+    "condition_budget_seconds": 300,
+    "baseline_v1_budget_seconds": 300,
+    "baseline_v2_eval_augmentations": 2,
+    "baseline_v2_decode_batch": 4,
+    "baseline_v2_dfs_window_seconds": 540,
+    "baseline_v2_budget_seconds": 1200,
+    "phase_timeout_seconds": 10800,
+    "lora": {
+      "type": "RSLoRA",
+      "rank": 256,
+      "alpha": 32,
+      "dropout": 0.0
+    },
+    "prefix_rows": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      8
+    ],
+    "source_bbox_half_open": [
+      0,
+      3,
+      14,
+      23
+    ],
+    "report_filename": "stage_diagnosis_report_v2.json",
+    "checkpoint": "sorokin/qwen3_4b_grids15_sft139",
+    "model_source": "sorokin/qwen3_4b_grids15_sft139/Transformers/bfloat16/1",
+    "kernel_source": "sorokin/pip-install-unsloth-flash-patch",
+    "competition_source": "arc-prize-2026-arc-agi-2"
+  },
+  "label_lifecycle": {
+    "valid": true,
+    "events": [
+      "ordinary_training_completed",
+      "ordinary_generation_completed",
+      "ordinary_worker_exited",
+      "labels_opened",
+      "oracle_payload_written",
+      "oracle_training_completed",
+      "oracle_payload_opened",
+      "oracle_diagnostics_completed",
+      "oracle_worker_exited"
+    ],
+    "ordinary_labels_available": false,
+    "oracle_payload_opened_after_training": true,
+    "post_label_optimizer_steps": 0
+  },
+  "training_runs": {
+    "ordinary": {
+      "steps": 128,
+      "loss": 0.0022652014158666134,
+      "seconds": 417.608,
+      "training_examples": 128
+    },
+    "oracle_replay_before_payload_open": {
+      "steps": 128,
+      "loss": 0.0030210898257791996,
+      "seconds": 411.237,
+      "training_examples": 128
+    }
+  },
+  "causal_questions": {
+    "execution": {
+      "transpose_probe": {
+        "budget_seconds": 300,
+        "dfs_window_seconds": 300,
+        "prefix_token_count": 0,
+        "score_scope": "generated_suffix_only",
+        "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+        "candidates": [
+          {
+            "grid": [
+              [
+                7,
+                7,
+                9
+              ],
+              [
+                7,
+                2,
+                9
+              ],
+              [
+                7,
+                2,
+                9
+              ],
+              [
+                7,
+                7,
+                9
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                6,
+                6,
+                1
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                6,
+                1
+              ]
+            ],
+            "suffix_score": 0.9261856079101562,
+            "generated_suffix_tokens": 36,
+            "suffix_mean_score": 0.02572737799750434
+          }
+        ],
+        "truth_present": true,
+        "exact_candidate_count": 1,
+        "metadata": {
+          "causal_question": "execution",
+          "oracle": true,
+          "oracle_operation_hint": true,
+          "fair_solver_condition": false,
+          "ood": true
+        }
+      },
+      "can_transpose_oracle_crop_with_hint": true
+    },
+    "localization": {
+      "baseline": {
+        "budget_seconds": 300,
+        "dfs_window_seconds": 300,
+        "prefix_token_count": 0,
+        "score_scope": "generated_suffix_only",
+        "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+        "candidates": [
+          {
+            "grid": [
+              [
+                9,
+                1,
+                3
+              ],
+              [
+                9,
+                9,
+                2
+              ],
+              [
+                9,
+                9,
+                2
+              ],
+              [
+                9,
+                1,
+                3
+              ],
+              [
+                7,
+                2,
+                7
+              ],
+              [
+                7,
+                7,
+                9
+              ],
+              [
+                1,
+                6,
+                7
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                5,
+                4
+              ]
+            ],
+            "suffix_score": 0.450836181640625,
+            "generated_suffix_tokens": 36,
+            "suffix_mean_score": 0.012523227267795138
+          },
+          {
+            "grid": [
+              [
+                9,
+                1,
+                3
+              ],
+              [
+                9,
+                9,
+                2
+              ],
+              [
+                9,
+                9,
+                2
+              ],
+              [
+                9,
+                1,
+                3
+              ],
+              [
+                7,
+                2,
+                7
+              ],
+              [
+                7,
+                7,
+                9
+              ],
+              [
+                1,
+                6,
+                7
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                6,
+                1
+              ]
+            ],
+            "suffix_score": 1.4498977661132812,
+            "generated_suffix_tokens": 36,
+            "suffix_mean_score": 0.04027493794759115
+          }
+        ],
+        "truth_present": false,
+        "exact_candidate_count": 0
+      },
+      "baseline_exp015_comparable": {
+        "contract": "experiment_015_inference_augmentation",
+        "eval_augmentations": 2,
+        "geometries": 8,
+        "expected_views": 16,
+        "decoded_views": 16,
+        "decode_batch": 4,
+        "budget_seconds": 1200,
+        "dfs_window_seconds": 540,
+        "min_prob": 0.2,
+        "timed_out": false,
+        "candidates": [
+          {
+            "grid": [
+              [
+                9,
+                1,
+                3
+              ],
+              [
+                9,
+                9,
+                2
+              ],
+              [
+                9,
+                9,
+                2
+              ],
+              [
+                9,
+                1,
+                3
+              ],
+              [
+                7,
+                2,
+                7
+              ],
+              [
+                7,
+                7,
+                9
+              ],
+              [
+                1,
+                6,
+                7
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                6,
+                1
+              ]
+            ],
+            "provenance": [
+              {
+                "view": "0934a4d8_0.permute9302675184.ex1302",
+                "view_score": 0.34983062744140625,
+                "generated_tokens": 36
+              }
+            ]
+          },
+          {
+            "grid": [
+              [
+                3,
+                1,
+                9
+              ],
+              [
+                2,
+                9,
+                9
+              ],
+              [
+                2,
+                9,
+                9
+              ],
+              [
+                3,
+                1,
+                9
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                6,
+                6,
+                1
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                6,
+                1
+              ]
+            ],
+            "provenance": [
+              {
+                "view": "0934a4d8_0.rot90.rot90.permute5386701942.ex0213",
+                "view_score": 0.36399078369140625,
+                "generated_tokens": 36
+              },
+              {
+                "view": "0934a4d8_0.rot90.rot90.permute8579032416.ex3201",
+                "view_score": 0.42650604248046875,
+                "generated_tokens": 36
+              },
+              {
+                "view": "0934a4d8_0.rot90.permute4281673590.ex0213",
+                "view_score": 0.16983795166015625,
+                "generated_tokens": 30
+              },
+              {
+                "view": "0934a4d8_0.transpose.rot90.rot90.permute0986123745.ex2103",
+                "view_score": 0.23091888427734375,
+                "generated_tokens": 30
+              }
+            ]
+          },
+          {
+            "grid": [
+              [
+                9,
+                1,
+                3
+              ],
+              [
+                9,
+                9,
+                2
+              ],
+              [
+                9,
+                9,
+                2
+              ],
+              [
+                9,
+                1,
+                3
+              ],
+              [
+                7,
+                4,
+                7
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                6,
+                6,
+                1
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                6,
+                1
+              ]
+            ],
+            "provenance": [
+              {
+                "view": "0934a4d8_0.permute4150723698.ex0312",
+                "view_score": 1.334228515625,
+                "generated_tokens": 36
+              }
+            ]
+          },
+          {
+            "grid": [
+              [
+                3,
+                1,
+                9
+              ],
+              [
+                2,
+                9,
+                9
+              ],
+              [
+                2,
+                9,
+                9
+              ],
+              [
+                3,
+                1,
+                9
+              ],
+              [
+                7,
+                4,
+                7
+              ],
+              [
+                9,
+                4,
+                7
+              ],
+              [
+                7,
+                6,
+                1
+              ],
+              [
+                7,
+                6,
+                6
+              ],
+              [
+                4,
+                6,
+                1
+              ]
+            ],
+            "provenance": [
+              {
+                "view": "0934a4d8_0.rot90.permute4950812673.ex2013",
+                "view_score": 0.47663116455078125,
+                "generated_tokens": 30
+              }
+            ]
+          },
+          {
+            "grid": [
+              [
+                9,
+                9,
+                9
+              ],
+              [
+                9,
+                9,
+                9
+              ],
+              [
+                9,
+                9,
+                9
+              ],
+              [
+                9,
+                9,
+                9
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                6,
+                6,
+                1
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                6,
+                1
+              ]
+            ],
+            "provenance": [
+              {
+                "view": "0934a4d8_0.rot90.rot90.rot90.permute1654278039.ex3120",
+                "view_score": 0.0328521728515625,
+                "generated_tokens": 30
+              },
+              {
+                "view": "0934a4d8_0.rot90.rot90.rot90.permute4965803712.ex1023",
+                "view_score": 0.1415557861328125,
+                "generated_tokens": 30
+              },
+              {
+                "view": "0934a4d8_0.transpose.rot90.permute5980213764.ex1023",
+                "view_score": 1.3636398315429688,
+                "generated_tokens": 36
+              }
+            ]
+          },
+          {
+            "grid": [
+              [
+                9,
+                9,
+                9
+              ],
+              [
+                9,
+                9,
+                9
+              ],
+              [
+                9,
+                9,
+                9
+              ],
+              [
+                9,
+                9,
+                9
+              ],
+              [
+                7,
+                4,
+                7
+              ],
+              [
+                7,
+                4,
+                7
+              ],
+              [
+                1,
+                6,
+                1
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                6,
+                1
+              ]
+            ],
+            "provenance": [
+              {
+                "view": "0934a4d8_0.transpose.permute1602397845.ex2013",
+                "view_score": 0.021484375,
+                "generated_tokens": 30
+              },
+              {
+                "view": "0934a4d8_0.transpose.permute9180254367.ex1230",
+                "view_score": 0.0606842041015625,
+                "generated_tokens": 30
+              }
+            ]
+          },
+          {
+            "grid": [
+              [
+                4,
+                4,
+                9
+              ],
+              [
+                4,
+                4,
+                9
+              ],
+              [
+                4,
+                4,
+                9
+              ],
+              [
+                4,
+                4,
+                9
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                6,
+                6,
+                1
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                6,
+                1
+              ]
+            ],
+            "provenance": [
+              {
+                "view": "0934a4d8_0.transpose.rot90.rot90.permute5436201789.ex2301",
+                "view_score": 1.147216796875,
+                "generated_tokens": 30
+              }
+            ]
+          },
+          {
+            "grid": [
+              [
+                3,
+                9,
+                9
+              ],
+              [
+                2,
+                9,
+                9
+              ],
+              [
+                2,
+                9,
+                9
+              ],
+              [
+                3,
+                9,
+                9
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                6,
+                6,
+                1
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                6,
+                1
+              ]
+            ],
+            "provenance": [
+              {
+                "view": "0934a4d8_0.transpose.rot90.rot90.permute5436201789.ex2301",
+                "view_score": 1.5413894653320312,
+                "generated_tokens": 30
+              }
+            ]
+          },
+          {
+            "grid": [
+              [
+                9,
+                1,
+                9
+              ],
+              [
+                9,
+                9,
+                9
+              ],
+              [
+                9,
+                9,
+                9
+              ],
+              [
+                9,
+                1,
+                9
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                6,
+                6,
+                1
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                6,
+                1
+              ]
+            ],
+            "provenance": [
+              {
+                "view": "0934a4d8_0.transpose.rot90.permute4907281356.ex3210",
+                "view_score": 0.09113311767578125,
+                "generated_tokens": 36
+              },
+              {
+                "view": "0934a4d8_0.transpose.rot90.permute5980213764.ex1023",
+                "view_score": 0.4020271301269531,
+                "generated_tokens": 36
+              }
+            ]
+          },
+          {
+            "grid": [
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                4,
+                4,
+                9
+              ],
+              [
+                4,
+                4,
+                9
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                6,
+                6,
+                1
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                6,
+                1
+              ]
+            ],
+            "provenance": [
+              {
+                "view": "0934a4d8_0.transpose.rot90.rot90.rot90.permute6142358709.ex3120",
+                "view_score": 0.6183929443359375,
+                "generated_tokens": 36
+              }
+            ]
+          },
+          {
+            "grid": [
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                4,
+                4,
+                9
+              ],
+              [
+                4,
+                4,
+                9
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                7,
+                7,
+                7
+              ],
+              [
+                6,
+                6,
+                1
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                6,
+                1
+              ]
+            ],
+            "provenance": [
+              {
+                "view": "0934a4d8_0.transpose.rot90.rot90.rot90.permute6142358709.ex3120",
+                "view_score": 1.133148193359375,
+                "generated_tokens": 36
+              }
+            ]
+          }
+        ],
+        "truth_present": false,
+        "exact_candidate_count": 0
+      },
+      "oracle_crop": {
+        "budget_seconds": 300,
+        "dfs_window_seconds": 300,
+        "prefix_token_count": 0,
+        "score_scope": "generated_suffix_only",
+        "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+        "candidates": [],
+        "truth_present": false,
+        "exact_candidate_count": 0,
+        "metadata": {
+          "causal_question": "localization",
+          "oracle": true,
+          "ood": true
+        }
+      },
+      "oracle_mask": {
+        "budget_seconds": 300,
+        "dfs_window_seconds": 300,
+        "prefix_token_count": 0,
+        "score_scope": "generated_suffix_only",
+        "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+        "candidates": [
+          {
+            "grid": [
+              [
+                1,
+                6,
+                6,
+                6,
+                4,
+                4,
+                7,
+                7,
+                7,
+                7
+              ],
+              [
+                6,
+                6,
+                6,
+                6,
+                4,
+                4,
+                7,
+                2,
+                2,
+                7
+              ],
+              [
+                1,
+                6,
+                1,
+                7,
+                7,
+                7,
+                9,
+                9,
+                9,
+                9
+              ]
+            ],
+            "suffix_score": 0.7721176147460938,
+            "generated_suffix_tokens": 33,
+            "suffix_mean_score": 0.023397503477154358
+          }
+        ],
+        "truth_present": false,
+        "exact_candidate_count": 0,
+        "metadata": {
+          "causal_question": "localization",
+          "oracle": true,
+          "ood": false
+        }
+      },
+      "transpose_hint_full": {
+        "budget_seconds": 300,
+        "dfs_window_seconds": 300,
+        "prefix_token_count": 0,
+        "score_scope": "generated_suffix_only",
+        "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+        "candidates": [
+          {
+            "grid": [
+              [
+                9,
+                1,
+                3
+              ],
+              [
+                9,
+                9,
+                2
+              ],
+              [
+                9,
+                9,
+                2
+              ],
+              [
+                9,
+                1,
+                3
+              ],
+              [
+                7,
+                2,
+                7
+              ],
+              [
+                7,
+                7,
+                9
+              ],
+              [
+                1,
+                6,
+                7
+              ],
+              [
+                6,
+                6,
+                7
+              ],
+              [
+                1,
+                5,
+                4
+              ]
+            ],
+            "suffix_score": 0.7677078247070312,
+            "generated_suffix_tokens": 36,
+            "suffix_mean_score": 0.02132521735297309
+          },
+          {
+            "grid": [
+              [
+                9,
+                1,
+                3
+              ],
+              [
+                9,
+                9,
+                2
+              ],
+              [
+                9,
+                9,
+                2
+              ],
+              [
+                9,
+                1,
+                3
+              ],
+              [
+                7,
+                2,
+                7
+              ],
+              [
+                7,
+                7,
+                9
+              ],
+              [
+                1,
+                6,
+                7
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                5,
+                4
+              ]
+            ],
+            "suffix_score": 0.8583755493164062,
+            "generated_suffix_tokens": 36,
+            "suffix_mean_score": 0.023843765258789062
+          }
+        ],
+        "truth_present": false,
+        "exact_candidate_count": 0,
+        "metadata": {
+          "causal_question": "operation_given_localization_unknown",
+          "oracle": true,
+          "oracle_operation_hint": true,
+          "oracle_localization_hint": false,
+          "fair_solver_condition": false,
+          "ood": false
+        }
+      },
+      "transpose_hint_mask": {
+        "budget_seconds": 300,
+        "dfs_window_seconds": 300,
+        "prefix_token_count": 0,
+        "score_scope": "generated_suffix_only",
+        "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+        "candidates": [],
+        "truth_present": false,
+        "exact_candidate_count": 0,
+        "metadata": {
+          "causal_question": "operation_and_localized_source",
+          "oracle": true,
+          "oracle_operation_hint": true,
+          "oracle_localization_hint": true,
+          "fair_solver_condition": false,
+          "ood": false
+        }
+      }
+    },
+    "correspondence": {
+      "crops": [
+        {
+          "condition_id": "crop_0",
+          "bbox": [
+            0,
+            3,
+            0,
+            9
+          ],
+          "is_true_source": false,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7
+                ]
+              ],
+              "suffix_score": 1.0435028076171875,
+              "generated_suffix_tokens": 2,
+              "suffix_mean_score": 0.5217514038085938
+            }
+          ],
+          "truth_present": false,
+          "exact_candidate_count": 0
+        },
+        {
+          "condition_id": "crop_1",
+          "bbox": [
+            0,
+            3,
+            7,
+            16
+          ],
+          "is_true_source": false,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  6
+                ]
+              ],
+              "suffix_score": 1.561798095703125,
+              "generated_suffix_tokens": 2,
+              "suffix_mean_score": 0.7808990478515625
+            }
+          ],
+          "truth_present": false,
+          "exact_candidate_count": 0
+        },
+        {
+          "condition_id": "crop_2",
+          "bbox": [
+            0,
+            3,
+            14,
+            23
+          ],
+          "is_true_source": true,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [],
+          "truth_present": false,
+          "exact_candidate_count": 0
+        },
+        {
+          "condition_id": "crop_3",
+          "bbox": [
+            0,
+            3,
+            21,
+            30
+          ],
+          "is_true_source": false,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7
+                ]
+              ],
+              "suffix_score": 1.264251708984375,
+              "generated_suffix_tokens": 2,
+              "suffix_mean_score": 0.6321258544921875
+            }
+          ],
+          "truth_present": false,
+          "exact_candidate_count": 0
+        },
+        {
+          "condition_id": "crop_4",
+          "bbox": [
+            9,
+            12,
+            14,
+            23
+          ],
+          "is_true_source": false,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  6
+                ]
+              ],
+              "suffix_score": 1.400299072265625,
+              "generated_suffix_tokens": 2,
+              "suffix_mean_score": 0.7001495361328125
+            }
+          ],
+          "truth_present": false,
+          "exact_candidate_count": 0
+        }
+      ],
+      "only_true_source_yields_truth": false
+    },
+    "hinted_correspondence": {
+      "crops": [
+        {
+          "condition_id": "transpose_hint_crop_0",
+          "bbox": [
+            0,
+            3,
+            0,
+            9
+          ],
+          "is_true_source": false,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  4,
+                  4,
+                  3
+                ],
+                [
+                  4,
+                  4,
+                  4
+                ],
+                [
+                  1,
+                  3,
+                  4
+                ],
+                [
+                  3,
+                  3,
+                  4
+                ],
+                [
+                  5,
+                  7,
+                  7
+                ],
+                [
+                  7,
+                  5,
+                  9
+                ],
+                [
+                  7,
+                  9,
+                  5
+                ],
+                [
+                  9,
+                  7,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  5
+                ]
+              ],
+              "suffix_score": 0.8022842407226562,
+              "generated_suffix_tokens": 36,
+              "suffix_mean_score": 0.02228567335340712
+            }
+          ],
+          "truth_present": false,
+          "exact_candidate_count": 0
+        },
+        {
+          "condition_id": "transpose_hint_crop_1",
+          "bbox": [
+            0,
+            3,
+            7,
+            16
+          ],
+          "is_true_source": false,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  9,
+                  7,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  5
+                ],
+                [
+                  1,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ]
+              ],
+              "suffix_score": 0.8651466369628906,
+              "generated_suffix_tokens": 28,
+              "suffix_mean_score": 0.030898094177246094
+            }
+          ],
+          "truth_present": false,
+          "exact_candidate_count": 0
+        },
+        {
+          "condition_id": "transpose_hint_crop_2",
+          "bbox": [
+            0,
+            3,
+            14,
+            23
+          ],
+          "is_true_source": true,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  1,
+                  6,
+                  1
+                ]
+              ],
+              "suffix_score": 0.9261856079101562,
+              "generated_suffix_tokens": 36,
+              "suffix_mean_score": 0.02572737799750434
+            }
+          ],
+          "truth_present": true,
+          "exact_candidate_count": 1
+        },
+        {
+          "condition_id": "transpose_hint_crop_3",
+          "bbox": [
+            0,
+            3,
+            21,
+            30
+          ],
+          "is_true_source": false,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [],
+          "truth_present": false,
+          "exact_candidate_count": 0
+        },
+        {
+          "condition_id": "transpose_hint_crop_4",
+          "bbox": [
+            9,
+            12,
+            14,
+            23
+          ],
+          "is_true_source": false,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  2,
+                  4,
+                  6
+                ],
+                [
+                  2,
+                  6,
+                  4
+                ],
+                [
+                  2,
+                  6,
+                  4
+                ],
+                [
+                  2,
+                  4,
+                  6
+                ],
+                [
+                  4,
+                  2,
+                  2
+                ],
+                [
+                  6,
+                  2,
+                  2
+                ],
+                [
+                  6,
+                  2,
+                  7
+                ],
+                [
+                  6,
+                  7,
+                  3
+                ],
+                [
+                  7,
+                  1,
+                  5
+                ]
+              ],
+              "suffix_score": 0.780364990234375,
+              "generated_suffix_tokens": 36,
+              "suffix_mean_score": 0.021676805284288194
+            }
+          ],
+          "truth_present": false,
+          "exact_candidate_count": 0
+        }
+      ],
+      "only_true_source_yields_truth": true
+    },
+    "model_likelihood": {
+      "prompt_condition": "baseline_full_30x30",
+      "base": {
+        "token_count": 36,
+        "cell_count": 27,
+        "sum_nll": 14.923112134554685,
+        "per_token_nll": 0.41453089262651904,
+        "cell_mean_nll": 0.5526581229097685,
+        "rows": [
+          {
+            "row": 0,
+            "cell_count": 3,
+            "sum_nll": 7.545158579945564,
+            "mean_nll": 2.515052859981855,
+            "mean_correct_probability": 0.3076285286806524,
+            "mean_correct_rank": 1.6666666666666667
+          },
+          {
+            "row": 1,
+            "cell_count": 3,
+            "sum_nll": 2.574929267168045,
+            "mean_nll": 0.8583097557226816,
+            "mean_correct_probability": 0.49047234654426575,
+            "mean_correct_rank": 1.6666666666666667
+          },
+          {
+            "row": 2,
+            "cell_count": 3,
+            "sum_nll": 0.5740064496640116,
+            "mean_nll": 0.1913354832213372,
+            "mean_correct_probability": 0.8339723944664001,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 3,
+            "cell_count": 3,
+            "sum_nll": 0.01259944566845661,
+            "mean_nll": 0.00419981522281887,
+            "mean_correct_probability": 0.9958228270212809,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 4,
+            "cell_count": 3,
+            "sum_nll": 2.4601827654987574,
+            "mean_nll": 0.8200609218329191,
+            "mean_correct_probability": 0.6132309089104334,
+            "mean_correct_rank": 1.3333333333333333
+          },
+          {
+            "row": 5,
+            "cell_count": 3,
+            "sum_nll": 0.015732115134596825,
+            "mean_nll": 0.005244038378198941,
+            "mean_correct_probability": 0.9947736461957296,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 6,
+            "cell_count": 3,
+            "sum_nll": 1.4141207267530262,
+            "mean_nll": 0.47137357558434206,
+            "mean_correct_probability": 0.7246638834476471,
+            "mean_correct_rank": 1.3333333333333333
+          },
+          {
+            "row": 7,
+            "cell_count": 3,
+            "sum_nll": 0.0019808024117082823,
+            "mean_nll": 0.0006602674705694275,
+            "mean_correct_probability": 0.9993400375048319,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 8,
+            "cell_count": 3,
+            "sum_nll": 0.323059166319581,
+            "mean_nll": 0.10768638877319366,
+            "mean_correct_probability": 0.9040983517964681,
+            "mean_correct_rank": 1.0
+          }
+        ],
+        "tokens": [
+          {
+            "kind": "cell",
+            "row": 0,
+            "column": 0,
+            "token_id": 7,
+            "nll": 5.0227179527282715,
+            "correct_probability": 0.006586600560694933,
+            "correct_rank": 2
+          },
+          {
+            "kind": "cell",
+            "row": 0,
+            "column": 1,
+            "token_id": 7,
+            "nll": 2.321794033050537,
+            "correct_probability": 0.09809744358062744,
+            "correct_rank": 2
+          },
+          {
+            "kind": "cell",
+            "row": 0,
+            "column": 2,
+            "token_id": 9,
+            "nll": 0.20064659416675568,
+            "correct_probability": 0.8182015419006348,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 0,
+            "token_id": 10,
+            "nll": 0.0003363520372658968,
+            "correct_probability": 0.9996637105941772,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 1,
+            "column": 0,
+            "token_id": 7,
+            "nll": 1.1172645092010498,
+            "correct_probability": 0.3271735906600952,
+            "correct_rank": 2
+          },
+          {
+            "kind": "cell",
+            "row": 1,
+            "column": 1,
+            "token_id": 2,
+            "nll": 0.12828591465950012,
+            "correct_probability": 0.8796018362045288,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 1,
+            "column": 2,
+            "token_id": 9,
+            "nll": 1.3293788433074951,
+            "correct_probability": 0.2646416127681732,
+            "correct_rank": 2
+          },
+          {
+            "kind": "newline",
+            "after_row": 1,
+            "token_id": 10,
+            "nll": 7.509902934543788e-05,
+            "correct_probability": 0.999924898147583,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 2,
+            "column": 0,
+            "token_id": 7,
+            "nll": 0.327842652797699,
+            "correct_probability": 0.7204763889312744,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 2,
+            "column": 1,
+            "token_id": 2,
+            "nll": 0.244533509016037,
+            "correct_probability": 0.7830697298049927,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 2,
+            "column": 2,
+            "token_id": 9,
+            "nll": 0.0016302878502756357,
+            "correct_probability": 0.9983710646629333,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 2,
+            "token_id": 10,
+            "nll": 2.1457441107486375e-05,
+            "correct_probability": 0.9999785423278809,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 3,
+            "column": 0,
+            "token_id": 7,
+            "nll": 0.011646846309304237,
+            "correct_probability": 0.9884207248687744,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 3,
+            "column": 1,
+            "token_id": 7,
+            "nll": 0.0008406681008636951,
+            "correct_probability": 0.9991596937179565,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 3,
+            "column": 2,
+            "token_id": 9,
+            "nll": 0.00011193125828867778,
+            "correct_probability": 0.9998880624771118,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 3,
+            "token_id": 10,
+            "nll": 2.1457441107486375e-05,
+            "correct_probability": 0.9999785423278809,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 4,
+            "column": 0,
+            "token_id": 4,
+            "nll": 2.135373592376709,
+            "correct_probability": 0.11820043623447418,
+            "correct_rank": 2
+          },
+          {
+            "kind": "cell",
+            "row": 4,
+            "column": 1,
+            "token_id": 4,
+            "nll": 0.3205227851867676,
+            "correct_probability": 0.7257695198059082,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 4,
+            "column": 2,
+            "token_id": 7,
+            "nll": 0.0042863879352808,
+            "correct_probability": 0.995722770690918,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 4,
+            "token_id": 10,
+            "nll": 4.541770613286644e-05,
+            "correct_probability": 0.9999545812606812,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 5,
+            "column": 0,
+            "token_id": 4,
+            "nll": 0.003226434113457799,
+            "correct_probability": 0.9967787861824036,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 5,
+            "column": 1,
+            "token_id": 4,
+            "nll": 0.0032703985925763845,
+            "correct_probability": 0.9967349171638489,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 5,
+            "column": 2,
+            "token_id": 7,
+            "nll": 0.009235282428562641,
+            "correct_probability": 0.9908072352409363,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 5,
+            "token_id": 10,
+            "nll": 0.00026127262390218675,
+            "correct_probability": 0.9997387528419495,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 6,
+            "column": 0,
+            "token_id": 6,
+            "nll": 0.09317244589328766,
+            "correct_probability": 0.9110363721847534,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 6,
+            "column": 1,
+            "token_id": 6,
+            "nll": 1.315566897392273,
+            "correct_probability": 0.2683221995830536,
+            "correct_rank": 2
+          },
+          {
+            "kind": "cell",
+            "row": 6,
+            "column": 2,
+            "token_id": 1,
+            "nll": 0.005381383467465639,
+            "correct_probability": 0.9946330785751343,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 6,
+            "token_id": 10,
+            "nll": 0.00012337400403339416,
+            "correct_probability": 0.9998766183853149,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 7,
+            "column": 0,
+            "token_id": 6,
+            "nll": 0.0009420248097740114,
+            "correct_probability": 0.9990584254264832,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 7,
+            "column": 1,
+            "token_id": 6,
+            "nll": 0.0009873997187241912,
+            "correct_probability": 0.9990130662918091,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 7,
+            "column": 2,
+            "token_id": 6,
+            "nll": 5.1377883210079744e-05,
+            "correct_probability": 0.9999486207962036,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 7,
+            "token_id": 10,
+            "nll": 0.00043084874050691724,
+            "correct_probability": 0.9995692372322083,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 8,
+            "column": 0,
+            "token_id": 1,
+            "nll": 0.27316638827323914,
+            "correct_probability": 0.7609661817550659,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 8,
+            "column": 1,
+            "token_id": 6,
+            "nll": 0.04983996972441673,
+            "correct_probability": 0.9513816833496094,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 8,
+            "column": 2,
+            "token_id": 1,
+            "nll": 5.280832192511298e-05,
+            "correct_probability": 0.999947190284729,
+            "correct_rank": 1
+          },
+          {
+            "kind": "eos",
+            "token_id": 15,
+            "nll": 2.753696753643453e-05,
+            "correct_probability": 0.9999724626541138,
+            "correct_rank": 1
+          }
+        ]
+      },
+      "rslora": {
+        "token_count": 36,
+        "cell_count": 27,
+        "sum_nll": 23.234717280439554,
+        "per_token_nll": 0.6454088133455431,
+        "cell_mean_nll": 0.8605388194571669,
+        "rows": [
+          {
+            "row": 0,
+            "cell_count": 3,
+            "sum_nll": 19.356097042560577,
+            "mean_nll": 6.452032347520192,
+            "mean_correct_probability": 0.17707428646569193,
+            "mean_correct_rank": 4.666666666666667
+          },
+          {
+            "row": 1,
+            "cell_count": 3,
+            "sum_nll": 2.1681582927703857,
+            "mean_nll": 0.7227194309234619,
+            "mean_correct_probability": 0.4966924786567688,
+            "mean_correct_rank": 1.3333333333333333
+          },
+          {
+            "row": 2,
+            "cell_count": 3,
+            "sum_nll": 0.5608994254725985,
+            "mean_nll": 0.18696647515753284,
+            "mean_correct_probability": 0.8372142314910889,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 3,
+            "cell_count": 3,
+            "sum_nll": 0.31809650907234754,
+            "mean_nll": 0.10603216969078251,
+            "mean_correct_probability": 0.9087804555892944,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 4,
+            "cell_count": 3,
+            "sum_nll": 0.8045372433989542,
+            "mean_nll": 0.2681790811329847,
+            "mean_correct_probability": 0.8021105428536733,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 5,
+            "cell_count": 3,
+            "sum_nll": 0.0009601984311302658,
+            "mean_nll": 0.0003200661437100886,
+            "mean_correct_probability": 0.9996800223986307,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 6,
+            "cell_count": 3,
+            "sum_nll": 0.005807275589177152,
+            "mean_nll": 0.0019357585297257174,
+            "mean_correct_probability": 0.9980689883232117,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 7,
+            "cell_count": 3,
+            "sum_nll": 0.00017713459510559915,
+            "mean_nll": 5.904486503519971e-05,
+            "mean_correct_probability": 0.9999409516652426,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 8,
+            "cell_count": 3,
+            "sum_nll": 0.01981500345323184,
+            "mean_nll": 0.006605001151077279,
+            "mean_correct_probability": 0.9934599200884501,
+            "mean_correct_rank": 1.0
+          }
+        ],
+        "tokens": [
+          {
+            "kind": "cell",
+            "row": 0,
+            "column": 0,
+            "token_id": 7,
+            "nll": 13.500038146972656,
+            "correct_probability": 1.3709063750866335e-06,
+            "correct_rank": 9
+          },
+          {
+            "kind": "cell",
+            "row": 0,
+            "column": 1,
+            "token_id": 7,
+            "nll": 5.213181018829346,
+            "correct_probability": 0.0054443273693323135,
+            "correct_rank": 4
+          },
+          {
+            "kind": "cell",
+            "row": 0,
+            "column": 2,
+            "token_id": 9,
+            "nll": 0.6428778767585754,
+            "correct_probability": 0.5257771611213684,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 0,
+            "token_id": 10,
+            "nll": 4.541770613286644e-05,
+            "correct_probability": 0.9999545812606812,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 1,
+            "column": 0,
+            "token_id": 7,
+            "nll": 1.0028001070022583,
+            "correct_probability": 0.3668507933616638,
+            "correct_rank": 2
+          },
+          {
+            "kind": "cell",
+            "row": 1,
+            "column": 1,
+            "token_id": 2,
+            "nll": 0.6899018883705139,
+            "correct_probability": 0.5016252994537354,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 1,
+            "column": 2,
+            "token_id": 9,
+            "nll": 0.4754562973976135,
+            "correct_probability": 0.6216013431549072,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 1,
+            "token_id": 10,
+            "nll": 3.540453326422721e-05,
+            "correct_probability": 0.9999645948410034,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 2,
+            "column": 0,
+            "token_id": 7,
+            "nll": 0.3144279718399048,
+            "correct_probability": 0.7302064299583435,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 2,
+            "column": 1,
+            "token_id": 2,
+            "nll": 0.24593277275562286,
+            "correct_probability": 0.7819747924804688,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 2,
+            "column": 2,
+            "token_id": 9,
+            "nll": 0.000538680877070874,
+            "correct_probability": 0.9994614720344543,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 2,
+            "token_id": 10,
+            "nll": 6.198863957251888e-06,
+            "correct_probability": 0.9999938011169434,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 3,
+            "column": 0,
+            "token_id": 7,
+            "nll": 0.31366533041000366,
+            "correct_probability": 0.7307635545730591,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 3,
+            "column": 1,
+            "token_id": 7,
+            "nll": 0.004237482324242592,
+            "correct_probability": 0.9957714676856995,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 3,
+            "column": 2,
+            "token_id": 9,
+            "nll": 0.00019369633810129017,
+            "correct_probability": 0.9998063445091248,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 3,
+            "token_id": 10,
+            "nll": 7.867782187531702e-06,
+            "correct_probability": 0.9999921321868896,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 4,
+            "column": 0,
+            "token_id": 4,
+            "nll": 0.721514105796814,
+            "correct_probability": 0.48601582646369934,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 4,
+            "column": 1,
+            "token_id": 4,
+            "nll": 0.0828462466597557,
+            "correct_probability": 0.9204926490783691,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 4,
+            "column": 2,
+            "token_id": 7,
+            "nll": 0.00017689094238448888,
+            "correct_probability": 0.9998231530189514,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 4,
+            "token_id": 10,
+            "nll": 2.861018856492592e-06,
+            "correct_probability": 0.9999971389770508,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 5,
+            "column": 0,
+            "token_id": 4,
+            "nll": 0.0006983225466683507,
+            "correct_probability": 0.9993019104003906,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 5,
+            "column": 1,
+            "token_id": 4,
+            "nll": 3.2066785934148356e-05,
+            "correct_probability": 0.9999679327011108,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 5,
+            "column": 2,
+            "token_id": 7,
+            "nll": 0.00022980909852776676,
+            "correct_probability": 0.9997702240943909,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 5,
+            "token_id": 10,
+            "nll": 1.0132738680113107e-05,
+            "correct_probability": 0.9999898672103882,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 6,
+            "column": 0,
+            "token_id": 6,
+            "nll": 0.005327314604073763,
+            "correct_probability": 0.9946868419647217,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 6,
+            "column": 1,
+            "token_id": 6,
+            "nll": 0.0004328744253143668,
+            "correct_probability": 0.9995672106742859,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 6,
+            "column": 2,
+            "token_id": 1,
+            "nll": 4.708655978902243e-05,
+            "correct_probability": 0.9999529123306274,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 6,
+            "token_id": 10,
+            "nll": 1.2993727978027891e-05,
+            "correct_probability": 0.999987006187439,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 7,
+            "column": 0,
+            "token_id": 6,
+            "nll": 0.0001419681793777272,
+            "correct_probability": 0.999858021736145,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 7,
+            "column": 1,
+            "token_id": 6,
+            "nll": 1.3708974620385561e-05,
+            "correct_probability": 0.9999862909317017,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 7,
+            "column": 2,
+            "token_id": 6,
+            "nll": 2.1457441107486375e-05,
+            "correct_probability": 0.9999785423278809,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 7,
+            "token_id": 10,
+            "nll": 4.541770613286644e-05,
+            "correct_probability": 0.9999545812606812,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 8,
+            "column": 0,
+            "token_id": 1,
+            "nll": 0.019802724942564964,
+            "correct_probability": 0.9803920388221741,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 8,
+            "column": 1,
+            "token_id": 6,
+            "nll": 9.059865078597795e-06,
+            "correct_probability": 0.9999909400939941,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 8,
+            "column": 2,
+            "token_id": 1,
+            "nll": 3.2186455882765586e-06,
+            "correct_probability": 0.9999967813491821,
+            "correct_rank": 1
+          },
+          {
+            "kind": "eos",
+            "token_id": 15,
+            "nll": 2.861018856492592e-06,
+            "correct_probability": 0.9999971389770508,
+            "correct_rank": 1
+          }
+        ]
+      },
+      "delta_per_token_nll": 0.23087792071902408
+    },
+    "decoding": {
+      "prompt_condition": "baseline_full_30x30",
+      "normalization": "DFS scores cover generated suffix tokens only. No score is compared across prefix lengths; exact completion is the endpoint.",
+      "conditions": [
+        {
+          "prefix_rows": 0,
+          "exact_completion": false,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  9,
+                  1,
+                  3
+                ],
+                [
+                  9,
+                  9,
+                  2
+                ],
+                [
+                  9,
+                  9,
+                  2
+                ],
+                [
+                  9,
+                  1,
+                  3
+                ],
+                [
+                  7,
+                  2,
+                  7
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  1,
+                  6,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  7
+                ],
+                [
+                  1,
+                  6,
+                  1
+                ]
+              ],
+              "suffix_score": 0.68341064453125,
+              "generated_suffix_tokens": 36,
+              "suffix_mean_score": 0.018983629014756944
+            },
+            {
+              "grid": [
+                [
+                  9,
+                  1,
+                  3
+                ],
+                [
+                  9,
+                  9,
+                  2
+                ],
+                [
+                  9,
+                  9,
+                  2
+                ],
+                [
+                  9,
+                  1,
+                  3
+                ],
+                [
+                  7,
+                  2,
+                  7
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  1,
+                  6,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  7
+                ],
+                [
+                  1,
+                  5,
+                  4
+                ]
+              ],
+              "suffix_score": 1.1836166381835938,
+              "generated_suffix_tokens": 36,
+              "suffix_mean_score": 0.03287823994954427
+            }
+          ]
+        },
+        {
+          "prefix_rows": 1,
+          "exact_completion": false,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 4,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": []
+        },
+        {
+          "prefix_rows": 2,
+          "exact_completion": false,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 8,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": []
+        },
+        {
+          "prefix_rows": 3,
+          "exact_completion": true,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 12,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  1,
+                  6,
+                  1
+                ]
+              ],
+              "suffix_score": 1.1609878540039062,
+              "generated_suffix_tokens": 24,
+              "suffix_mean_score": 0.04837449391682943
+            }
+          ]
+        },
+        {
+          "prefix_rows": 4,
+          "exact_completion": true,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 16,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  1,
+                  6,
+                  1
+                ]
+              ],
+              "suffix_score": 0.831329345703125,
+              "generated_suffix_tokens": 20,
+              "suffix_mean_score": 0.04156646728515625
+            }
+          ]
+        },
+        {
+          "prefix_rows": 5,
+          "exact_completion": true,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 20,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  1,
+                  6,
+                  1
+                ]
+              ],
+              "suffix_score": 0.02675628662109375,
+              "generated_suffix_tokens": 16,
+              "suffix_mean_score": 0.0016722679138183594
+            }
+          ]
+        },
+        {
+          "prefix_rows": 8,
+          "exact_completion": true,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 32,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  1,
+                  6,
+                  1
+                ]
+              ],
+              "suffix_score": 0.01981353759765625,
+              "generated_suffix_tokens": 4,
+              "suffix_mean_score": 0.0049533843994140625
+            }
+          ]
+        },
+        {
+          "condition_id": "prefix_8_rows_plus_1_cell",
+          "prefix_rows": null,
+          "forced_full_rows": 8,
+          "forced_additional_cells": [
+            {
+              "row": 8,
+              "column": 0
+            }
+          ],
+          "exact_completion": true,
+          "budget_seconds": 300,
+          "dfs_window_seconds": 300,
+          "prefix_token_count": 33,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  1,
+                  6,
+                  1
+                ]
+              ],
+              "suffix_score": 7.62939453125e-06,
+              "generated_suffix_tokens": 3,
+              "suffix_mean_score": 2.5431315104166665e-06
+            }
+          ]
+        }
+      ],
+      "smallest_exact_prefix_rows": 3
+    }
+  },
+  "limitations": {
+    "oracle_crop_is_ood": true,
+    "transpose_probe_is_capability_test_not_fair_solver": true,
+    "results_require_gpu_execution": false,
+    "forced_prefix_scores_comparable_across_prefixes": false
+  },
+  "v1_findings": {
+    "report_preserved_as": "stage_diagnosis_report.json",
+    "crop_without_hint_failed": true,
+    "crop_with_two_transpose_demonstrations_succeeded": true,
+    "full_baseline_failed": true,
+    "eight_forced_rows_only_error": {
+      "row": 8,
+      "column": 0
+    },
+    "eight_forced_rows_truth_probability_at_error": 0.010953,
+    "min_probability": 0.2
+  },
+  "v2_hypotheses": {
+    "transpose_hint_full": "tests whether supplying the operation is sufficient when localization remains unknown",
+    "transpose_hint_mask": "tests whether supplying both operation and localized source is sufficient while preserving canvas shape",
+    "transpose_hint_crops": "tests source correspondence with an identical operation hint and budget",
+    "prefix_8_rows_plus_1_cell": "tests whether forcing the sole low-probability truth cell closes DFS"
+  }
+}

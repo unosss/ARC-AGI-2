@@ -1,0 +1,114 @@
+{
+  "family": "shape",
+  "condition": "d4",
+  "source_artifact": "artifacts/shape_d4.json",
+  "computed_matches": [
+    {
+      "case": "shape_0",
+      "matches": [
+        {
+          "query": "Q0",
+          "prototype": "L3",
+          "transform": "identity",
+          "normalized_query": [[0, 0], [1, 0], [1, 1]],
+          "normalized_transform": [[0, 0], [1, 0], [1, 1]]
+        },
+        {
+          "query": "Q1",
+          "prototype": "L3",
+          "transform": "reflection_across_horizontal_axis",
+          "normalized_query": [[0, 0], [0, 1], [1, 0]],
+          "normalized_transform": [[0, 0], [0, 1], [1, 0]]
+        },
+        {
+          "query": "Q2",
+          "prototype": "Z4",
+          "transform": "identity",
+          "normalized_query": [[0, 0], [0, 1], [1, 1], [1, 2]],
+          "normalized_transform": [[0, 0], [0, 1], [1, 1], [1, 2]]
+        },
+        {
+          "query": "Q3",
+          "prototype": "Z4",
+          "transform": "reflection_across_vertical_axis",
+          "normalized_query": [[0, 1], [0, 2], [1, 0], [1, 1]],
+          "normalized_transform": [[0, 1], [0, 2], [1, 0], [1, 1]]
+        },
+        {
+          "query": "Q4",
+          "prototype": "I3",
+          "transform": "rotation_90",
+          "normalized_query": [[0, 0], [1, 0], [2, 0]],
+          "normalized_transform": [[0, 0], [1, 0], [2, 0]]
+        },
+        {
+          "query": "Q5",
+          "prototype": "I3",
+          "transform": "identity",
+          "normalized_query": [[0, 0], [0, 1], [0, 2]],
+          "normalized_transform": [[0, 0], [0, 1], [0, 2]]
+        }
+      ]
+    },
+    {
+      "case": "shape_1",
+      "matches": [
+        {
+          "query": "Q0",
+          "prototype": "L3",
+          "transform": "identity",
+          "normalized_query": [[0, 0], [1, 0], [1, 1]],
+          "normalized_transform": [[0, 0], [1, 0], [1, 1]]
+        },
+        {
+          "query": "Q1",
+          "prototype": "L3",
+          "transform": "rotation_180",
+          "normalized_query": [[0, 0], [0, 1], [1, 1]],
+          "normalized_transform": [[0, 0], [0, 1], [1, 1]]
+        },
+        {
+          "query": "Q2",
+          "prototype": "Z4",
+          "transform": "reflection_across_vertical_axis_then_rotation_90",
+          "normalized_query": [[0, 0], [1, 0], [1, 1], [2, 1]],
+          "normalized_transform": [[0, 0], [1, 0], [1, 1], [2, 1]]
+        },
+        {
+          "query": "Q3",
+          "prototype": "Z4",
+          "transform": "reflection_across_vertical_axis",
+          "normalized_query": [[0, 1], [0, 2], [1, 0], [1, 1]],
+          "normalized_transform": [[0, 1], [0, 2], [1, 0], [1, 1]]
+        }
+      ]
+    }
+  ],
+  "test": [
+    [
+      [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+      [7, 4, 7, 7, 7, 4, 4, 7, 7, 7, 7, 7, 2, 7, 7, 7],
+      [7, 4, 4, 7, 7, 4, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7],
+      [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7],
+      [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+      [7, 8, 8, 7, 7, 7, 8, 8, 7, 7, 7, 7, 7, 7, 7, 7],
+      [7, 7, 8, 8, 7, 8, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+      [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+      [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 2, 2, 2, 7, 7, 7],
+      [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+      [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+    ],
+    [
+      [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+      [7, 3, 7, 7, 7, 7, 3, 3, 7, 7, 7, 7, 7, 7],
+      [7, 3, 3, 7, 7, 7, 7, 3, 7, 7, 7, 7, 7, 7],
+      [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+      [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+      [7, 9, 7, 7, 7, 7, 7, 9, 9, 7, 7, 7, 7, 7],
+      [7, 9, 9, 7, 7, 7, 9, 9, 7, 7, 7, 7, 7, 7],
+      [7, 7, 9, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+      [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+      [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+    ]
+  ]
+}

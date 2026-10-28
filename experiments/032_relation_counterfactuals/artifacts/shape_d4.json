@@ -1,0 +1,327 @@
+{
+  "experiment": 32,
+  "family": "shape",
+  "condition": "d4",
+  "coordinate_convention": "zero-based [row,column], inclusive bounds where ranges are used",
+  "colors": {
+    "background": 7,
+    "source": 6
+  },
+  "rule": "A query matches a prototype iff translation-normalized cell sets become equal after any sequence of 90-degree rotations and reflection. Recolor matched queries to the prototype target; retain source color for unmatched queries.",
+  "cases": [
+    {
+      "id": "shape_0",
+      "dimensions": [
+        11,
+        16
+      ],
+      "prototypes": [
+        {
+          "name": "L3",
+          "cells": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "target_color": 4
+        },
+        {
+          "name": "Z4",
+          "cells": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "target_color": 8
+        },
+        {
+          "name": "I3",
+          "cells": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "target_color": 2
+        }
+      ],
+      "queries": [
+        {
+          "id": "Q0",
+          "cells": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ]
+        },
+        {
+          "id": "Q1",
+          "cells": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              2,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "Q2",
+          "cells": [
+            [
+              5,
+              1
+            ],
+            [
+              5,
+              2
+            ],
+            [
+              6,
+              2
+            ],
+            [
+              6,
+              3
+            ]
+          ]
+        },
+        {
+          "id": "Q3",
+          "cells": [
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              6,
+              6
+            ]
+          ]
+        },
+        {
+          "id": "Q4",
+          "cells": [
+            [
+              1,
+              12
+            ],
+            [
+              2,
+              12
+            ],
+            [
+              3,
+              12
+            ]
+          ]
+        },
+        {
+          "id": "Q5",
+          "cells": [
+            [
+              8,
+              10
+            ],
+            [
+              8,
+              11
+            ],
+            [
+              8,
+              12
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shape_1",
+      "dimensions": [
+        10,
+        14
+      ],
+      "prototypes": [
+        {
+          "name": "L3",
+          "cells": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "target_color": 3
+        },
+        {
+          "name": "Z4",
+          "cells": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "target_color": 9
+        }
+      ],
+      "queries": [
+        {
+          "id": "Q0",
+          "cells": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ]
+        },
+        {
+          "id": "Q1",
+          "cells": [
+            [
+              1,
+              6
+            ],
+            [
+              1,
+              7
+            ],
+            [
+              2,
+              7
+            ]
+          ]
+        },
+        {
+          "id": "Q2",
+          "cells": [
+            [
+              5,
+              1
+            ],
+            [
+              6,
+              1
+            ],
+            [
+              6,
+              2
+            ],
+            [
+              7,
+              2
+            ]
+          ]
+        },
+        {
+          "id": "Q3",
+          "cells": [
+            [
+              5,
+              7
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              6,
+              7
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "construction": [
+    "Initialize the output to background.",
+    "Generate and translation-normalize all D4 transforms of each prototype.",
+    "Normalize each query and test set equality against the transformed prototypes.",
+    "Apply the first match, otherwise retain source color, then paint query cells."
+  ],
+  "precomputed_memberships_included": false,
+  "literal_output_grids_included": false
+}

@@ -1,0 +1,243 @@
+{
+  "task_id": "bf32578f",
+  "run": "r1",
+  "vocabulary": {
+    "background": "Cell value 0.",
+    "foreground_color": "The unique nonzero cell value in a grid; it is preserved by the transformation.",
+    "open_boundary": "The 8-connected foreground path in the input. Its two degree-1 path endpoints lie in different rows but in the same column.",
+    "endpoint": "One of the two terminal cells of the open boundary under 8-neighbor path connectivity.",
+    "reflection_axis": "The vertical grid line through the common endpoint column.",
+    "active_row": "A row strictly between the two endpoint rows.",
+    "source_run": "The inclusive interval from the minimum to maximum foreground column on an active row.",
+    "reflected_outer_column": "For axis column a and source-run minimum column l, the column 2*a-l.",
+    "generated_run": "On an active row, the inclusive interval from one cell right of the source-run maximum through the reflected outer column."
+  },
+  "extraction": {
+    "coordinate_convention": "Zero-based [row,column], with rows increasing downward and columns increasing rightward.",
+    "steps": [
+      "Record grid height H and width W.",
+      "Set foreground_color to the unique nonzero value and collect all cells of that value.",
+      "Regard foreground cells as an ordered 8-neighbor path and identify its two terminal cells. If local diagonal and orthogonal contacts coexist, use the non-branching traversal that follows the visible one-cell-thick contour from one extreme terminal to the other.",
+      "Verify that the terminals have coordinates [r_top,a] and [r_bottom,a], where r_top < r_bottom; column a is the reflection_axis.",
+      "For every row r with r_top < r < r_bottom, collect that row's foreground columns. Let l_r be their minimum and u_r their maximum. Preserve horizontal source runs as intervals rather than collapsing them to one cell.",
+      "The symbolic input instance is completely represented by H, W, foreground_color, the endpoint rows and axis column, and the source run [l_r,u_r] for every active row."
+    ],
+    "malformed_case_policy": "The observed task family always has two vertically separated endpoints sharing a column and at least one source cell on every active row. No extrapolation is asserted outside that family."
+  },
+  "instances": {
+    "train": [
+      {
+        "id": "train_0",
+        "input": {
+          "dimensions": [6, 6],
+          "foreground_color": 8,
+          "endpoints": [[0, 2], [4, 2]],
+          "reflection_axis_column": 2,
+          "source_runs_by_row": {
+            "0": [0, 2],
+            "1": [0, 0],
+            "2": [0, 0],
+            "3": [0, 0],
+            "4": [0, 2]
+          },
+          "active_rows": [1, 2, 3]
+        },
+        "observed_output": {
+          "dimensions": [6, 6],
+          "foreground_color": 8,
+          "foreground_runs_by_row": {
+            "1": [1, 4],
+            "2": [1, 4],
+            "3": [1, 4]
+          },
+          "all_unlisted_cells": 0
+        }
+      },
+      {
+        "id": "train_1",
+        "input": {
+          "dimensions": [10, 10],
+          "foreground_color": 7,
+          "endpoints": [[3, 4], [8, 4]],
+          "reflection_axis_column": 4,
+          "source_runs_by_row": {
+            "3": [4, 4],
+            "4": [3, 3],
+            "5": [2, 2],
+            "6": [2, 2],
+            "7": [3, 3],
+            "8": [4, 4]
+          },
+          "active_rows": [4, 5, 6, 7]
+        },
+        "observed_output": {
+          "dimensions": [10, 10],
+          "foreground_color": 7,
+          "foreground_runs_by_row": {
+            "4": [4, 5],
+            "5": [3, 6],
+            "6": [3, 6],
+            "7": [4, 5]
+          },
+          "all_unlisted_cells": 0
+        }
+      },
+      {
+        "id": "train_2",
+        "input": {
+          "dimensions": [6, 6],
+          "foreground_color": 6,
+          "endpoints": [[1, 2], [5, 2]],
+          "reflection_axis_column": 2,
+          "source_runs_by_row": {
+            "1": [2, 2],
+            "2": [1, 1],
+            "3": [0, 0],
+            "4": [1, 1],
+            "5": [2, 2]
+          },
+          "active_rows": [2, 3, 4]
+        },
+        "observed_output": {
+          "dimensions": [6, 6],
+          "foreground_color": 6,
+          "foreground_runs_by_row": {
+            "2": [2, 3],
+            "3": [1, 4],
+            "4": [2, 3]
+          },
+          "all_unlisted_cells": 0
+        }
+      }
+    ],
+    "test": [
+      {
+        "id": "test_0",
+        "input": {
+          "dimensions": [8, 8],
+          "foreground_color": 1,
+          "endpoints": [[1, 3], [6, 3]],
+          "reflection_axis_column": 3,
+          "source_runs_by_row": {
+            "1": [3, 3],
+            "2": [1, 2],
+            "3": [0, 0],
+            "4": [0, 0],
+            "5": [1, 2],
+            "6": [3, 3]
+          },
+          "active_rows": [2, 3, 4, 5]
+        }
+      }
+    ]
+  },
+  "invariances": {
+    "preserved": [
+      "Grid height and width.",
+      "The unique nonzero color.",
+      "Absolute row positions of the two endpoints and therefore the active-row band.",
+      "Absolute reflection-axis column.",
+      "Per-row horizontal extent of the source boundary, including horizontal runs."
+    ],
+    "discarded": [
+      "All original foreground cells are cleared rather than copied directly.",
+      "Path traversal direction from upper to lower endpoint.",
+      "The background area outside the constructed region.",
+      "Any semantic dependence on the numeric identity of the nonzero color."
+    ],
+    "equivariances": [
+      "A translation that keeps all constructed cells in bounds translates the construction identically.",
+      "Changing the sole nonzero input color changes only the output foreground color.",
+      "Vertical stretching or contour reshaping changes each row independently according to that row's extracted source run."
+    ]
+  },
+  "candidate_models": [
+    {
+      "id": "M1_reflect_close_fill_asymmetric_boundary",
+      "description": "Use the endpoint column as a vertical mirror. On each active row, fill from immediately right of the entire original source run through the reflection of that run's leftmost cell, inclusive. Clear endpoint rows and every other cell.",
+      "status": "selected",
+      "rationale": "Exactly reproduces every foreground and background cell in all three training outputs. It interprets the input as one side of a boundary, fills the enclosed region, excludes the supplied boundary, and includes its newly generated reflected side."
+    },
+    {
+      "id": "M2_strict_interior_of_reflected_closed_shape",
+      "description": "Reflect the boundary and color only cells strictly interior to the resulting closed shape, excluding both original and reflected boundary cells.",
+      "status": "rejected",
+      "rationale": "It omits the rightmost generated column on active rows. For example, train_1 row 5 would stop at column 5, but the observed output includes column 6."
+    },
+    {
+      "id": "M3_fill_active_bounding_rectangle",
+      "description": "Fill one fixed horizontal interval throughout all rows between the endpoint rows.",
+      "status": "rejected",
+      "rationale": "It cannot reproduce the varying row widths in train_1 or train_2."
+    },
+    {
+      "id": "M4_reflect_foreground_only",
+      "description": "Mirror the original path across the endpoint column without filling between the sides.",
+      "status": "rejected",
+      "rationale": "It leaves uncolored interior cells that are foreground in every training output."
+    }
+  ],
+  "train_validation": {
+    "formula": "For each active row r, predicted output run is [u_r+1, 2*a-l_r], inclusive; output is background elsewhere.",
+    "examples": [
+      {
+        "train_id": "train_0",
+        "calculations": [
+          "Rows 1,2,3 each have [l,u]=[0,0] and a=2, giving [1,4]."
+        ],
+        "result": "Exact 36/36 cells."
+      },
+      {
+        "train_id": "train_1",
+        "calculations": [
+          "Row 4: [3,3], a=4 -> [4,5].",
+          "Rows 5 and 6: [2,2], a=4 -> [3,6].",
+          "Row 7: [3,3], a=4 -> [4,5]."
+        ],
+        "result": "Exact 100/100 cells."
+      },
+      {
+        "train_id": "train_2",
+        "calculations": [
+          "Rows 2 and 4: [1,1], a=2 -> [2,3].",
+          "Row 3: [0,0], a=2 -> [1,4]."
+        ],
+        "result": "Exact 36/36 cells."
+      }
+    ],
+    "aggregate_result": "Exact on all 172 training cells, with no foreground omissions or false positives.",
+    "discriminating_evidence": "The observed inclusion of reflected-side boundary cells rejects strict-interior filling, while blank endpoint rows reject indiscriminate row-span filling across the terminal caps."
+  },
+  "selected_model": "M1_reflect_close_fill_asymmetric_boundary",
+  "remaining_ambiguities": [
+    {
+      "issue": "Horizontal source runs on active rows occur in the test instance but not on active rows in training.",
+      "resolution_used": "Treat the entire run as supplied boundary: start generated fill at u_r+1, and reflect its outer/leftmost extent l_r to determine the far edge. This is the direct row-wise extension of excluding the original boundary while including the reflected boundary.",
+      "impact": "Resolved deterministically in execution_spec; no raw-grid information is needed."
+    },
+    {
+      "issue": "Training does not distinguish a geometric reflected-boundary interpretation from the equivalent row-interval arithmetic rule on this family.",
+      "resolution_used": "Use the explicit interval rule because it is operationally complete and exactly validated.",
+      "impact": "No effect on execution for the encoded test instance."
+    }
+  ],
+  "execution_spec": {
+    "scope": "Construct the output for each test instance solely from its symbolic input entry.",
+    "coordinate_convention": "Zero-based [row,column]; intervals are inclusive.",
+    "output_dimensions": "Copy the input dimensions [H,W] unchanged.",
+    "required_test_entities": "For test_0, all required data are in instances.test[0]: dimensions, foreground_color, endpoint rows, reflection_axis_column, active_rows, and source_runs_by_row.",
+    "ordered_construction": [
+      "Allocate an H-by-W output and initialize every cell to 0.",
+      "Read axis column a and foreground color k.",
+      "Process active rows in ascending order. For each active row r, read source interval [l_r,u_r].",
+      "Compute start column s_r=u_r+1 and end column e_r=2*a-l_r.",
+      "For every integer column c from s_r through e_r inclusive, set output[r][c]=k.",
+      "Leave endpoint rows, non-active rows, and active-row cells outside the generated interval at 0.",
+      "Return the completed grid."
+    ],
+    "collision_behavior": "There is only one generated run per row. If generated writes overlap, they have the same foreground color and are idempotent. Original input cells are not pre-copied.",
+    "boundary_behavior": "The represented instances place every computed interval within 0 <= column < W. If applying the rule to an otherwise compatible translated instance, clip writes to grid bounds; no wrapping occurs.",
+    "blank_interval_behavior": "If s_r > e_r, write no foreground cells on that row.",
+    "completeness_note": "The test input's raw cells are unnecessary: its full nonzero row-run encoding and every parameter consumed by this procedure are present in instances.test."
+  }
+}

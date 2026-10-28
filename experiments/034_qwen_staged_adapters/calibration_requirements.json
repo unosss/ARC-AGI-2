@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "experiment": 34,
+  "status": "a6000_fast_profile_gate_passed_full_running",
+  "local_feasibility": {
+    "gpu": "NVIDIA GeForce RTX 3060 Ti",
+    "memory_mib": 8192,
+    "driver": "591.86",
+    "production_calibration_allowed": false,
+    "reason": "The preregistered minimum is 24000000000 bytes; the local GPU exposes 8192 MiB."
+  },
+  "production_requirement": {
+    "minimum_gpu_memory_bytes": 24000000000,
+    "empirical_recommended_gpu_memory_gib": 48,
+    "time_and_memory_safety_margin": 0.25,
+    "maximum_projected_seconds": 604800,
+    "reduced_task_fallback": false
+  },
+  "prior_measurements": {
+    "experiment_021_rank64_global_peak_gib": 11.95,
+    "experiment_021_rank256_task_peak_gib": 17.65,
+    "source": "experiments/021_qwen_2d_grid_adapter/README.md"
+  },
+  "validated_locally": {
+    "python_syntax": true,
+    "setup_shell_syntax": true,
+    "tiny_and_regression_tests": "69 passed",
+    "prepare_smoke": true,
+    "ide_lints": "none"
+  },
+  "artifact_sha256": {
+    "config.json": "485bcbdc3494258dfef37b3996b5dc2febbf38baeca3acf6d29229a1cd681ded",
+    "worker.py": "4e0ac0a913567feaeb70deb3f713fd13839d23c1e5e28dfdb1fff78b64aaae6a",
+    "run_experiment.py": "6647aa51fd3d26b6387e4c2ec82b443db90256c54de093e52435724ca9a21ee2"
+  },
+  "next_command": "python kaggle_runs/qwen_staged_adapters_runpod/run_experiment.py --repo \"$PWD\" --challenges \"$CHALLENGES\" --model \"$MODEL\" --work \"$WORK\" --calibrate-only",
+  "gate_outputs": [
+    "WORK/calibration/result.json",
+    "WORK/calibration/gate.json"
+  ],
+  "external_attempt": {
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "total_memory_bytes": 25252724736,
+    "panel_prepared": true,
+    "primary_tasks": 32,
+    "control_tasks": 8,
+    "completed_global_samples": [
+      "staged",
+      "mixed",
+      "reversed"
+    ],
+    "failure_stage": "shuffled_interpretation",
+    "failure": "CUDA out of memory while allocating 62 MiB with 23.50 GiB already in use",
+    "optimizer_state_cpu_offload_retried": true,
+    "reentrant_activation_checkpointing_retried": true,
+    "gate_passed": false
+  },
+  "a6000_calibration": {
+    "gpu": "NVIDIA RTX A6000",
+    "total_memory_bytes": 47699722240,
+    "peak_allocated_bytes": 34836281344,
+    "peak_with_25_percent_margin_bytes": 43545351680,
+    "memory_passed": true,
+    "projected_full_seconds": 45495.15727561971,
+    "projected_with_25_percent_margin_seconds": 56868.94659452464,
+    "maximum_projected_seconds": 604800,
+    "time_passed": true,
+    "gate_passed": true,
+    "required_checks_passed": true,
+    "artifacts": "experiments/034_qwen_staged_adapters/a6000_calibration"
+  },
+  "paid_gpu_started": true
+}

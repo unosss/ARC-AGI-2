@@ -1,0 +1,35 @@
+{
+  "task_id": "0d87d2a6",
+  "condition": "I-contact",
+  "controlled_pair": "0d87d2a6_overlap.json",
+  "output_dimensions": [23, 25],
+  "coordinate_convention": "zero-based inclusive rectangle bounds",
+  "colors": {"background": 0, "guide": 1, "payload": 2},
+  "guide_axes": [
+    {"orientation": "vertical", "index": 5, "span": [0, 22]},
+    {"orientation": "horizontal", "index": 4, "span": [0, 24]},
+    {"orientation": "horizontal", "index": 11, "span": [0, 24]}
+  ],
+  "payload_components": [
+    {"id": "C0", "rows": [0, 3], "cols": [9, 11], "relation": "contact_only"},
+    {"id": "C1", "rows": [1, 4], "cols": [19, 22], "relation": "overlap"},
+    {"id": "C2", "rows": [3, 5], "cols": [4, 6], "relation": "overlap"},
+    {"id": "C3", "rows": [3, 7], "cols": [13, 17], "relation": "overlap"},
+    {"id": "C4", "rows": [6, 8], "cols": [22, 23], "relation": "disjoint"},
+    {"id": "C5", "rows": [9, 11], "cols": [9, 10], "relation": "overlap"},
+    {"id": "C6", "rows": [10, 13], "cols": [1, 5], "relation": "overlap"},
+    {"id": "C7", "rows": [16, 20], "cols": [5, 13], "relation": "overlap"},
+    {"id": "C8", "rows": [16, 18], "cols": [21, 23], "relation": "disjoint"},
+    {"id": "C9", "rows": [18, 19], "cols": [17, 18], "relation": "disjoint"}
+  ],
+  "selection_relation": "Select a payload component if and only if relation is overlap or contact_only.",
+  "selected_components": ["C0", "C1", "C2", "C3", "C5", "C6", "C7"],
+  "construction": [
+    "Initialize the output with background color.",
+    "Paint every payload rectangle with payload color.",
+    "Paint every guide axis with guide color.",
+    "Repaint every selected component rectangle with guide color."
+  ],
+  "collision_behavior": "guide color wins",
+  "literal_test_output_grid_included": false
+}

@@ -1,0 +1,291 @@
+{
+  "task_id": "72207abc",
+  "run": "r2",
+  "vocabulary": {
+    "background": {
+      "cell_value": 0,
+      "meaning": "empty cell"
+    },
+    "canvas": {
+      "meaning": "a rectangular grid whose dimensions are preserved"
+    },
+    "active_row": {
+      "meaning": "the unique row containing non-background cells"
+    },
+    "triangular_index": {
+      "definition": "T(n) = n*(n+1)/2 for integer n >= 0",
+      "meaning": "a zero-based column selected by the growing-gap sequence"
+    },
+    "seed_word": {
+      "meaning": "the ordered list of colors at the consecutive initial triangular indices T(0), T(1), ..., T(k-1)"
+    },
+    "periodic_color_assignment": {
+      "definition": "the color at T(n) is seed_word[n mod k]"
+    },
+    "sparse_grid_encoding": {
+      "meaning": "dimensions, background value, and a list of non-background cells; every unlisted cell is background"
+    }
+  },
+  "extraction": {
+    "coordinate_convention": "Rows and columns are zero-based; a cell coordinate is [row, column].",
+    "steps": [
+      "Record input height H and width W.",
+      "Find all cells whose value is not 0. Require them to lie in one row; call it active_row r.",
+      "Enumerate triangular columns T(0), T(1), ... while T(n) < W.",
+      "Starting at n=0, collect the colors found at consecutive triangular columns. Stop at the first triangular column containing 0 after at least one color. The collected ordered colors form seed_word and its length is k.",
+      "Require every non-background input cell to be one of the collected seed cells; thus no input evidence is discarded as decoration.",
+      "Represent both inputs and outputs sparsely: all unspecified coordinates have value 0."
+    ],
+    "derived_sequence_fact": "Successive triangular columns have gaps T(n+1)-T(n)=n+1, so the selected columns begin 0, 1, 3, 6, 10, 15, 21, 28."
+  },
+  "instances": {
+    "train": [
+      {
+        "id": "train_0",
+        "input": {
+          "dimensions": [3, 19],
+          "active_row": 1,
+          "seed_word": [6, 8, 1],
+          "seed_length": 3,
+          "non_background_cells": [
+            [1, 0, 6],
+            [1, 1, 8],
+            [1, 3, 1]
+          ]
+        },
+        "observed_output": {
+          "dimensions": [3, 19],
+          "non_background_cells": [
+            [1, 0, 6],
+            [1, 1, 8],
+            [1, 3, 1],
+            [1, 6, 6],
+            [1, 10, 8],
+            [1, 15, 1]
+          ]
+        },
+        "derived_assignments": [
+          {"n": 0, "column": 0, "word_index": 0, "color": 6},
+          {"n": 1, "column": 1, "word_index": 1, "color": 8},
+          {"n": 2, "column": 3, "word_index": 2, "color": 1},
+          {"n": 3, "column": 6, "word_index": 0, "color": 6},
+          {"n": 4, "column": 10, "word_index": 1, "color": 8},
+          {"n": 5, "column": 15, "word_index": 2, "color": 1}
+        ]
+      },
+      {
+        "id": "train_1",
+        "input": {
+          "dimensions": [3, 29],
+          "active_row": 1,
+          "seed_word": [2, 3],
+          "seed_length": 2,
+          "non_background_cells": [
+            [1, 0, 2],
+            [1, 1, 3]
+          ]
+        },
+        "observed_output": {
+          "dimensions": [3, 29],
+          "non_background_cells": [
+            [1, 0, 2],
+            [1, 1, 3],
+            [1, 3, 2],
+            [1, 6, 3],
+            [1, 10, 2],
+            [1, 15, 3],
+            [1, 21, 2],
+            [1, 28, 3]
+          ]
+        },
+        "derived_assignments": [
+          {"n": 0, "column": 0, "word_index": 0, "color": 2},
+          {"n": 1, "column": 1, "word_index": 1, "color": 3},
+          {"n": 2, "column": 3, "word_index": 0, "color": 2},
+          {"n": 3, "column": 6, "word_index": 1, "color": 3},
+          {"n": 4, "column": 10, "word_index": 0, "color": 2},
+          {"n": 5, "column": 15, "word_index": 1, "color": 3},
+          {"n": 6, "column": 21, "word_index": 0, "color": 2},
+          {"n": 7, "column": 28, "word_index": 1, "color": 3}
+        ]
+      },
+      {
+        "id": "train_2",
+        "input": {
+          "dimensions": [3, 19],
+          "active_row": 1,
+          "seed_word": [1, 2],
+          "seed_length": 2,
+          "non_background_cells": [
+            [1, 0, 1],
+            [1, 1, 2]
+          ]
+        },
+        "observed_output": {
+          "dimensions": [3, 19],
+          "non_background_cells": [
+            [1, 0, 1],
+            [1, 1, 2],
+            [1, 3, 1],
+            [1, 6, 2],
+            [1, 10, 1],
+            [1, 15, 2]
+          ]
+        },
+        "derived_assignments": [
+          {"n": 0, "column": 0, "word_index": 0, "color": 1},
+          {"n": 1, "column": 1, "word_index": 1, "color": 2},
+          {"n": 2, "column": 3, "word_index": 0, "color": 1},
+          {"n": 3, "column": 6, "word_index": 1, "color": 2},
+          {"n": 4, "column": 10, "word_index": 0, "color": 1},
+          {"n": 5, "column": 15, "word_index": 1, "color": 2}
+        ]
+      }
+    ],
+    "test": [
+      {
+        "id": "test_0",
+        "input": {
+          "dimensions": [3, 29],
+          "active_row": 1,
+          "seed_word": [2, 1, 8],
+          "seed_length": 3,
+          "non_background_cells": [
+            [1, 0, 2],
+            [1, 1, 1],
+            [1, 3, 8]
+          ]
+        },
+        "required_triangular_terms": {
+          "n_range_inclusive": [0, 7],
+          "columns": [0, 1, 3, 6, 10, 15, 21, 28]
+        }
+      }
+    ]
+  },
+  "invariances": {
+    "preserved": [
+      "Grid height and width",
+      "The active row index",
+      "Background color 0",
+      "The order and literal values of colors in seed_word",
+      "All original non-background seed cells"
+    ],
+    "discarded_or_irrelevant": [
+      "The number of background rows above versus below the active row does not affect the one-dimensional continuation rule.",
+      "Color identities have no arithmetic role; they are opaque symbols copied cyclically.",
+      "Absolute width affects only truncation, not the generated sequence.",
+      "Background cells between selected columns do not form objects."
+    ],
+    "equivariances": [
+      "Any consistent renaming of the nonzero colors produces the correspondingly renamed output.",
+      "Changing width merely includes or excludes whole generated terms according to whether their columns are in bounds."
+    ]
+  },
+  "candidate_models": [
+    {
+      "id": "M1",
+      "name": "triangular-index cyclic word continuation",
+      "rule": "For every n >= 0 with T(n) < W, write seed_word[n mod k] at [active_row, T(n)]; leave all other cells 0.",
+      "status": "selected",
+      "support": "It exactly reconstructs all three training outputs, including both two-color and three-color seed words and both observed widths."
+    },
+    {
+      "id": "M2",
+      "name": "fixed-spacing repetition",
+      "rule": "Repeat the seed colors using a constant horizontal stride inferred from their initial locations.",
+      "status": "rejected",
+      "contradictions": [
+        "Training selected-column differences are 1, 2, 3, 4, 5 and onward rather than constant.",
+        "In train_1, selected columns 0, 1, 3, 6, 10, 15, 21, 28 cannot be generated by one fixed stride."
+      ]
+    },
+    {
+      "id": "M3",
+      "name": "repeat the seed's finite spatial motif",
+      "rule": "Translate the whole initial sparse motif by a fixed block width.",
+      "status": "rejected",
+      "contradictions": [
+        "For the two-color inputs, the initial occupied columns 0 and 1 would preserve a constant within-copy displacement and constant block displacement, but the output occupied columns have strictly growing gaps.",
+        "For train_0, later colors occur at 6, 10, and 15 rather than a common translation of the initial columns 0, 1, and 3."
+      ]
+    }
+  ],
+  "train_validation": {
+    "method": "For each training case, construct an all-zero grid of the recorded dimensions, generate every in-bounds triangular column, assign the cyclic seed color, and compare the resulting sparse non-background set and dimensions with observed_output.",
+    "cases": [
+      {
+        "id": "train_0",
+        "generated_columns": [0, 1, 3, 6, 10, 15],
+        "generated_colors": [6, 8, 1, 6, 8, 1],
+        "expected_non_background_count": 6,
+        "exact_match": true
+      },
+      {
+        "id": "train_1",
+        "generated_columns": [0, 1, 3, 6, 10, 15, 21, 28],
+        "generated_colors": [2, 3, 2, 3, 2, 3, 2, 3],
+        "expected_non_background_count": 8,
+        "exact_match": true
+      },
+      {
+        "id": "train_2",
+        "generated_columns": [0, 1, 3, 6, 10, 15],
+        "generated_colors": [1, 2, 1, 2, 1, 2],
+        "expected_non_background_count": 6,
+        "exact_match": true
+      }
+    ],
+    "global_result": "M1 matches every cell of every training output: generated sparse cells equal the observed sparse cells, dimensions are unchanged, and all unlisted cells are 0."
+  },
+  "selected_model": {
+    "id": "M1",
+    "rationale": "One rule accounts for the common position sequence across all examples while independently accounting for seed-word lengths two and three. The initial non-background cells are exactly the prefix of the generated triangular-index sequence."
+  },
+  "remaining_ambiguities": [
+    {
+      "issue": "Finite data cannot distinguish the triangular-number formula from an arbitrary lookup table that agrees through column 28.",
+      "impact_on_test": "none",
+      "reason": "The test width is 29, so every required selected column is already evidenced by train_1."
+    },
+    {
+      "issue": "No training case varies active-row position or grid height.",
+      "impact_on_test": "none",
+      "reason": "The test uses the same 3-row layout and active row 1."
+    },
+    {
+      "issue": "No training seed has length greater than three.",
+      "impact_on_test": "none",
+      "reason": "The test seed length is three, directly matched by train_0."
+    }
+  ],
+  "execution_spec": {
+    "target_instance": "test_0",
+    "output_dimensions": {
+      "height": 3,
+      "width": 29,
+      "derivation": "Copy the test input dimensions unchanged."
+    },
+    "coordinate_convention": "Zero-based [row, column], with rows 0..2 and columns 0..28.",
+    "background_value": 0,
+    "test_entities": {
+      "active_row": 1,
+      "seed_word": [2, 1, 8],
+      "seed_length": 3,
+      "triangular_term_indices": {
+        "first": 0,
+        "last": 7
+      }
+    },
+    "ordered_construction": [
+      "Allocate a 3 by 29 grid and initialize every cell to 0.",
+      "For n from 0 upward, compute c = n*(n+1)/2.",
+      "If c is at least 29, stop without writing that term.",
+      "Otherwise set the cell at row 1, column c to seed_word[n mod 3].",
+      "Return the completed grid without any cropping, recoloring, reflection, or row movement."
+    ],
+    "collision_behavior": "Triangular columns are strictly increasing, so generated writes do not collide. If an implementation nevertheless encounters the same generated coordinate twice, the assignments are required to agree; write the generated cyclic color.",
+    "boundary_behavior": "Generate only coordinates satisfying 0 <= row < 3 and 0 <= column < 29. Stop at the first triangular column outside the right boundary; do not wrap or clip a cell.",
+    "completeness_note": "The dimensions, background, active row, seed word, coordinate rule, in-bounds term range, and construction behavior above are sufficient to construct the test answer without the raw challenge. No literal final test output grid is included."
+  }
+}

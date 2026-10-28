@@ -1,0 +1,445 @@
+{
+  "experiment": 31,
+  "frozen_before_label_read": {
+    "representations/0d87d2a6_r1.json": "8bf7fad12b26b6eb9eed8e4efe8be24cd083b09270c4cf4a6fdc52bb1cd31afa",
+    "representations/0d87d2a6_r2.json": "c6065319c72b7044a5d1f527888927f793e743f0b196d6b4ba16f5a6d266b062",
+    "representations/7039b2d7_r1.json": "826ac75a680c1cff3376a0faaba532b6f6bbf0eec793e9327287e3656ee4e809",
+    "representations/7039b2d7_r2.json": "cd619aa3645ca066b6e9cc0e0d79a030cb177448f17281e2deb5cc302f1eb43d",
+    "representations/72207abc_r1.json": "5629cbf630bf49303194efb47eb6e3b553b42724db1c7b66e7dd44007d18acba",
+    "representations/72207abc_r2.json": "7572e52dc810fb347d4cf2bcfd324815e67e016898456b0932e48fb58032f4b6",
+    "representations/ad38a9d0_r1.json": "a28c1d086c85b0bca993c93e369b4c057b298fec41c2bac85376c6c4fc24de69",
+    "representations/ad38a9d0_r2.json": "15a9fb8dc9376f67337fd34f7254194a3c98822eb9745f818b9647d60ff2632c",
+    "representations/bf32578f_r1.json": "9159278a7355a58c0d549f3634c016a14f92f8ded2c473938f3ea736b64d1c03",
+    "representations/bf32578f_r2.json": "bc2d52c7c9c34754f103d7a6e6ad20baad88f175b70842ef24cb54da7f6b68ed",
+    "executions/0d87d2a6_r1.json": "d9f8e09fef25c40bd49de63134ed41db5d0da1198aff8207d894fbe3473ee9c0",
+    "executions/0d87d2a6_r2.json": "dc72deb8edb026d8f72a3e7ab480c518980f4c138ca0b16e7fcf274dc80779f7",
+    "executions/7039b2d7_r1.json": "8ed67da6c0a3a5cd605e97cb5b05dd95805f30a2601adad7790456942a7de13e",
+    "executions/7039b2d7_r2.json": "6ea8145109a9481e495472f9683ff4626b49da74e6f0aa8b9b7d8f23cf25a82a",
+    "executions/72207abc_r1.json": "488c2692ee2455164c86ed721c02ce921d89229872f6b130a98737d657946cc6",
+    "executions/72207abc_r2.json": "cd5c988d480d55e022f177a1284e75c3727c74ab7ab3f6b9c0ec004ecaf25397",
+    "executions/ad38a9d0_r1.json": "cdb31037ce7afbad4bccdf82b6008b4b646a387ea1a28cbbdeab144dbed27b89",
+    "executions/ad38a9d0_r2.json": "64bcf6597b60478d6f5660b68c0beb4b434864e9be66d70fda55d2263dca73b4",
+    "executions/bf32578f_r1.json": "18477fb9101dd6812f61d44b4f6e58171047274053a0103d423b97328f4037e4",
+    "executions/bf32578f_r2.json": "cf03dbeefb8bc459366992e277eddfec938d1210010ae71eb7d1634935b05bfe",
+    "interventions/0d87d2a6_contact.json": "e4add7d0cc72772d955dfb419c9c3ce6da8ea3557b4693a3fb470b095cba29d9",
+    "interventions/0d87d2a6_overlap.json": "f7b643a8344772b35259c32be7bee75e3ba93a6b9ed75b24222af87931103061",
+    "intervention_executions/0d87d2a6_contact.json": "b18248502a6c0a7fba373741c5ff79547c9a8bd744936be67b7780ebc21e5a08",
+    "intervention_executions/0d87d2a6_overlap.json": "d8a5efefa63481279be60d39b7d3a72e51051c8094b41af5a6314532bdee97b1"
+  },
+  "representation_only": {
+    "exact_executions": 7,
+    "execution_count": 10,
+    "tasks_with_both_runs_exact": 3,
+    "task_count": 5,
+    "micro_cell_accuracy": 0.9841849148418491,
+    "results": [
+      {
+        "execution": "0d87d2a6_r1",
+        "task_id": "0d87d2a6",
+        "exact": false,
+        "shape_match": true,
+        "cell_accuracy": 0.9791304347826087,
+        "wrong_cells": [
+          [
+            0,
+            9,
+            2,
+            1
+          ],
+          [
+            0,
+            10,
+            2,
+            1
+          ],
+          [
+            0,
+            11,
+            2,
+            1
+          ],
+          [
+            1,
+            9,
+            2,
+            1
+          ],
+          [
+            1,
+            10,
+            2,
+            1
+          ],
+          [
+            1,
+            11,
+            2,
+            1
+          ],
+          [
+            2,
+            9,
+            2,
+            1
+          ],
+          [
+            2,
+            10,
+            2,
+            1
+          ],
+          [
+            2,
+            11,
+            2,
+            1
+          ],
+          [
+            3,
+            9,
+            2,
+            1
+          ],
+          [
+            3,
+            10,
+            2,
+            1
+          ],
+          [
+            3,
+            11,
+            2,
+            1
+          ]
+        ]
+      },
+      {
+        "execution": "0d87d2a6_r2",
+        "task_id": "0d87d2a6",
+        "exact": false,
+        "shape_match": true,
+        "cell_accuracy": 0.9791304347826087,
+        "wrong_cells": [
+          [
+            0,
+            9,
+            2,
+            1
+          ],
+          [
+            0,
+            10,
+            2,
+            1
+          ],
+          [
+            0,
+            11,
+            2,
+            1
+          ],
+          [
+            1,
+            9,
+            2,
+            1
+          ],
+          [
+            1,
+            10,
+            2,
+            1
+          ],
+          [
+            1,
+            11,
+            2,
+            1
+          ],
+          [
+            2,
+            9,
+            2,
+            1
+          ],
+          [
+            2,
+            10,
+            2,
+            1
+          ],
+          [
+            2,
+            11,
+            2,
+            1
+          ],
+          [
+            3,
+            9,
+            2,
+            1
+          ],
+          [
+            3,
+            10,
+            2,
+            1
+          ],
+          [
+            3,
+            11,
+            2,
+            1
+          ]
+        ]
+      },
+      {
+        "execution": "7039b2d7_r1",
+        "task_id": "7039b2d7",
+        "exact": true,
+        "shape_match": true,
+        "cell_accuracy": 1.0,
+        "wrong_cells": []
+      },
+      {
+        "execution": "7039b2d7_r2",
+        "task_id": "7039b2d7",
+        "exact": true,
+        "shape_match": true,
+        "cell_accuracy": 1.0,
+        "wrong_cells": []
+      },
+      {
+        "execution": "72207abc_r1",
+        "task_id": "72207abc",
+        "exact": true,
+        "shape_match": true,
+        "cell_accuracy": 1.0,
+        "wrong_cells": []
+      },
+      {
+        "execution": "72207abc_r2",
+        "task_id": "72207abc",
+        "exact": true,
+        "shape_match": true,
+        "cell_accuracy": 1.0,
+        "wrong_cells": []
+      },
+      {
+        "execution": "ad38a9d0_r1",
+        "task_id": "ad38a9d0",
+        "exact": true,
+        "shape_match": true,
+        "cell_accuracy": 1.0,
+        "wrong_cells": []
+      },
+      {
+        "execution": "ad38a9d0_r2",
+        "task_id": "ad38a9d0",
+        "exact": true,
+        "shape_match": true,
+        "cell_accuracy": 1.0,
+        "wrong_cells": []
+      },
+      {
+        "execution": "bf32578f_r1",
+        "task_id": "bf32578f",
+        "exact": false,
+        "shape_match": true,
+        "cell_accuracy": 0.96875,
+        "wrong_cells": [
+          [
+            2,
+            5,
+            1,
+            0
+          ],
+          [
+            5,
+            5,
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "execution": "bf32578f_r2",
+        "task_id": "bf32578f",
+        "exact": true,
+        "shape_match": true,
+        "cell_accuracy": 1.0,
+        "wrong_cells": []
+      }
+    ]
+  },
+  "interventions": {
+    "results": [
+      {
+        "condition": "I-contact",
+        "execution": "0d87d2a6_contact",
+        "exact": true,
+        "shape_match": true,
+        "cell_accuracy": 1.0,
+        "wrong_cells": []
+      },
+      {
+        "condition": "I-overlap",
+        "execution": "0d87d2a6_overlap",
+        "exact": false,
+        "shape_match": true,
+        "cell_accuracy": 0.9791304347826087,
+        "wrong_cells": [
+          [
+            0,
+            9,
+            2,
+            1
+          ],
+          [
+            0,
+            10,
+            2,
+            1
+          ],
+          [
+            0,
+            11,
+            2,
+            1
+          ],
+          [
+            1,
+            9,
+            2,
+            1
+          ],
+          [
+            1,
+            10,
+            2,
+            1
+          ],
+          [
+            1,
+            11,
+            2,
+            1
+          ],
+          [
+            2,
+            9,
+            2,
+            1
+          ],
+          [
+            2,
+            10,
+            2,
+            1
+          ],
+          [
+            2,
+            11,
+            2,
+            1
+          ],
+          [
+            3,
+            9,
+            2,
+            1
+          ],
+          [
+            3,
+            10,
+            2,
+            1
+          ],
+          [
+            3,
+            11,
+            2,
+            1
+          ]
+        ]
+      }
+    ],
+    "pairwise_difference_count": 12,
+    "pairwise_differences": [
+      [
+        0,
+        9,
+        2,
+        1
+      ],
+      [
+        0,
+        10,
+        2,
+        1
+      ],
+      [
+        0,
+        11,
+        2,
+        1
+      ],
+      [
+        1,
+        9,
+        2,
+        1
+      ],
+      [
+        1,
+        10,
+        2,
+        1
+      ],
+      [
+        1,
+        11,
+        2,
+        1
+      ],
+      [
+        2,
+        9,
+        2,
+        1
+      ],
+      [
+        2,
+        10,
+        2,
+        1
+      ],
+      [
+        2,
+        11,
+        2,
+        1
+      ],
+      [
+        3,
+        9,
+        2,
+        1
+      ],
+      [
+        3,
+        10,
+        2,
+        1
+      ],
+      [
+        3,
+        11,
+        2,
+        1
+      ]
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "experiment": 34,
+  "status": "post_calibration_exploratory_pivot_before_labels",
+  "reason": "The 32-task confirmatory run was projected at 12.6 hours before safety margin and could not meet the user's available window.",
+  "task_selection": "The eight preregistered lowest-hash control IDs; no labels or scores were used.",
+  "task_ids": [
+    "103eff5b",
+    "3b4c2228",
+    "44f52bb0",
+    "5614dbcf",
+    "1d398264",
+    "137f0df0",
+    "0bb8deee",
+    "538b439f"
+  ],
+  "arms": [
+    "staged_late",
+    "mixed_late",
+    "staged_early_collision"
+  ],
+  "preserved": [
+    "global 600000/900000 loss-token budgets",
+    "rank-64 global RSLoRA",
+    "rank-256 task RSLoRA",
+    "128 task optimizer steps",
+    "production DFS and rescoring budgets",
+    "candidate hash barrier before labels"
+  ],
+  "omitted": [
+    "reversed_bands diagnostic control",
+    "shuffled_interpretation diagnostic control",
+    "remaining 24 primary tasks"
+  ],
+  "inference_status": "exploratory_only_not_confirmatory"
+}

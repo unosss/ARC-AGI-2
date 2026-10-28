@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_before_gpu_run",
+  "experiment": 24,
+  "selection_source": "experiment_015_additional16_fixed_before_2d_adapter",
+  "prior_public_nvarc_task_top2_exact": 2,
+  "primary_ids": [
+    "135a2760", "136b0064", "13e47133", "142ca369",
+    "16b78196", "16de56c4", "1818057f", "195c6913",
+    "1ae2feb7", "20270e3b", "20a9e565", "21897d95",
+    "221dfab4", "247ef758", "269e22fb", "271d71e2"
+  ],
+  "task_count": 16,
+  "arms": ["text_control", "rowcol_component"],
+  "target_ids_excluded_from_global_training": true,
+  "labels_open_after_all_candidate_files": true,
+  "primary_metric": "task_top2_exact",
+  "report_rescues_and_regressions_separately": true,
+  "interpretation": "hard_set_directional_not_population_accuracy"
+}

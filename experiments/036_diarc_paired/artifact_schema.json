@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Experiment 036 candidate artifact",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "experiment",
+    "arm",
+    "task_id",
+    "ranked_candidates",
+    "pre_task_loo_nll",
+    "post_task_loo_nll",
+    "timing",
+    "peak_memory_bytes"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "experiment": {"const": 36},
+    "arm": {"enum": ["base", "diarc", "text_control"]},
+    "experiment_arm": {"enum": ["base", "diarc"]},
+    "task_id": {"type": "string"},
+    "active_adapters": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "trainable_parameter_names": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "pre_task_loo_nll": {"type": "object"},
+    "post_task_loo_nll": {"type": "object"},
+    "ranked_candidates": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["grid", "score", "votes", "rank"],
+          "properties": {
+            "grid": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {"type": "integer", "minimum": 0, "maximum": 9}
+              }
+            },
+            "score": {"type": "number"},
+            "votes": {"type": "integer", "minimum": 0},
+            "rank": {"type": "integer", "minimum": 1}
+          }
+        }
+      }
+    },
+    "timing": {
+      "type": "object",
+      "required": ["load_seconds", "train_seconds", "decode_seconds"],
+      "properties": {
+        "load_seconds": {"type": "number", "minimum": 0},
+        "train_seconds": {"type": "number", "minimum": 0},
+        "decode_seconds": {"type": "number", "minimum": 0}
+      }
+    },
+    "peak_memory_bytes": {"type": "integer", "minimum": 0}
+  }
+}

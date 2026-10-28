@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "experiment": 35,
+  "profile": "runpod_24gb",
+  "seed": 35035,
+  "split_seed": 35035,
+  "arms": ["baseline", "global_refiner", "task_refiner"],
+  "panel": {"primary_tasks": 16, "reserve_tasks": 64, "pilot_tasks": 2},
+  "runtime": {
+    "transformers": ">=4.57,<5",
+    "peft": "0.21.2",
+    "minimum_gpu_memory_bytes": 24000000000,
+    "precision": "bfloat16"
+  },
+  "stage_budgets": {"perception": 120000, "interpretation": 180000},
+  "global_lora": {
+    "type": "RSLoRA",
+    "rank": 64,
+    "alpha": 16,
+    "dropout": 0.0,
+    "learning_rate": 0.00005
+  },
+  "structure_learning_rate": 0.001,
+  "checkpoint_every_optimizer_steps": 32,
+  "corpus": {
+    "synthetic_seeds_per_family": 80,
+    "synthetic_holdout_modulus": 5,
+    "refiner_variants_per_row": 3,
+    "global_refiner_rows": 2400,
+    "global_max_sequence_length": 8192
+  },
+  "refiner": {
+    "model_dim": 128,
+    "latent_dim": 128,
+    "latent_slots": 32,
+    "num_heads": 4,
+    "ff_multiplier": 2,
+    "num_stages": 3,
+    "global_epochs": 2,
+    "global_learning_rate": 0.0003,
+    "task_steps": 24,
+    "task_learning_rate": 0.0001,
+    "shape_weight": 0.5,
+    "stage_weights": [1.0, 2.0, 3.0],
+    "gradient_clip": 1.0
+  },
+  "task_local": {
+    "type": "RSLoRA",
+    "rank": 256,
+    "alpha": 32,
+    "dropout": 0.0,
+    "steps": 64,
+    "learning_rate": 0.00005,
+    "train_color_permutations": 8,
+    "train_geometries": 8,
+    "decode_color_permutations": 1,
+    "decode_geometries": 2,
+    "rescore_views": 2,
+    "rescore_batch_size": 1,
+    "merge_for_inference": false
+  },
+  "dfs": {
+    "batch_size": 1,
+    "max_nodes_per_view": 1024,
+    "max_model_forward_tokens_per_view": 8192,
+    "max_candidates_per_view": 32,
+    "max_new_tokens": 931,
+    "emergency_seconds_per_view": 600,
+    "min_prob": 0.2
+  },
+  "calibration": {
+    "mode": "representative_subset",
+    "global_loss_tokens_per_stage": 4096,
+    "refiner_rows": 8,
+    "task_steps": 2,
+    "dfs_nodes": 128,
+    "safety_margin": 0.25,
+    "maximum_projected_seconds": 604800
+  },
+  "wall_cap_seconds": 604800,
+  "primary_metric": "paired_task_level_top2_exact"
+}

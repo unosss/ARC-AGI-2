@@ -1,0 +1,72 @@
+{
+  "task_ids": [
+    "17829a00",
+    "2013d3e2",
+    "253bf280"
+  ],
+  "conditions": {
+    "ttt_airv": {
+      "task_count": 3,
+      "task_exact": 2,
+      "item_count": 3,
+      "item_exact": 2,
+      "valid_grid_rate": 1.0,
+      "top1_cell_accuracy": 0.9947916666666666,
+      "tasks": [
+        {
+          "task_id": "17829a00",
+          "exact": false,
+          "items": [
+            {
+              "test_index": 0,
+              "valid_attempts": 2,
+              "top2_exact": false,
+              "top1_cell_accuracy": 0.984375
+            }
+          ]
+        },
+        {
+          "task_id": "2013d3e2",
+          "exact": true,
+          "items": [
+            {
+              "test_index": 0,
+              "valid_attempts": 2,
+              "top2_exact": true,
+              "top1_cell_accuracy": 1.0
+            }
+          ]
+        },
+        {
+          "task_id": "253bf280",
+          "exact": true,
+          "items": [
+            {
+              "test_index": 0,
+              "valid_attempts": 2,
+              "top2_exact": true,
+              "top1_cell_accuracy": 1.0
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "timings": {
+    "ttt_airv": {
+      "seconds": 360.136,
+      "peak_gpu_memory_mib": 16128
+    }
+  },
+  "mode": "smoke",
+  "model_dir": "/kaggle/input/models/unosss/arc-codet5-660m/pytorch/default/1",
+  "config": {
+    "mode": "smoke",
+    "task_limit": 3,
+    "conditions": [
+      "ttt_airv"
+    ],
+    "ttt_items": 24,
+    "inference_items": 16
+  }
+}

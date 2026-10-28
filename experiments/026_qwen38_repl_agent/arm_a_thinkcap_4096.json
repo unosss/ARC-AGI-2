@@ -1,0 +1,43 @@
+{
+  "experiment": "026_qwen38_repl_agent",
+  "task_id": "135a2760",
+  "model_repo": "6block/Qwen3.8-27B-GGUF",
+  "model_revision": "5312b0f1c3705b45a48a18f051b4dc482627c17f",
+  "model_file": "Qwen3.8-27B-Q4_K_M.gguf",
+  "model_size_bytes": 17743780512,
+  "model_sha256": "038b8d86da2e388e4c3f5bafdf5a8aa4dcb630861a18d430b3a79c538c1a3beb",
+  "model_xet_cas_hash": "400afedc68f6454066fa34d941d04ab91b3a47c4dbe9485ac147853aa84e826e",
+  "fallback_model_file": "Qwen3.8-27B-Q4_K_S.gguf",
+  "fallback_model_size_bytes": 16839957152,
+  "fallback_model_xet_sha256": "48e1b1706b4395e1e1d21406a85a2e8c814a9c9e922704dfe396f1b0194c74c4",
+  "llama_cpp_tag": "b11669",
+  "llama_server_sha256": "3ac6495070ae9627825dbe706de3b580fdbedd2fbe079197b2c6c81982dbd0f9",
+  "llama_cpp_cuda": "12.8",
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8080,
+    "ctx_size": 32768,
+    "gpu_layers": 99,
+    "parallel": 1,
+    "flash_attention": true,
+    "cache_type_k": "q8_0",
+    "cache_type_v": "q8_0"
+  },
+  "sampling": {
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "thinking": true
+  },
+  "attempts": 1,
+  "max_turns": 40,
+  "max_gen_tokens": 120000,
+  "context_budget": 28000,
+  "early_submit_nudge": 6,
+  "seed": 0,
+  "wall_deadline_seconds": 10800,
+  "turn_max_tokens": 4096,
+  "llama_cpp_tool_compat": true,
+  "source_challenges": "kaggle_runs/nvarc_single_pass_l4/output_v007/experiment_015/solver_input/challenges.json",
+  "source_solutions": "kaggle_runs/nvarc_single_pass_l4/output_v007/experiment_015/parent_finalizer_only/labels.json"
+}

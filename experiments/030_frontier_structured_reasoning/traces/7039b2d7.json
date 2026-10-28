@@ -1,0 +1,158 @@
+{
+  "task_id": "7039b2d7",
+  "observations": [
+    {
+      "grid": "train_0_input",
+      "shape": [27, 27],
+      "colors": [5, 8],
+      "divider_color": 8,
+      "full_divider_rows_zero_based": [9, 14, 19, 24],
+      "full_divider_columns_zero_based": [6, 16, 19, 25],
+      "nondivider_row_runs": [[0, 8], [10, 13], [15, 18], [20, 23], [25, 26]],
+      "nondivider_column_runs": [[0, 5], [7, 15], [17, 18], [20, 24], [26, 26]],
+      "note": "The divider lines partition the background-colored area into a 5 by 5 array of rectangular compartments."
+    },
+    {
+      "grid": "train_0_output",
+      "shape": [5, 5],
+      "colors": [5],
+      "note": "There is one output cell per input compartment, and every output cell has the compartment color 5."
+    },
+    {
+      "grid": "train_1_input",
+      "shape": [21, 21],
+      "colors": [3, 5],
+      "divider_color": 3,
+      "full_divider_rows_zero_based": [10, 13],
+      "full_divider_columns_zero_based": [3, 8, 18],
+      "nondivider_row_runs": [[0, 9], [11, 12], [14, 20]],
+      "nondivider_column_runs": [[0, 2], [4, 7], [9, 17], [19, 20]],
+      "note": "The divider lines partition the background-colored area into a 3 by 4 array of rectangular compartments."
+    },
+    {
+      "grid": "train_1_output",
+      "shape": [3, 4],
+      "colors": [5],
+      "note": "There is one output cell per input compartment, and every output cell has the compartment color 5."
+    },
+    {
+      "grid": "train_2_input",
+      "shape": [10, 10],
+      "colors": [1, 4],
+      "divider_color": 4,
+      "full_divider_rows_zero_based": [5],
+      "full_divider_columns_zero_based": [0, 2, 8],
+      "nondivider_row_runs": [[0, 4], [6, 9]],
+      "nondivider_column_runs": [[1, 1], [3, 7], [9, 9]],
+      "note": "A divider occurs on the left boundary at column 0. Ignoring empty outside space, the actual compartments form a 2 by 3 array."
+    },
+    {
+      "grid": "train_2_output",
+      "shape": [2, 3],
+      "colors": [1],
+      "note": "There is one output cell per nonempty compartment, and every output cell has the compartment color 1."
+    },
+    {
+      "grid": "test_0_input",
+      "shape": [16, 16],
+      "colors": [1, 3],
+      "divider_color": 3,
+      "full_divider_rows_zero_based": [6, 14],
+      "full_divider_columns_zero_based": [2, 4, 6, 9],
+      "nondivider_row_runs": [[0, 5], [7, 13], [15, 15]],
+      "nondivider_column_runs": [[0, 1], [3, 3], [5, 5], [7, 8], [10, 15]],
+      "note": "The divider lines partition the non-divider color into a 3 by 5 array of compartments."
+    }
+  ],
+  "correspondences": [
+    {
+      "train_pair": 0,
+      "input_to_output": "The five non-divider row runs map in top-to-bottom order to five output rows; the five non-divider column runs map in left-to-right order to five output columns. Each intersection compartment maps to one output cell."
+    },
+    {
+      "train_pair": 1,
+      "input_to_output": "The three non-divider row runs map to the three output rows and the four non-divider column runs map to the four output columns. All 12 compartments are uniformly color 5, matching all 12 output cells."
+    },
+    {
+      "train_pair": 2,
+      "input_to_output": "The two non-divider row runs and three non-divider column runs map to the 2 by 3 output. The boundary divider at column 0 maps to no output cell because there is no non-divider run to its left."
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "rule": "Identify all full-length rows and columns of the line color. Split the remaining coordinates into maximal contiguous row and column runs. Replace every resulting rectangular compartment by one cell carrying that compartment's uniform non-divider color.",
+      "predicted_train_outputs": [
+        [[5, 5, 5, 5, 5], [5, 5, 5, 5, 5], [5, 5, 5, 5, 5], [5, 5, 5, 5, 5], [5, 5, 5, 5, 5]],
+        [[5, 5, 5, 5], [5, 5, 5, 5], [5, 5, 5, 5]],
+        [[1, 1, 1], [1, 1, 1]]
+      ],
+      "train_exact": [true, true, true],
+      "contradictions": [],
+      "status": "selected"
+    },
+    {
+      "id": "H2",
+      "rule": "Treat each full horizontal and vertical divider as an internal separator, so output height is one plus the number of horizontal dividers and output width is one plus the number of vertical dividers; fill with the non-divider color.",
+      "predicted_train_outputs": [
+        [[5, 5, 5, 5, 5], [5, 5, 5, 5, 5], [5, 5, 5, 5, 5], [5, 5, 5, 5, 5], [5, 5, 5, 5, 5]],
+        [[5, 5, 5, 5], [5, 5, 5, 5], [5, 5, 5, 5]],
+        [[1, 1, 1, 1], [1, 1, 1, 1]]
+      ],
+      "train_exact": [true, true, false],
+      "contradictions": [
+        "Train pair 2 has three full vertical divider columns, including boundary column 0. H2 predicts width 4, but the observed output width is 3. A boundary line does not create a compartment outside the grid."
+      ],
+      "status": "rejected"
+    },
+    {
+      "id": "H3",
+      "rule": "Discard all divider rows and columns, then collapse every maximal run of identical remaining rows and every maximal run of identical remaining columns to one representative pixel.",
+      "predicted_train_outputs": [
+        [[5, 5, 5, 5, 5], [5, 5, 5, 5, 5], [5, 5, 5, 5, 5], [5, 5, 5, 5, 5], [5, 5, 5, 5, 5]],
+        [[5, 5, 5, 5], [5, 5, 5, 5], [5, 5, 5, 5]],
+        [[1, 1, 1], [1, 1, 1]]
+      ],
+      "train_exact": [true, true, true],
+      "contradictions": [
+        "No training contradiction. Because every compartment is uniform and all compartments share one color, H3 is observationally equivalent to H1 on the supplied pairs; it is less directly tied to the explicit compartment correspondence."
+      ],
+      "status": "viable_but_not_selected"
+    }
+  ],
+  "revision_history": [
+    {
+      "step": 1,
+      "revision": "Initially considered output dimensions as divider counts plus one (H2), which fits train pairs 0 and 1."
+    },
+    {
+      "step": 2,
+      "revision": "Rejected H2 after train pair 2: its divider at boundary column 0 produces no region on the outside, so counting lines plus one overestimates output width."
+    },
+    {
+      "step": 3,
+      "revision": "Reframed dimensions as counts of maximal non-divider coordinate runs and each output pixel as the summary of one actual compartment (H1). This exactly reproduces all three outputs."
+    },
+    {
+      "step": 4,
+      "revision": "Retained H3 as an equivalent compression account on these uniform examples, but selected H1 because it explicitly handles boundary dividers and states the geometric input/output correspondence."
+    }
+  ],
+  "selected_rule": {
+    "hypothesis_id": "H1",
+    "rule": "Use full monochromatic line-color rows and columns as grid dividers. Enumerate maximal non-divider row runs and column runs; their Cartesian products are compartments. Emit one pixel per compartment in the same spatial arrangement, colored by the compartment's uniform color.",
+    "why": "It is exact on every train pair, explains output dimensions and colors, and correctly handles the boundary divider in train pair 2 without inventing an empty compartment."
+  },
+  "test_construction": {
+    "input": "test_0",
+    "divider_color": 3,
+    "compartment_color": 1,
+    "row_runs": [[0, 5], [7, 13], [15, 15]],
+    "column_runs": [[0, 1], [3, 3], [5, 5], [7, 8], [10, 15]],
+    "output_shape": [3, 5],
+    "summary": "Two horizontal dividers yield three nonempty row runs; four vertical dividers yield five nonempty column runs. All 15 compartments are uniformly color 1, so the output is a 3 by 5 grid of 1s."
+  },
+  "test": [
+    [[1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1]]
+  ]
+}

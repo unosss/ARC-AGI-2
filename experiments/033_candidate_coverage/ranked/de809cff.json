@@ -1,0 +1,61 @@
+{
+  "task_id": "de809cff",
+  "source_runs": ["r1", "r2"],
+  "verification": {
+    "method": "Recomputed exact structural equality of each supplied predicted_train_outputs list against both visible challenge train outputs; supplied train_exact flags were not trusted.",
+    "total_supplied_candidates": 16,
+    "raw_eligible_count": 2,
+    "eligible_candidates": ["r1_c1", "r2_c01"],
+    "excluded_candidates": ["r1_c2", "r1_c3", "r1_c4", "r1_c5", "r1_c6", "r1_c7", "r1_c8", "r2_c02", "r2_c03", "r2_c04", "r2_c05", "r2_c06", "r2_c07", "r2_c08"],
+    "all_eligible_match_every_visible_train_output": true
+  },
+  "deduplication": {
+    "raw_eligible_count": 2,
+    "unique_count": 2,
+    "decisions": [
+      {
+        "source_candidates": ["r1_c1", "r2_c01"],
+        "decision": "keep_distinct",
+        "reason": "The candidates share the same core rectangle-repair and 3x3 marker semantics, but their deterministic scaffold/layer inference generalizations produce different complete test grids. They are therefore distinct train-equivalent generalizations, not semantic duplicates."
+      }
+    ]
+  },
+  "ranking": [
+    {
+      "rank": 1,
+      "canonical_id": "de809cff_ordered_rectangles_lower_start_wins",
+      "source_candidates": ["r1_c1"],
+      "semantic_signature": "ordered_rectangles>visible_zero_defects>counterpart_3x3_center8",
+      "representation": {
+        "entities": "Large dense axis-aligned monochrome rectangles and background-valued defects",
+        "relations": "Rectangles form a vertically ordered overlay stack; later/lower-starting rectangles occlude earlier ones",
+        "invariances": "Grid size, rectangle geometry, intact region cells, and exterior background",
+        "operator": "Reconstruct the ordered rectangle stack; replace each visible zero defect by a clipped 3x3 patch of the other region color with center 8",
+        "alternatives": "Differs from local smoothing by using global rectangle support and from anomaly marking by selecting only zero defects"
+      },
+      "execution_spec": "Infer maximal dense rectangles, order them by increasing top edge (the visually later lower-starting layer wins overlaps), paint a clean base, discard exterior speckles and repair nonzero contaminants, then for every input-zero cell whose clean base is nonzero paint a clipped 3x3 square in the other nonzero color. After all squares are painted, set every defect center to 8.",
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,6,1,1,1,6,6,6,6,6,1,1,1,6,6,6,6,6,6,6,6,6,6],[0,0,0,0,0,0,0,0,6,1,8,1,6,6,6,6,6,1,8,1,6,6,6,6,6,6,6,6,6,6],[0,0,0,0,0,0,0,0,6,1,1,1,6,6,6,6,6,1,1,1,6,6,6,6,1,1,1,6,6,6],[0,0,0,0,0,0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,1,8,1,1,6,6],[0,1,1,6,6,6,1,1,1,1,1,1,6,6,6,1,1,1,1,1,1,1,6,6,1,1,8,1,6,6],[0,1,1,6,8,6,1,1,1,1,1,1,6,8,6,1,1,1,1,1,1,1,6,6,6,1,1,1,1,1],[0,1,1,6,6,6,1,1,1,1,1,1,6,6,6,1,1,1,1,1,1,1,6,6,6,6,6,1,8,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,6,6,6,6,6,1,1,1],[0,1,1,1,1,6,6,6,1,1,1,1,1,1,1,6,6,6,1,1,1,1,6,6,6,6,6,6,6,6],[0,1,1,1,1,6,8,6,1,1,1,1,1,1,1,6,8,6,1,1,6,1,1,1,1,1,1,1,1,1],[0,1,1,1,1,6,6,6,1,1,1,1,1,1,1,6,8,6,1,1,6,8,8,8,8,8,8,1,8,8],[6,6,6,1,1,1,1,1,6,6,6,1,1,1,1,6,6,6,1,1,6,8,6,1,1,1,1,1,1,1],[6,8,6,1,1,1,1,1,6,8,6,1,1,1,1,1,1,1,1,1,6,8,6,0,0,0,0,0,0,0],[6,6,6,1,1,1,1,1,6,6,6,1,1,1,1,1,1,1,1,6,6,8,6,0,0,0,0,0,0,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,6,8,8,6,0,0,0,0,0,0,0],[0,1,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,6,6,8,6,0,0,0,0,0,0,0],[0,1,6,8,6,1,1,1,1,1,1,1,1,1,1,6,6,6,1,1,6,8,6,0,0,0,0,0,0,0],[0,1,6,6,6,1,1,1,1,1,1,1,1,1,1,6,8,6,1,1,6,8,6,0,0,0,0,0,0,0],[0,1,1,1,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0],[0,0,0,0,6,6,6,6,6,6,6,6,6,1,1,1,6,6,6,6,6,6,6,6,6,6,0,0,0,0],[0,0,0,0,6,6,6,6,6,6,6,6,6,1,8,1,6,6,6,6,6,1,1,1,6,6,0,0,0,0],[0,0,0,0,6,1,1,1,6,6,6,6,6,1,1,1,6,6,6,6,6,1,8,1,6,6,0,0,0,0],[0,0,0,0,6,1,8,1,6,6,6,6,6,6,6,6,1,1,1,6,6,1,1,1,6,6,0,0,0,0],[0,0,0,0,6,1,1,1,6,6,6,6,6,6,6,6,1,8,1,6,6,1,8,1,6,6,0,0,0,0],[0,0,0,1,1,1,6,6,6,6,1,1,1,6,6,6,1,1,1,6,6,1,1,1,6,6,0,0,0,0],[0,0,0,1,8,1,6,6,6,6,1,8,1,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0],[0,0,0,1,1,1,6,6,6,6,1,1,1,6,6,6,6,6,6,6,1,1,1,1,6,6,0,0,0,0],[0,0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,1,8,8,1,6,6,0,0,0,0],[0,0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,1,1,1,1,6,6,0,0,0,0]]
+      ],
+      "ranking_rationale": "Train-exact. Ranked first because it gives the more explicit, deterministic input/output correspondence: maximal dense rectangles, increasing-top-edge layer order, zero-only defect selection, and a fixed local marker. It has low parameter complexity, local causal edits after scaffold recovery, common geometric semantics, and its core rule independently recurs in r2."
+    },
+    {
+      "rank": 2,
+      "canonical_id": "de809cff_ordered_rectangles_observed_overwrite_chain",
+      "source_candidates": ["r2_c01"],
+      "semantic_signature": "ordered_dense_rectangles|visible_zero_defects|3x3_other_color_with_center8",
+      "representation": {
+        "entities": "Large dense axis-aligned monochrome rectangles plus zero-valued defects",
+        "relations": "Rectangles are layered in an overlap chain; lower-starting rectangles paint later",
+        "invariances": "Grid size, rectangle extents, clean cells, and background outside inferred rectangles",
+        "operator": "Complete each dense rectangle in layer order; for every visible zero hole paint its clipped 3x3 neighborhood with the other object color and set the hole center to 8",
+        "alternatives": "Reject sparse nonzero outliers and wrong-color intrusions as noise rather than defects"
+      },
+      "execution_spec": "Infer maximal dense rectangular panels from long row and column support, order overlapping panels by the observed overwrite chain, repaint the clean layered scaffold, locate input-zero cells whose visible scaffold owner is nonzero, paint each clipped Chebyshev-radius-1 square in the other panel color, then set every defect center to 8.",
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,6,1,1,1,6,6,6,6,6,1,1,1,6,6,6,6,6,6,6,6,6,6],[0,0,0,0,0,0,0,0,6,1,8,1,6,6,6,6,6,1,8,1,6,6,6,6,6,6,6,6,6,6],[0,0,0,0,0,0,0,0,6,1,1,1,6,6,6,6,6,1,1,1,6,6,6,6,1,1,1,6,6,6],[0,0,0,0,0,0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,1,8,1,1,6,6],[0,1,1,6,6,6,1,1,1,1,1,1,6,6,6,1,1,1,1,1,1,6,6,6,1,1,8,1,6,6],[0,1,1,6,8,6,1,1,1,1,1,1,6,8,6,1,1,1,1,1,1,6,6,6,6,1,1,1,1,1],[0,1,1,6,6,6,1,1,1,1,1,1,6,6,6,1,1,1,1,1,1,6,6,6,6,6,6,1,8,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,6,6,6,6,6,6,1,1,1],[0,1,1,1,1,6,6,6,1,1,1,1,1,1,1,6,6,6,1,1,1,6,6,6,6,6,6,6,6,6],[0,1,1,1,1,6,8,6,1,1,1,1,1,1,1,6,8,6,1,1,1,1,1,1,1,1,1,1,1,1],[0,1,1,1,1,6,6,6,1,1,1,1,1,1,1,6,8,6,1,1,1,8,8,8,8,8,8,1,8,8],[6,6,6,1,1,1,1,1,6,6,6,1,1,1,1,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1],[6,8,6,1,1,1,1,1,6,8,6,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[6,6,6,1,1,1,1,1,6,6,6,1,1,1,1,1,1,1,1,6,6,6,0,0,0,0,0,0,0,0],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,6,8,6,0,0,0,0,0,0,0,0],[0,1,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,6,6,6,0,0,0,0,0,0,0,0],[0,1,6,8,6,1,1,1,1,1,1,1,1,1,1,6,6,6,1,1,1,0,0,0,0,0,0,0,0,0],[0,1,6,6,6,1,1,1,1,1,1,1,1,1,1,6,8,6,1,1,1,0,0,0,0,0,0,0,0,0],[0,1,1,1,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0],[0,0,0,0,6,6,6,6,6,6,6,6,6,1,1,1,6,6,6,6,6,6,6,6,6,6,0,0,0,0],[0,0,0,0,6,6,6,6,6,6,6,6,6,1,8,1,6,6,6,6,6,1,1,1,6,6,0,0,0,0],[0,0,0,0,6,1,1,1,6,6,6,6,6,1,1,1,6,6,6,6,6,1,8,1,6,6,0,0,0,0],[0,0,0,0,6,1,8,1,6,6,6,6,6,6,6,6,1,1,1,6,6,1,1,1,6,6,0,0,0,0],[0,0,0,0,6,1,1,1,6,6,6,6,6,6,6,6,1,8,1,6,6,1,8,1,6,6,0,0,0,0],[0,0,0,1,1,1,6,6,6,6,1,1,1,6,6,6,1,1,1,6,6,1,1,1,6,6,0,0,0,0],[0,0,0,1,8,1,6,6,6,6,1,8,1,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0],[0,0,0,1,1,1,6,6,6,6,1,1,1,6,6,6,6,6,6,6,1,1,1,1,6,6,0,0,0,0],[0,0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,1,8,8,1,6,6,0,0,0,0],[0,0,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,1,1,1,1,6,6,0,0,0,0]]
+      ],
+      "ranking_rationale": "Train-exact and independently recurrent with r1 on the core global scaffold, zero-defect, and local marker rule. Ranked second because 'long row and column support' plus an 'observed overwrite chain' is less explicit on novel panel boundaries than r1's increasing-top-edge ordering, and that ambiguity materially changes the test prediction."
+    }
+  ]
+}

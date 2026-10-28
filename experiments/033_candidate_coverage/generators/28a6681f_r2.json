@@ -1,0 +1,214 @@
+{
+  "task_id": "28a6681f",
+  "run": "r2",
+  "candidates": [
+    {
+      "local_id": "r2_c01",
+      "status": "eligible",
+      "representation": {
+        "entities": "Fixed non-1 colored walls; movable unit cells colored 1; empty cells colored 0.",
+        "relations": "Colored walls form gravity-facing receptacles; 1-cells may relocate globally while their count is conserved.",
+        "invariances": "Grid size and every cell of colors other than 0 and 1 are invariant; the number of 1-cells is invariant.",
+        "operator": "Erase the old 1-cells and settle all units bottom-up into the deepest available wall-defined receptacles, allowing units to stack above a full receptacle.",
+        "alternatives": "Differs from top-first filling, strict-hole-only filling, wall repair, and immobile-marker controls."
+      },
+      "semantic_signature": "conserved_ones|global_relocation|deepest_receptacle|bottom_up|overflow_stacks",
+      "execution_spec": "Treat every nonzero non-1 cell as an immobile wall. Remove all 1-cells, identify upward-open pockets between wall branches or a wall and the grid boundary, order usable cells from lowest to highest in the deepest pocket, and place exactly the original number of 1-cells there. Do not alter wall cells.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,1,1,1,1,1,1,1],[0,0,3,1,1,3,1,1,1,1],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,1,4,0,0,0,0],[2,1,2,4,1,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,1,5],[3,0,0,0,0,0,0,0,1,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,0,0,5,5,5,1,5],[3,3,3,3,5,5,5,5,1,5]]
+      ],
+      "prior_rank": 1,
+      "rank_rationale": "Exact on all three trains, conserves marker count, preserves walls, and uses the most ordinary gravity/receptacle interpretation. The test has five units and a one-cell-wide right receptacle, so bottom-up packing occupies rows 5-9."
+    },
+    {
+      "local_id": "r2_c02",
+      "status": "eligible",
+      "representation": {
+        "entities": "Colored contour objects and a conserved multiset of fill tokens colored 1.",
+        "relations": "The interior slots of contours are inferred geometrically rather than dynamically.",
+        "invariances": "All contour cells, dimensions, and the count of fill tokens are preserved.",
+        "operator": "Place tokens in inferred contour-interior slots in top-to-bottom reading order when a contour is only partially supplied.",
+        "alternatives": "The training receptacles are exactly supplied, so top-first and bottom-first policies are train-equivalent but differ on the test."
+      },
+      "semantic_signature": "conserved_ones|contour_slot_completion|top_to_bottom|partial_fill",
+      "execution_spec": "Erase all 1-cells. For each non-1 color, infer the empty strip immediately inside two approximately parallel contour branches. Enumerate the selected strip from its highest supported extent downward and place the conserved 1-cells in that order; preserve all contour cells.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,1,1,1,1,1,1,1],[0,0,3,1,1,3,1,1,1,1],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,1,4,0,0,0,0],[2,1,2,4,1,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,1,5],[0,0,0,0,9,9,9,0,1,5],[0,0,0,0,0,0,0,5,1,5],[3,0,0,0,0,0,0,0,1,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,0,0,5,5,5,0,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "prior_rank": 4,
+      "rank_rationale": "Exact and simple, but its top-first convention has weaker causal support than gravity. It predicts the first five cells of the test's right-hand interior strip, rows 3-7."
+    },
+    {
+      "local_id": "r2_c03",
+      "status": "eligible",
+      "representation": {
+        "entities": "Imperfect colored containers, 1-valued repair/fill tokens, and background.",
+        "relations": "A one-cell break in a would-be container wall is a structural defect; enclosed interior cells are secondary targets.",
+        "invariances": "Original colored cells never move; token count is conserved.",
+        "operator": "Repair minimal wall discontinuities first, then fill the deepest strict interior cells bottom-up.",
+        "alternatives": "Unlike hydraulic filling, a token may occupy a missing wall position."
+      },
+      "semantic_signature": "conserved_ones|minimal_contour_repair_first|then_deep_interior",
+      "execution_spec": "Erase existing 1-cells. Detect one-cell gaps interrupting a vertical or diagonal contour branch that participates in a receptacle and place 1 at those gaps first. Put remaining 1-cells into the contour's strictly between-wall cells from bottom upward. Preserve every non-1 colored cell.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,1,1,1,1,1,1,1],[0,0,3,1,1,3,1,1,1,1],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,1,4,0,0,0,0],[2,1,2,4,1,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,1,1,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,0,0,5,5,5,1,5],[3,3,3,3,5,5,5,5,1,5]]
+      ],
+      "prior_rank": 3,
+      "rank_rationale": "Exact and responsive to the conspicuous one-cell break at test row 6, column 7, but introduces a repair priority not needed in training. It repairs that gap and fills four deepest cells at column 8."
+    },
+    {
+      "local_id": "r2_c04",
+      "status": "eligible",
+      "representation": {
+        "entities": "Strictly enclosed contour holes and surplus 1-markers at their original coordinates.",
+        "relations": "Only cells bounded on both horizontal sides and supported below qualify as destinations.",
+        "invariances": "Colored cells and total count of 1 remain fixed; surplus markers are not forced to move.",
+        "operator": "Fill all strict holes bottom-up; if capacity is smaller than the token count, retain earliest source tokens in row-major order.",
+        "alternatives": "Contrasts with overflow stacking beyond strict cavity capacity."
+      },
+      "semantic_signature": "conserved_ones|strict_holes_only|bottom_up|surplus_retained_row_major",
+      "execution_spec": "Find empty cells strictly between two branches of the same colored contour and connected vertically to a supported bottom. Move 1-cells into those destinations bottom-up. If fewer destinations exist than 1-cells, leave the required number of earliest original 1-cells unchanged; erase only the moved source cells.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,1,1,1,1,1,1,1],[0,0,3,1,1,3,1,1,1,1],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,1,4,0,0,0,0],[2,1,2,4,1,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[1,1,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,0,0,5,5,5,1,5],[3,3,3,3,5,5,5,5,1,5]]
+      ],
+      "prior_rank": 5,
+      "rank_rationale": "Exact but less unified because it needs a surplus convention. It regards only rows 7-9 at column 8 as strict test holes and leaves the first two source markers at row 0."
+    },
+    {
+      "local_id": "r2_c05",
+      "status": "eligible",
+      "representation": {
+        "entities": "A connected source polyomino of 1-cells and one-dimensional receptacle axes extracted from colored objects.",
+        "relations": "The source polyomino is compressed onto the principal axis of the best-fitting receptacle.",
+        "invariances": "Marker mass and colored geometry are preserved; source connectivity is preserved when the destination allows it.",
+        "operator": "Project the source marker object onto the receptacle's long axis and center the resulting run vertically.",
+        "alternatives": "Uses shape projection rather than gravity or contour scan order."
+      },
+      "semantic_signature": "source_polyomino|mass_preserving_axis_projection|centered_in_receptacle",
+      "execution_spec": "Remove the connected 1-object, choose the narrow interior corridor whose capacity best matches its area, project all marker cells onto that corridor's principal axis, and place the resulting contiguous run centered in the corridor. Keep all other colors fixed.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,1,1,1,1,1,1,1],[0,0,3,1,1,3,1,1,1,1],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,1,4,0,0,0,0],[2,1,2,4,1,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,1,5],[0,0,0,0,0,0,0,5,1,5],[3,0,0,0,0,0,0,0,1,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,0,0,5,5,5,1,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "prior_rank": 6,
+      "rank_rationale": "Exact but more representationally elaborate than direct filling. Centering a length-five projection in the seven-cell test corridor gives rows 4-8."
+    },
+    {
+      "local_id": "r2_c06",
+      "status": "eligible",
+      "representation": {
+        "entities": "Colored vessels, connected components of 1-material, and vessel mouths.",
+        "relations": "Material is poured into the vessel whose mouth is nearest the source component under Manhattan distance.",
+        "invariances": "Walls and marker count are preserved.",
+        "operator": "Choose a receiving vessel by source-to-mouth proximity, then fill from its mouth inward along the vessel axis.",
+        "alternatives": "Destination choice is relational to the source, unlike globally deepest-pocket selection."
+      },
+      "semantic_signature": "conserved_ones|nearest_vessel_mouth|mouth_inward_fill",
+      "execution_spec": "Identify the source 1-component and each colored object's open mouth. Select the vessel with minimum Manhattan distance from the source's centroid to its mouth. Erase the source and place the same number of 1-cells consecutively from the selected mouth inward along its medial axis, without changing colored cells.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,1,1,1,1,1,1,1],[0,0,3,1,1,3,1,1,1,1],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,1,4,0,0,0,0],[2,1,2,4,1,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,1,5],[0,0,0,0,9,9,9,0,1,5],[0,0,0,0,0,0,0,5,1,5],[3,0,0,0,0,0,0,0,1,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,0,0,5,5,5,0,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "prior_rank": 2,
+      "rank_rationale": "Exact and preserves a direct source/destination correspondence, but mouth direction is less clearly supported than gravity. The source is nearest the upper end of the right vessel, yielding rows 3-7."
+    },
+    {
+      "local_id": "r2_c07",
+      "status": "rejected",
+      "representation": {
+        "entities": "Immobile colored objects including the 1-object.",
+        "relations": "No relocation relation; the scene is already complete.",
+        "invariances": "Every input cell is invariant.",
+        "operator": "Return the input unchanged.",
+        "alternatives": "Identity control against all relocation hypotheses."
+      },
+      "semantic_signature": "identity|all_cells_fixed",
+      "execution_spec": "Copy every input cell to the corresponding output cell.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,1,1],[0,0,0,0,0,0,0,0,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,0,3,1,1],[0,0,0,0,0,3,0,3,1,1],[0,0,0,0,2,3,0,3,1,1],[0,0,0,0,2,3,0,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,1],[0,0,3,0,0,0,0,1,1,1],[0,0,3,0,0,0,0,1,1,1],[0,0,3,0,0,0,1,1,1,1],[0,0,3,0,0,3,1,1,1,1],[0,0,3,0,0,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,1,1,0,0,0,0,9,9],[0,9,9,1,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,0,4,0,0,0,0],[2,0,2,4,0,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": false,
+      "contradictions": [
+        "Train 0 differs at eight cells: four source 1-cells in rows 0-1 should clear and four cells at column 6, rows 5-8 should become 1.",
+        "Train 1 relocates multiple 1-cells from the upper-right region into rows 4-6 left of the color-3 wall.",
+        "Train 2 clears three upper 1-cells and fills three lower contour holes."
+      ],
+      "test": [
+        [[1,1,0,0,0,0,0,0,0,0],[9,9,1,1,0,0,0,0,0,0],[0,9,9,1,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,0,0,0,0,5,5,0,5],[3,3,3,0,0,5,5,5,0,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "prior_rank": 7,
+      "rank_rationale": "A low-complexity control, but direct cell comparison rejects it on every train pair, so it is ineligible."
+    },
+    {
+      "local_id": "r2_c08",
+      "status": "rejected",
+      "representation": {
+        "entities": "Colored structure and removable annotation cells colored 1.",
+        "relations": "Color 1 is treated as transient noise rather than conserved material.",
+        "invariances": "All non-1 cells are retained.",
+        "operator": "Delete every 1-cell to background.",
+        "alternatives": "Deletion control for the possibility that 1 merely highlights defects."
+      },
+      "semantic_signature": "delete_all_ones|non_one_structure_fixed",
+      "execution_spec": "Replace each cell of color 1 with 0 and copy every other cell unchanged.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,0,0],[0,0,0,0,0,0,0,3,0,0],[0,0,0,0,0,0,0,3,0,0],[0,0,0,0,0,3,0,3,0,0],[0,0,0,0,0,3,0,3,0,0],[0,0,0,0,2,3,0,3,0,0],[0,0,0,0,2,3,0,3,0,0],[0,2,2,2,2,3,3,3,0,0]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,3,0,0,0,0],[0,0,3,0,0,3,5,0,0,5],[0,0,3,0,0,3,5,0,0,5],[0,0,3,0,0,3,5,0,0,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,0,4,0,0,0,0],[2,0,2,4,0,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": false,
+      "contradictions": [
+        "Train 0 requires twenty 1-cells in the output, not zero.",
+        "Train 1 requires twenty-five 1-cells in the output, not zero.",
+        "Train 2 requires three newly located 1-cells in lower holes, not zero."
+      ],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,0,0,0,0,5,5,0,5],[3,3,3,0,0,5,5,5,0,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "prior_rank": 8,
+      "rank_rationale": "A serious annotation-removal diagnostic but contradicted by every visible output, which preserves marker count and relocates markers."
+    }
+  ]
+}

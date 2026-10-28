@@ -1,0 +1,164 @@
+{
+  "task_id": "136b0064",
+  "source_runs": [
+    "r1",
+    "r2"
+  ],
+  "verification": {
+    "method": "Recomputed strict structural equality between each supplied predicted_train_outputs list and all three visible train output grids; generator status and train_exact flags were not used as substitutes for comparison.",
+    "visible_train_pair_count": 3,
+    "raw_candidate_count": 16,
+    "raw_eligible_count": 3,
+    "eligible_source_candidates": [
+      "r1:r1_c1",
+      "r2:r2_c01_shape_opcode_column_scan",
+      "r2:r2_c02_color_opcode_column_scan"
+    ],
+    "excluded_source_candidates": [
+      "r1:r1_c2",
+      "r1:r1_c3",
+      "r1:r1_c4",
+      "r1:r1_c5",
+      "r1:r1_c6",
+      "r1:r1_c7",
+      "r1:r1_c8",
+      "r2:r2_c03_row_major_scan",
+      "r2:r2_c04_right_column_first",
+      "r2:r2_c05_serpentine_columns",
+      "r2:r2_c06_left_up_right_down",
+      "r2:r2_c07_row_major_right_first",
+      "r2:r2_c08_reverse_block_rows"
+    ],
+    "candidate_results": [
+      {"source_candidate": "r1:r1_c1", "exact_all_visible_train_outputs": true},
+      {"source_candidate": "r1:r1_c2", "exact_all_visible_train_outputs": false},
+      {"source_candidate": "r1:r1_c3", "exact_all_visible_train_outputs": false},
+      {"source_candidate": "r1:r1_c4", "exact_all_visible_train_outputs": false},
+      {"source_candidate": "r1:r1_c5", "exact_all_visible_train_outputs": false},
+      {"source_candidate": "r1:r1_c6", "exact_all_visible_train_outputs": false},
+      {"source_candidate": "r1:r1_c7", "exact_all_visible_train_outputs": false},
+      {"source_candidate": "r1:r1_c8", "exact_all_visible_train_outputs": false},
+      {"source_candidate": "r2:r2_c01_shape_opcode_column_scan", "exact_all_visible_train_outputs": true},
+      {"source_candidate": "r2:r2_c02_color_opcode_column_scan", "exact_all_visible_train_outputs": true},
+      {"source_candidate": "r2:r2_c03_row_major_scan", "exact_all_visible_train_outputs": false},
+      {"source_candidate": "r2:r2_c04_right_column_first", "exact_all_visible_train_outputs": false},
+      {"source_candidate": "r2:r2_c05_serpentine_columns", "exact_all_visible_train_outputs": false},
+      {"source_candidate": "r2:r2_c06_left_up_right_down", "exact_all_visible_train_outputs": false},
+      {"source_candidate": "r2:r2_c07_row_major_right_first", "exact_all_visible_train_outputs": false},
+      {"source_candidate": "r2:r2_c08_reverse_block_rows", "exact_all_visible_train_outputs": false}
+    ]
+  },
+  "deduplication": {
+    "raw_eligible_count": 3,
+    "unique_eligible_count": 2,
+    "decisions": [
+      {
+        "canonical_id": "shape_opcode_column_scan",
+        "source_candidates": [
+          "r1:r1_c1",
+          "r2:r2_c01_shape_opcode_column_scan"
+        ],
+        "decision": "merged",
+        "reason": "Both specify the same seed-relative, left-column-then-right-column program, the same four glyph-shape displacement opcodes, glyph-color ink, down-first contiguous segment rasterization, Hx7 canvas, and identical complete predictions. Wording and vector notation differ only syntactically."
+      },
+      {
+        "canonical_id": "color_opcode_column_scan",
+        "source_candidates": [
+          "r2:r2_c02_color_opcode_column_scan"
+        ],
+        "decision": "preserved_as_distinct",
+        "reason": "This train-equivalent hypothesis assigns displacement semantics to token color and treats internal glyph geometry as irrelevant, unlike the shape-opcode hypothesis. Its identical supplied test grid does not make the causal generalization semantically equivalent."
+      }
+    ]
+  },
+  "ranking": [
+    {
+      "rank": 1,
+      "canonical_id": "shape_opcode_column_scan",
+      "source_candidates": [
+        "r1:r1_c1",
+        "r2:r2_c01_shape_opcode_column_scan"
+      ],
+      "semantic_signature": "shape-opcode:path(seed5);scan=left-column-down+right-column-down;vectors={110/101/010:(+1,+2),101/101/111:(+1,-1),101/010/010:(+2,0),111/010/101:(+1,-3)};ink=glyph-color;paint=down-then-horizontal",
+      "representation": {
+        "entities": "A seed pixel 5 and vertically stacked colored 3x3 glyphs arranged as two command streams left of a gray divider.",
+        "relations": "Normalized glyph geometry determines endpoint displacement; glyph color supplies the segment ink; commands are ordered top-to-bottom in the left stream and then top-to-bottom in the right stream.",
+        "invariances": "Output is an input-height by 7 canvas; marker panel-relative coordinates, colors, glyph masks, blank separators, and stream order are preserved while absolute command positions are irrelevant.",
+        "operator": "Starting at the seed, decode each glyph mask as one of four displacements and paint the newly traversed down-first orthogonal segment in that glyph's color.",
+        "alternatives": [
+          "color opcode",
+          "row-major scan",
+          "right-stream-first scan",
+          "horizontal-first rasterization"
+        ]
+      },
+      "execution_spec": "Create an Hx7 zero grid and copy color 5 from the right panel to panel-relative coordinates. Segment the left panel into 3-row glyph blocks separated by blank rows. Read all glyphs in the left 3x3 column from top to bottom, then all glyphs in the right 3x3 column from top to bottom. Normalize each glyph to a binary mask and map 110/101/010 to displacement (+1,+2), 101/101/111 to (+1,-1), 101/010/010 to (+2,0), and 111/010/101 to (+1,-3). For each command, move downward first and then horizontally, painting every newly traversed in-bounds cell with the glyph color. Leave unused cells zero.",
+      "test": [
+        [
+          [0,0,5,0,0,0,0],
+          [0,0,1,1,1,0,0],
+          [0,0,0,2,2,0,0],
+          [0,0,0,6,0,0,0],
+          [0,0,0,6,0,0,0],
+          [3,3,3,3,0,0,0],
+          [6,0,0,0,0,0,0],
+          [6,0,0,0,0,0,0],
+          [1,1,1,0,0,0,0],
+          [0,0,1,1,1,0,0],
+          [0,0,0,0,6,0,0],
+          [0,0,0,0,6,0,0],
+          [0,3,3,3,3,0,0],
+          [2,2,0,0,0,0,0],
+          [0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0]
+        ]
+      ],
+      "ranking_rationale": "All visible train outputs are exact. The rule gives explicit input/output correspondence without exceptions, uses a compact local glyph-to-motion dictionary, preserves marker position and color semantics, and gives the conspicuous glyph geometries a causal role. Independent recurrence in both runs further favors it under the final frozen criterion."
+    },
+    {
+      "rank": 2,
+      "canonical_id": "color_opcode_column_scan",
+      "source_candidates": [
+        "r2:r2_c02_color_opcode_column_scan"
+      ],
+      "semantic_signature": "color-opcode:path(seed5);scan=left-column-down+right-column-down;vectors={1:(+1,+2),2:(+1,-1),6:(+2,0),3:(+1,-3)};paint=down-then-horizontal",
+      "representation": {
+        "entities": "A seed pixel 5 and a two-column table of uniformly colored 3x3 command tokens.",
+        "relations": "Token color directly determines displacement; token color also supplies segment ink; commands are ordered top-to-bottom in the left column and then top-to-bottom in the right column.",
+        "invariances": "Output is an input-height by 7 canvas; marker panel-relative coordinates, token colors, blank separators, and stream order are preserved while detailed token geometry is ignored.",
+        "operator": "Starting at the seed, map each command color to a displacement and paint the newly traversed down-first orthogonal segment in that color.",
+        "alternatives": [
+          "shape opcode"
+        ]
+      },
+      "execution_spec": "Create an Hx7 zero grid and copy color 5 from the right panel to panel-relative coordinates. Detect one command color per 3x3 token. Read token colors top-to-bottom in the left column and then top-to-bottom in the right column. Map color 1 to displacement (+1,+2), color 2 to (+1,-1), color 6 to (+2,0), and color 3 to (+1,-3). For each command, move downward first and then horizontally, painting every newly traversed in-bounds cell with the command color. Leave unused cells zero.",
+      "test": [
+        [
+          [0,0,5,0,0,0,0],
+          [0,0,1,1,1,0,0],
+          [0,0,0,2,2,0,0],
+          [0,0,0,6,0,0,0],
+          [0,0,0,6,0,0,0],
+          [3,3,3,3,0,0,0],
+          [6,0,0,0,0,0,0],
+          [6,0,0,0,0,0,0],
+          [1,1,1,0,0,0,0],
+          [0,0,1,1,1,0,0],
+          [0,0,0,0,6,0,0],
+          [0,0,0,0,6,0,0],
+          [0,3,3,3,3,0,0],
+          [2,2,0,0,0,0,0],
+          [0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0]
+        ]
+      ],
+      "ranking_rationale": "All visible train outputs are exact and the execution is uniform and compact. It remains genuinely distinct because color, rather than shape, carries the opcode. It ranks below the shape account on causal relevance and common object semantics: it leaves four conspicuous, systematically different glyph geometries unexplained and occurred in only one run."
+    }
+  ]
+}

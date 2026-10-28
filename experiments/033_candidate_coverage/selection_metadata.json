@@ -1,0 +1,30 @@
+{
+  "method": "lowest sha256(experiment-033:<task_id>)",
+  "source_challenge_count": 120,
+  "source_solution_count": 120,
+  "excluded_frontier_or_manual_task_count": 12,
+  "eligible_count": 118,
+  "selected_count": 20,
+  "selected": [
+    "b10624e5",
+    "4a21e3da",
+    "247ef758",
+    "88e364bc",
+    "31f7f899",
+    "28a6681f",
+    "fc7cae8d",
+    "de809cff",
+    "cb2d8a2c",
+    "4c3d4a41",
+    "7c66cb00",
+    "a6f40cea",
+    "d8e07eb2",
+    "136b0064",
+    "f931b4a8",
+    "409aa875",
+    "e87109e9",
+    "e3721c99",
+    "78332cb0",
+    "da515329"
+  ]
+}

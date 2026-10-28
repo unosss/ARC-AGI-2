@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "experiment": 34,
+  "status": "post_label_exploratory_hard_set",
+  "selection_source": "Experiment 024 tasks that rowcol_component did not solve",
+  "tie_break": "descending prior model_forward_tokens, task_id",
+  "task_ids": [
+    "195c6913",
+    "221dfab4",
+    "20a9e565",
+    "13e47133",
+    "142ca369",
+    "269e22fb",
+    "16b78196",
+    "21897d95"
+  ],
+  "prior_task_top2_exact": 0,
+  "arms": [
+    "staged_late",
+    "mixed_late",
+    "staged_early_collision"
+  ],
+  "global_checkpoints": "Reuse the completed Experiment 034 staged and mixed global checkpoints.",
+  "task_training_and_search": "Unchanged production rank, 128 steps, DFS, and rescoring budgets.",
+  "inference_status": "exploratory_only; tasks and prior failures were already exposed"
+}

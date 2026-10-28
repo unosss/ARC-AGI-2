@@ -1,0 +1,127 @@
+{
+  "family": "incidence",
+  "condition": "contact",
+  "source_artifact": "artifacts/incidence_contact.json",
+  "computed_relations": [
+    {
+      "case_id": "incidence_0",
+      "selected": [
+        {
+          "id": "C0",
+          "evidence": "overlaps horizontal guide at [5,5] and [5,6]"
+        },
+        {
+          "id": "C1",
+          "evidence": "cells [3,2] and [4,2] are four-neighbors of vertical guide cells [3,3] and [4,3]"
+        },
+        {
+          "id": "C2",
+          "evidence": "cells [7,4] and [8,4] are four-neighbors of vertical guide cells [7,3] and [8,3]"
+        }
+      ],
+      "unselected": [
+        {
+          "id": "C3",
+          "evidence": "nearest pair [4,9] and [5,8] has Manhattan distance 2 (diagonal)"
+        },
+        {
+          "id": "C4",
+          "evidence": "nearest guide distance is greater than 1"
+        }
+      ]
+    },
+    {
+      "case_id": "incidence_1",
+      "selected": [
+        {
+          "id": "C0",
+          "evidence": "overlaps horizontal guide at [2,4] and [2,5]"
+        },
+        {
+          "id": "C1",
+          "evidence": "cells [3,2] and [3,3] are four-neighbors of horizontal guide cells [2,2] and [2,3]"
+        },
+        {
+          "id": "C2",
+          "evidence": "cells [6,6] and [7,6] are four-neighbors of vertical guide cells [6,7] and [7,7]"
+        }
+      ],
+      "unselected": [
+        {
+          "id": "C3",
+          "evidence": "nearest pair [1,8] and [2,7] has Manhattan distance 2 (diagonal)"
+        },
+        {
+          "id": "C4",
+          "evidence": "nearest guide distance is greater than 1"
+        }
+      ]
+    },
+    {
+      "case_id": "incidence_2",
+      "selected": [
+        {
+          "id": "C0",
+          "evidence": "overlaps horizontal guide at [6,9] and [6,10]"
+        },
+        {
+          "id": "C1",
+          "evidence": "cells [5,5] and [5,6] are four-neighbors of horizontal guide cells [6,5] and [6,6]"
+        },
+        {
+          "id": "C3",
+          "evidence": "cells [7,11] and [7,12] are four-neighbors of horizontal guide cells [6,11] and [6,12]"
+        }
+      ],
+      "unselected": [
+        {
+          "id": "C2",
+          "evidence": "nearest pair [5,3] and [6,4] has Manhattan distance 2 (diagonal)"
+        },
+        {
+          "id": "C4",
+          "evidence": "nearest guide distance is greater than 1"
+        }
+      ]
+    }
+  ],
+  "test": [
+    [
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 1, 1, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0],
+      [0, 1, 1, 1, 0, 1, 1, 0, 0, 2, 2, 0, 0, 0],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0],
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0],
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ],
+    [
+      [0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
+      [0, 0, 0, 0, 1, 1, 0, 0, 2, 2],
+      [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 1, 1, 0, 0],
+      [0, 2, 2, 0, 0, 1, 1, 1, 0, 0],
+      [0, 2, 2, 0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+    ],
+    [
+      [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2, 2, 0, 1, 1, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2, 2, 0, 1, 1, 0, 0, 1, 1, 0, 0],
+      [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
+    ]
+  ]
+}

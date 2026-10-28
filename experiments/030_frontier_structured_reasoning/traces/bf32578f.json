@@ -1,0 +1,222 @@
+{
+  "task_id": "bf32578f",
+  "observations": [
+    {
+      "grid": "train_0_input",
+      "size": [6, 6],
+      "nonzero_color": 8,
+      "description": "A five-row left bracket: vertical segment at column 0 from rows 0 through 4, with three-cell horizontal arms on rows 0 and 4."
+    },
+    {
+      "grid": "train_0_output",
+      "size": [6, 6],
+      "nonzero_color": 8,
+      "description": "The source bracket is erased. Rows 1 through 3 contain columns 1 through 4, forming the interior of a six-column symmetric closed outline whose boundary is omitted."
+    },
+    {
+      "grid": "train_1_input",
+      "size": [10, 10],
+      "nonzero_color": 7,
+      "description": "A left-pointing V-like boundary from (3,4) through (5,2),(6,2) to (8,4). The global rightmost occupied column is 4."
+    },
+    {
+      "grid": "train_1_output",
+      "size": [10, 10],
+      "nonzero_color": 7,
+      "description": "The boundary is erased. Interior widths by rows 3 through 8 are 0,2,4,4,2,0, centered around the seam between columns 4 and 5."
+    },
+    {
+      "grid": "train_2_input",
+      "size": [6, 6],
+      "nonzero_color": 6,
+      "description": "A left-pointing V-like boundary with endpoints at (1,2),(5,2), apex at (3,0), and one-cell diagonal steps."
+    },
+    {
+      "grid": "train_2_output",
+      "size": [6, 6],
+      "nonzero_color": 6,
+      "description": "The boundary is erased. Interior widths on rows 1 through 5 are 0,2,4,2,0, centered around the seam between columns 2 and 3."
+    },
+    {
+      "grid": "test_0_input",
+      "size": [8, 8],
+      "nonzero_color": 1,
+      "description": "A left-pointing boundary with endpoints at (1,3),(6,3), a two-row apex at column 0, and two-cell-thick horizontal raster steps at columns 1 and 2. The global rightmost occupied column is 3."
+    }
+  ],
+  "correspondences": [
+    {
+      "source": "train_0",
+      "mapping": "Reflect across the vertical seam between columns 2 and 3. On the three non-endpoint rows, the source side at column 0 and its reflected side at column 5 enclose columns 1 through 4, exactly the output."
+    },
+    {
+      "source": "train_1",
+      "mapping": "Reflect column c to 9-c across the seam 4.5. The strict gaps between source and reflected boundary are columns 4-5, 3-6, 3-6, and 4-5 on rows 4-7, exactly the output."
+    },
+    {
+      "source": "train_2",
+      "mapping": "Reflect column c to 5-c across the seam 2.5. The strict gaps are columns 2-3 on rows 2 and 4 and columns 1-4 on row 3, exactly the output."
+    },
+    {
+      "source": "all_train",
+      "mapping": "Color and canvas dimensions are preserved; every original boundary cell becomes background, and only background strictly enclosed between the source half-boundary and its mirror is colored."
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1_reflect_boundary_and_fill_enclosed_background",
+      "rule": "Let M be the largest occupied input column. Reflect the complete nonzero boundary across the vertical seam M+0.5, so c maps to 2M+1-c. Fill with the source color only background cells enclosed by the union of the source and reflected boundary; erase both boundary halves. Equivalently on an enclosed row, fill columns strictly between the source row's inward edge (its rightmost occupied column) and the reflected inward edge.",
+      "predicted_train_outputs": [
+        [
+          [0,0,0,0,0,0],
+          [0,8,8,8,8,0],
+          [0,8,8,8,8,0],
+          [0,8,8,8,8,0],
+          [0,0,0,0,0,0],
+          [0,0,0,0,0,0]
+        ],
+        [
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,7,7,0,0,0,0],
+          [0,0,0,7,7,7,7,0,0,0],
+          [0,0,0,7,7,7,7,0,0,0],
+          [0,0,0,0,7,7,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]
+        ],
+        [
+          [0,0,0,0,0,0],
+          [0,0,0,0,0,0],
+          [0,0,6,6,0,0],
+          [0,6,6,6,6,0],
+          [0,0,6,6,0,0],
+          [0,0,0,0,0,0]
+        ]
+      ],
+      "train_exact": [true, true, true],
+      "contradictions": [],
+      "status": "selected"
+    },
+    {
+      "id": "H2_fill_rectangular_bbox_interior",
+      "rule": "Treat the half-outline only as specifying the height and maximum horizontal radius of an axis-aligned rectangle. Reflect the bounding box across the seam after its maximum column, then color the same full-width rectangular interior on every non-endpoint row.",
+      "predicted_train_outputs": [
+        [
+          [0,0,0,0,0,0],
+          [0,8,8,8,8,0],
+          [0,8,8,8,8,0],
+          [0,8,8,8,8,0],
+          [0,0,0,0,0,0],
+          [0,0,0,0,0,0]
+        ],
+        [
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,7,7,7,7,0,0,0],
+          [0,0,0,7,7,7,7,0,0,0],
+          [0,0,0,7,7,7,7,0,0,0],
+          [0,0,0,7,7,7,7,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]
+        ],
+        [
+          [0,0,0,0,0,0],
+          [0,0,0,0,0,0],
+          [0,6,6,6,6,0],
+          [0,6,6,6,6,0],
+          [0,6,6,6,6,0],
+          [0,0,0,0,0,0]
+        ]
+      ],
+      "train_exact": [true, false, false],
+      "contradictions": [
+        "On train_1 rows 4 and 7, this predicts columns 3-6, but the observed output has only columns 4-5.",
+        "On train_2 rows 2 and 4, this predicts columns 1-4, but the observed output has only columns 2-3."
+      ],
+      "status": "rejected"
+    },
+    {
+      "id": "H3_outer_edge_width_with_endpoint_suppression",
+      "rule": "Omit the globally topmost and bottommost occupied rows, then on each remaining occupied row use its leftmost source cell as the left boundary and its reflection as the right boundary, filling strictly between them. This differs from H1 when a non-endpoint source row contains multiple adjacent cells.",
+      "predicted_train_outputs": [
+        [
+          [0,0,0,0,0,0],
+          [0,8,8,8,8,0],
+          [0,8,8,8,8,0],
+          [0,8,8,8,8,0],
+          [0,0,0,0,0,0],
+          [0,0,0,0,0,0]
+        ],
+        [
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,7,7,0,0,0,0],
+          [0,0,0,7,7,7,7,0,0,0],
+          [0,0,0,7,7,7,7,0,0,0],
+          [0,0,0,0,7,7,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]
+        ],
+        [
+          [0,0,0,0,0,0],
+          [0,0,0,0,0,0],
+          [0,0,6,6,0,0],
+          [0,6,6,6,6,0],
+          [0,0,6,6,0,0],
+          [0,0,0,0,0,0]
+        ]
+      ],
+      "train_exact": [true, true, true],
+      "contradictions": [
+        "There is no direct train-grid contradiction because every non-endpoint row that controls output width has a one-cell-thick source boundary.",
+        "Its endpoint-row suppression is an extra global exception. H1 instead derives empty endpoint rows locally: adjacent mirrored boundary pixels leave no enclosed background.",
+        "For the test's two-cell horizontal steps, H3 would color columns 2-5 on rows 2 and 5, including a wider area than the background actually enclosed between the inward boundary edges."
+      ],
+      "status": "rejected_by_parsimony_and_boundary_semantics"
+    }
+  ],
+  "revision_history": [
+    {
+      "step": 1,
+      "proposal": "Interpret the source as a partial bounding box and fill a rectangular interior.",
+      "result": "Rejected after exact comparison: it overfills the narrow shoulder rows of both V-shaped training examples."
+    },
+    {
+      "step": 2,
+      "proposal": "Use row-dependent widths obtained by reflecting the half-outline across a seam immediately after its rightmost column.",
+      "result": "All three predicted training outputs became exact."
+    },
+    {
+      "step": 3,
+      "proposal": "Consider whether width should be measured from each row's leftmost or rightmost source cell.",
+      "result": "Training outputs do not distinguish these on output-bearing rows. The rightmost-cell interpretation was retained because it is the inward edge of a potentially thick boundary and needs no special rule to suppress endpoint rows."
+    }
+  ],
+  "selected_rule": {
+    "hypothesis_id": "H1_reflect_boundary_and_fill_enclosed_background",
+    "rule": "Mirror the colored half-boundary horizontally across the seam immediately to the right of its global rightmost occupied column. Recolor only the background enclosed between the original boundary and its mirror, excluding and erasing all boundary pixels.",
+    "why_it_survived": "It reproduces every training cell exactly, follows the varying row widths in the two V examples, explains empty endpoint rows without an exception, and handles the test's thicker raster steps by using their inward edges."
+  },
+  "test_construction": {
+    "test_0": "The maximum occupied column is 3, so the mirror seam is between columns 3 and 4 and reflection maps c to 7-c. Rows 1 and 6 have adjacent boundary cells at columns 3 and 4, hence no interior. On rows 2 and 5, the inward source edge is column 2 and its reflected inward edge is column 5, leaving columns 3-4. On rows 3 and 4, boundaries at columns 0 and 7 leave columns 1-6. All other cells are background."
+  },
+  "test": [
+    [
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,1,1,0,0,0],
+      [0,1,1,1,1,1,1,0],
+      [0,1,1,1,1,1,1,0],
+      [0,0,0,1,1,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0]
+    ]
+  ]
+}

@@ -1,0 +1,423 @@
+{
+  "task_id": "f931b4a8",
+  "source_runs": [
+    "r1",
+    "r2"
+  ],
+  "verification": {
+    "method": "Supplied predicted_train_outputs were compared grid-for-grid and cell-for-cell with all five visible training outputs.",
+    "raw_candidate_count": 16,
+    "raw_eligible_count": 16,
+    "excluded_candidates": [],
+    "verified_exact_candidates": [
+      "r1:c01",
+      "r1:c02",
+      "r1:c03",
+      "r1:c04",
+      "r1:c05",
+      "r1:c06",
+      "r1:c07",
+      "r1:c08",
+      "r2:r2_c01",
+      "r2:r2_c02",
+      "r2:r2_c03",
+      "r2:r2_c04",
+      "r2:r2_c05",
+      "r2:r2_c06",
+      "r2:r2_c07",
+      "r2:r2_c08"
+    ]
+  },
+  "deduplication": {
+    "method": "Candidates were merged only when their dimension rule, layer roles, transparency rule, macrocell addressing, crop convention, and fallback behavior were semantically equivalent. Equal visible-train behavior or equal test predictions alone was not treated as equivalence.",
+    "raw_eligible_count": 16,
+    "unique_eligible_count": 13,
+    "decisions": [
+      {
+        "canonical_id": "occupied_row_major",
+        "source_candidates": [
+          "r1:c01",
+          "r2:r2_c01"
+        ],
+        "decision": "merged",
+        "reason": "Both count all occupied header cells, use fixed left-coarse/right-fine roles, preserve nonzero fine cells, fill fine zeros from row-major coarse cells, crop from the upper-left, and use the same blank-fine fallback."
+      },
+      {
+        "canonical_id": "occupied_reverse_columns",
+        "source_candidates": [
+          "r1:c02",
+          "r2:r2_c05"
+        ],
+        "decision": "merged",
+        "reason": "Both apply the same occupied-count dimensions and fixed layers while horizontally reversing coarse macrocell columns."
+      },
+      {
+        "canonical_id": "occupied_boustrophedon",
+        "source_candidates": [
+          "r1:c05",
+          "r2:r2_c06"
+        ],
+        "decision": "merged",
+        "reason": "Both apply occupied-count dimensions and alternate coarse-row traversal direction, beginning left-to-right."
+      },
+      {
+        "canonical_id": "occupied_reflected_boustrophedon",
+        "source_candidates": [
+          "r1:c06"
+        ],
+        "decision": "kept_distinct",
+        "reason": "The alternating traversal begins with the reflected phase and is not equivalent to ordinary boustrophedon scanning."
+      },
+      {
+        "canonical_id": "occupied_left_projection",
+        "source_candidates": [
+          "r1:c03"
+        ],
+        "decision": "kept_distinct",
+        "reason": "Every horizontal macrocell uses the first coarse column, discarding other coarse columns."
+      },
+      {
+        "canonical_id": "occupied_right_projection",
+        "source_candidates": [
+          "r1:c04"
+        ],
+        "decision": "kept_distinct",
+        "reason": "Every horizontal macrocell uses the last coarse column, distinct from first-column projection and reversal."
+      },
+      {
+        "canonical_id": "occupied_diagonal_addressing",
+        "source_candidates": [
+          "r1:c07"
+        ],
+        "decision": "kept_distinct",
+        "reason": "The macro row index also selects the coarse column."
+      },
+      {
+        "canonical_id": "occupied_antidiagonal_addressing",
+        "source_candidates": [
+          "r1:c08"
+        ],
+        "decision": "kept_distinct",
+        "reason": "The reflected macro row index selects the coarse column."
+      },
+      {
+        "canonical_id": "modal_header_row_major",
+        "source_candidates": [
+          "r2:r2_c02"
+        ],
+        "decision": "kept_distinct",
+        "reason": "Output dimensions count only the modal nonzero header color and differ on multicolor headers."
+      },
+      {
+        "canonical_id": "first_color_header_row_major",
+        "source_candidates": [
+          "r2:r2_c03"
+        ],
+        "decision": "kept_distinct",
+        "reason": "Output dimensions count the color of the first raster nonzero header cell."
+      },
+      {
+        "canonical_id": "last_color_header_row_major",
+        "source_candidates": [
+          "r2:r2_c04"
+        ],
+        "decision": "kept_distinct",
+        "reason": "Output dimensions count the color of the last raster nonzero header cell."
+      },
+      {
+        "canonical_id": "occupied_collision_transparency",
+        "source_candidates": [
+          "r2:r2_c07"
+        ],
+        "decision": "kept_distinct",
+        "reason": "Shared coarse/fine colors suppress coarse filling at fine zeros, unlike ordinary compositing."
+      },
+      {
+        "canonical_id": "occupied_sparsity_selected_layers",
+        "source_candidates": [
+          "r2:r2_c08"
+        ],
+        "decision": "kept_distinct",
+        "reason": "Fine and coarse roles are selected by sparsity instead of fixed quadrant side."
+      }
+    ]
+  },
+  "ranking": [
+    {
+      "rank": 1,
+      "canonical_id": "occupied_row_major",
+      "source_candidates": [
+        "r1:c01",
+        "r2:r2_c01"
+      ],
+      "semantic_signature": "occupied-count-dimensions|right-fine-zero-transparent|left-coarse-row-major|top-left-crop|blank-fine-fallback",
+      "representation": {
+        "entities": "Four equal quadrants: two occupied-cell size headers, a left coarse color lattice, and a right fine stencil.",
+        "relations": "Upper-left and upper-right occupied counts give output height and width; each left cell colors one right-stencil macrocell.",
+        "invariances": "Header colors are irrelevant, fine nonzeros are preserved, zero is transparent, and the construction is periodically cropped.",
+        "operator": "Fixed left-coarse/right-fine zero-transparent row-major macrocell expansion.",
+        "alternatives": "Reflected or alternating macro scans, content-selected layer roles, and color-selected header counts."
+      },
+      "execution_spec": "Split into four equal quadrants. Count all nonzero cells in the upper-left and upper-right quadrants to obtain H and W. Use the lower-left as coarse cells and the lower-right as a repeating fine stencil. Preserve each nonzero fine cell and replace each fine zero by the row-major corresponding coarse cell. If the fine panel is blank, periodically crop the coarse panel directly. Return the upper-left H-by-W crop.",
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,7,7,3],[7,7,3,7],[7,6,7,8],[6,7,8,7]]
+      ],
+      "ranking_rationale": "The simplest direct four-panel correspondence, fully local and structure-preserving; it also recurred independently in both runs."
+    },
+    {
+      "rank": 2,
+      "canonical_id": "occupied_sparsity_selected_layers",
+      "source_candidates": [
+        "r2:r2_c08"
+      ],
+      "semantic_signature": "occupied-count-dimensions|sparsity-selected-fine-layer|other-coarse-row-major|top-left-crop|blank-panel-direct",
+      "representation": {
+        "entities": "Two size headers and two lower layers assigned by structural sparsity.",
+        "relations": "Occupied header counts give dimensions; the mixed sparser lower panel is the fine stencil and the other is coarse.",
+        "invariances": "Layer side is irrelevant when structural roles remain identifiable; zero is transparent.",
+        "operator": "Sparsity-selected fine layer over the other row-major coarse layer.",
+        "alternatives": "Fixed left-coarse/right-fine roles."
+      },
+      "execution_spec": "Count all nonzero cells in the upper pair for H and W. Among lower panels choose as fine the nonblank panel containing zeros and having the larger zero count, with ties favoring the right; use the other as row-major coarse cells. Preserve fine nonzeros and fill fine zeros from coarse cells. If one panel is blank and the other fully nonzero, crop the nonblank panel periodically. Return H by W.",
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,7,7,3],[7,7,3,7],[7,6,7,8],[6,7,8,7]]
+      ],
+      "ranking_rationale": "Preserves the same local hierarchical semantics as rank 1 and gives an explicit structural role rule, but adds sparsity selection and a tie convention."
+    },
+    {
+      "rank": 3,
+      "canonical_id": "occupied_reverse_columns",
+      "source_candidates": [
+        "r1:c02",
+        "r2:r2_c05"
+      ],
+      "semantic_signature": "occupied-count-dimensions|right-fine-zero-transparent|left-coarse-reverse-columns|top-left-crop",
+      "representation": {
+        "entities": "Occupied-cell headers, a left coarse lattice, and a right fine stencil.",
+        "relations": "Dimensions are occupied counts; coarse cells are consumed right-to-left within each row.",
+        "invariances": "Fine geometry and transparency are preserved while horizontal coarse orientation is mirrored.",
+        "operator": "Horizontally reflected row-major macrocell expansion.",
+        "alternatives": "Ordinary row-major or alternating traversal."
+      },
+      "execution_spec": "Count all upper nonzeros for H and W. Mirror the lower-left panel horizontally, expand the lower-right stencil over its coarse cells, preserving fine nonzeros and filling fine zeros, with blank-fine fallback. Crop the upper-left H by W.",
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,3,7,7],[3,7,7,7],[7,8,7,6],[8,7,6,7]]
+      ],
+      "ranking_rationale": "A simple geometric symmetry alternative with full local correspondence and independent recurrence, but the reversal is unsupported."
+    },
+    {
+      "rank": 4,
+      "canonical_id": "occupied_boustrophedon",
+      "source_candidates": [
+        "r1:c05",
+        "r2:r2_c06"
+      ],
+      "semantic_signature": "occupied-count-dimensions|right-fine-zero-transparent|left-coarse-boustrophedon|top-left-crop",
+      "representation": {
+        "entities": "Occupied-cell headers, coarse cells, and a repeating fine stencil.",
+        "relations": "Coarse rows alternate left-to-right and right-to-left.",
+        "invariances": "Fine geometry, nonzero cells, and zero transparency are preserved.",
+        "operator": "Boustrophedon coarse traversal before stencil expansion.",
+        "alternatives": "Uniform row-major or uniformly mirrored traversal."
+      },
+      "execution_spec": "Count upper occupied cells for H and W. Traverse lower-left coarse rows left-to-right on even rows and right-to-left on odd rows. For each coarse cell, preserve lower-right nonzeros and fill its zeros with that coarse value; use the coarse pattern directly if the fine panel is blank. Crop H by W.",
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,7,7,3],[7,7,3,7],[7,8,7,6],[8,7,6,7]]
+      ],
+      "ranking_rationale": "A known structure-preserving scan convention that recurred independently, but it adds an unobserved alternating orientation."
+    },
+    {
+      "rank": 5,
+      "canonical_id": "occupied_reflected_boustrophedon",
+      "source_candidates": [
+        "r1:c06"
+      ],
+      "semantic_signature": "quadrant_count_dimensions+stencil_block_substitution+reflected_boustrophedon_macro_scan",
+      "representation": {
+        "entities": "Occupied-cell headers, coarse cells, and a repeating fine stencil.",
+        "relations": "Coarse rows alternate direction beginning right-to-left.",
+        "invariances": "Fine geometry, nonzeros, and zero transparency are preserved.",
+        "operator": "Reflected-phase boustrophedon macro scan.",
+        "alternatives": "Ordinary boustrophedon and fixed-direction scans."
+      },
+      "execution_spec": "Count upper occupied cells for H and W. Traverse lower-left rows right-to-left on even rows and left-to-right on odd rows, expanding the lower-right transparent stencil over each coarse cell, with blank-fine fallback. Crop H by W.",
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,3,7,7],[3,7,7,7],[7,6,7,8],[6,7,8,7]]
+      ],
+      "ranking_rationale": "Retains local structure and uses a common scan family, but adds both alternation and an unsupported reflected starting phase."
+    },
+    {
+      "rank": 6,
+      "canonical_id": "occupied_collision_transparency",
+      "source_candidates": [
+        "r2:r2_c07"
+      ],
+      "semantic_signature": "occupied-count-dimensions|right-fine|shared-color-collision-keeps-zero|left-coarse-row-major|top-left-crop",
+      "representation": {
+        "entities": "Occupied-cell headers and two palette-bearing lower layers.",
+        "relations": "Fine zeros receive coarse color except when that coarse color occurs in the fine foreground.",
+        "invariances": "Distinct-palette cases reduce to ordinary local compositing.",
+        "operator": "Row-major compositing with collision-sensitive transparency.",
+        "alternatives": "Ordinary zero-transparent compositing."
+      },
+      "execution_spec": "Count all upper nonzeros for H and W. Expand lower-right over row-major lower-left cells. Preserve fine nonzeros. At a fine zero emit the coarse value unless that value also occurs as a fine nonzero color, in which case emit zero. Use the coarse pattern if fine is blank and crop H by W.",
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,0,7,3],[0,7,3,7],[7,6,7,8],[6,7,8,7]]
+      ],
+      "ranking_rationale": "The modification is causal and local, but introduces an unobserved palette-collision conditional beyond ordinary compositing."
+    },
+    {
+      "rank": 7,
+      "canonical_id": "modal_header_row_major",
+      "source_candidates": [
+        "r2:r2_c02"
+      ],
+      "semantic_signature": "modal-nonzero-header-counts|right-fine-zero-transparent|left-coarse-row-major|top-left-crop",
+      "representation": {
+        "entities": "Four panels whose upper headers may contain signal and distractor colors.",
+        "relations": "The modal nonzero color frequency in each header gives one output dimension.",
+        "invariances": "Other header colors are ignored; lower composition is ordinary row-major transparency.",
+        "operator": "Modal-color header dimensions plus fixed-layer row-major expansion.",
+        "alternatives": "All occupied cells or position-designated colors."
+      },
+      "execution_spec": "In each upper quadrant find the most frequent nonzero color, breaking ties by first raster occurrence, and use its count for H or W. Apply fixed right-fine over left-coarse row-major transparent composition with blank-right fallback, then crop H by W.",
+      "test": [
+        [[2,3,3,3,2,3],[3,2,3,2,3,2],[3,2,2,5,3,2],[3,3,1,2,3,3],[2,3,3,3,2,3],[3,2,3,2,3,2],[3,2,2,5,3,2]],
+        [[7,7,7,3],[7,7,3,7],[7,6,7,8],[6,7,8,7]]
+      ],
+      "ranking_rationale": "Systematic and common as a signal-selection rule, but it adds distractor semantics and a tie parameter absent from training."
+    },
+    {
+      "rank": 8,
+      "canonical_id": "first_color_header_row_major",
+      "source_candidates": [
+        "r2:r2_c03"
+      ],
+      "semantic_signature": "first-raster-color-header-counts|right-fine-zero-transparent|left-coarse-row-major|top-left-crop",
+      "representation": {
+        "entities": "Four panels with a raster-designated header color.",
+        "relations": "The first nonzero header cell designates the color whose count gives a dimension.",
+        "invariances": "Later header colors are ignored; lower geometry is unchanged.",
+        "operator": "First-color header dimensions plus ordinary hierarchical composition.",
+        "alternatives": "Modal, last, or all occupied cells."
+      },
+      "execution_spec": "For each upper quadrant, take the first row-major nonzero color and count its occurrences for H or W. Compose the fixed lower-right transparent stencil over row-major lower-left coarse cells, use blank-right fallback, and crop H by W.",
+      "test": [
+        [[2,3,3,3,2,3],[3,2,3,2,3,2]],
+        [[7,7,7,3],[7,7,3,7],[7,6,7,8],[6,7,8,7]]
+      ],
+      "ranking_rationale": "A deterministic positional-key convention, but it discards occupied header structure without positive evidence."
+    },
+    {
+      "rank": 9,
+      "canonical_id": "last_color_header_row_major",
+      "source_candidates": [
+        "r2:r2_c04"
+      ],
+      "semantic_signature": "last-raster-color-header-counts|right-fine-zero-transparent|left-coarse-row-major|top-left-crop",
+      "representation": {
+        "entities": "Four panels with an end-designated header color.",
+        "relations": "The final nonzero header cell designates the color whose count gives a dimension.",
+        "invariances": "Earlier header colors are ignored; lower composition is unchanged.",
+        "operator": "Last-color header dimensions plus ordinary hierarchical composition.",
+        "alternatives": "First, modal, or all occupied cells."
+      },
+      "execution_spec": "For each upper quadrant, take the last row-major nonzero color and count its occurrences for H or W. Compose lower-right over row-major lower-left with zero transparency and blank-right fallback, then crop H by W.",
+      "test": [
+        [[2,3],[3,2]],
+        [[7,7,7,3],[7,7,3,7],[7,6,7,8],[6,7,8,7]]
+      ],
+      "ranking_rationale": "Exact and deterministic, but the end-marker convention has weaker common geometric motivation than occupancy, mode, or first-marker rules."
+    },
+    {
+      "rank": 10,
+      "canonical_id": "occupied_left_projection",
+      "source_candidates": [
+        "r1:c03"
+      ],
+      "semantic_signature": "quadrant_count_dimensions+stencil_block_substitution+left_edge_macro_projection",
+      "representation": {
+        "entities": "Occupied-cell headers, a coarse lattice, and a transparent fine stencil.",
+        "relations": "All horizontal macroblocks use the coarse row's first cell.",
+        "invariances": "Dimensions and fine stencil repeat normally; non-left coarse columns are irrelevant.",
+        "operator": "Left-edge coarse projection.",
+        "alternatives": "Row-major, right-edge, and alternating scans."
+      },
+      "execution_spec": "Count all upper occupied cells for H and W. Repeat the lower-right stencil and preserve its nonzeros; at zeros use the first lower-left cell of the corresponding coarse row for every macro column. Use the coarse pattern directly if fine is blank and crop H by W.",
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,7,7,7],[7,7,7,7],[7,6,7,6],[6,7,6,7]]
+      ],
+      "ranking_rationale": "Simple, but it fails to preserve or causally use most coarse columns."
+    },
+    {
+      "rank": 11,
+      "canonical_id": "occupied_right_projection",
+      "source_candidates": [
+        "r1:c04"
+      ],
+      "semantic_signature": "quadrant_count_dimensions+stencil_block_substitution+right_edge_macro_projection",
+      "representation": {
+        "entities": "Occupied-cell headers, a coarse lattice, and a transparent fine stencil.",
+        "relations": "All horizontal macroblocks use the coarse row's final cell.",
+        "invariances": "Dimensions and fine stencil repeat normally; non-right coarse columns are irrelevant.",
+        "operator": "Right-edge coarse projection.",
+        "alternatives": "Row-major, left-edge, and alternating scans."
+      },
+      "execution_spec": "Count all upper occupied cells for H and W. Repeat the lower-right stencil and preserve its nonzeros; at zeros use the final lower-left cell of the corresponding coarse row for every macro column. Use the coarse pattern directly if fine is blank and crop H by W.",
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,3,7,3],[3,7,3,7],[7,8,7,8],[8,7,8,7]]
+      ],
+      "ranking_rationale": "The mirror of left projection; equally lossy and with an additional unsupported right-edge orientation."
+    },
+    {
+      "rank": 12,
+      "canonical_id": "occupied_diagonal_addressing",
+      "source_candidates": [
+        "r1:c07"
+      ],
+      "semantic_signature": "quadrant_count_dimensions+stencil_block_substitution+diagonal_row_to_column_addressing",
+      "representation": {
+        "entities": "Occupied-cell headers, a coarse lattice, and a transparent fine stencil.",
+        "relations": "The coarse macro row index selects both coarse row and column.",
+        "invariances": "Dimensions and fine stencil remain periodic.",
+        "operator": "Diagonal row-to-column coarse addressing.",
+        "alternatives": "Row-major and anti-diagonal addressing."
+      },
+      "execution_spec": "Count all upper occupied cells for H and W. Repeat the lower-right stencil, preserve its nonzeros, and fill zeros from lower-left at coarse coordinates (macro_row, macro_row), periodically indexed. Apply blank-fine fallback and crop H by W.",
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,7,7,7],[7,7,7,7],[7,8,7,8],[8,7,8,7]]
+      ],
+      "ranking_rationale": "Requires coupled coordinates and discards off-diagonal coarse information, making it less local and more parameterized."
+    },
+    {
+      "rank": 13,
+      "canonical_id": "occupied_antidiagonal_addressing",
+      "source_candidates": [
+        "r1:c08"
+      ],
+      "semantic_signature": "quadrant_count_dimensions+stencil_block_substitution+anti_diagonal_row_to_column_addressing",
+      "representation": {
+        "entities": "Occupied-cell headers, a coarse lattice, and a transparent fine stencil.",
+        "relations": "The reflected coarse macro row index selects the coarse column.",
+        "invariances": "Dimensions and fine stencil remain periodic.",
+        "operator": "Anti-diagonal row-to-column coarse addressing.",
+        "alternatives": "Row-major and diagonal addressing."
+      },
+      "execution_spec": "Count all upper occupied cells for H and W. Repeat the lower-right stencil, preserve its nonzeros, and fill zeros from lower-left at the macro row and its reflected coarse column, periodically indexed. Apply blank-fine fallback and crop H by W.",
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,3,7,3],[3,7,3,7],[7,6,7,6],[6,7,6,7]]
+      ],
+      "ranking_rationale": "Has the highest coordinate complexity, discards most coarse cells, and adds an unsupported reflection."
+    }
+  ]
+}

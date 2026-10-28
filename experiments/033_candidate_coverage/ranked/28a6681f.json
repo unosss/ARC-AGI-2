@@ -1,0 +1,291 @@
+{
+  "task_id": "28a6681f",
+  "source_runs": ["r1", "r2"],
+  "verification": {
+    "method": "Recomputed exact equality of each supplied predicted_train_outputs grid against every visible train output.",
+    "raw_candidate_count": 16,
+    "raw_eligible_count": 13,
+    "excluded_candidates": [
+      {"source_candidate": "r1_c08", "reason": "Supplied train predictions fail exact equality."},
+      {"source_candidate": "r2_c07", "reason": "Supplied train predictions fail exact equality."},
+      {"source_candidate": "r2_c08", "reason": "Supplied train predictions fail exact equality."}
+    ],
+    "verified_exact_candidates": [
+      "r1_c01", "r1_c02", "r1_c03", "r1_c04", "r1_c05", "r1_c06", "r1_c07",
+      "r2_c01", "r2_c02", "r2_c03", "r2_c04", "r2_c05", "r2_c06"
+    ]
+  },
+  "deduplication": {
+    "method": "Candidates were deduplicated by executable semantic behavior, not merely by matching train or test predictions. Distinct mechanisms or materially different extrapolation policies were retained.",
+    "raw_eligible_count": 13,
+    "unique_eligible_count": 11,
+    "decisions": [
+      {
+        "canonical_id": "c01",
+        "source_candidates": ["r1_c03", "r1_c06", "r2_c01"],
+        "decision": "merged",
+        "reason": "All three express the same conserved-color-1, wall-defined receptacle rule with bottom-up occupation, including grid-edge closure; their vocabulary differs but their executable generalization is equivalent."
+      },
+      {
+        "canonical_id": "c02",
+        "source_candidates": ["r1_c02"],
+        "decision": "retained_distinct",
+        "reason": "Hydraulic level equalization differs from discrete bottom-up receptacle packing."
+      },
+      {
+        "canonical_id": "c03",
+        "source_candidates": ["r1_c01"],
+        "decision": "retained_distinct",
+        "reason": "Global effective-depth slot ranking and narrow-pocket tie-breaking can diverge from vessel-local bottom-up filling."
+      },
+      {
+        "canonical_id": "c04",
+        "source_candidates": ["r1_c04"],
+        "decision": "retained_distinct",
+        "reason": "Staircase-concavity completion is a geometric repair rule rather than fluid or granular settling."
+      },
+      {
+        "canonical_id": "c05",
+        "source_candidates": ["r1_c05"],
+        "decision": "retained_distinct",
+        "reason": "Support/contact optimization is a separate discrete relaxation policy despite sharing a test prediction with c03."
+      },
+      {
+        "canonical_id": "c06",
+        "source_candidates": ["r2_c06"],
+        "decision": "retained_distinct",
+        "reason": "Destination selection depends on source-to-mouth proximity and filling proceeds mouth-inward."
+      },
+      {
+        "canonical_id": "c07",
+        "source_candidates": ["r2_c02"],
+        "decision": "retained_distinct",
+        "reason": "Top-to-bottom contour-slot completion is the reverse partial-fill policy from gravity."
+      },
+      {
+        "canonical_id": "c08",
+        "source_candidates": ["r1_c07"],
+        "decision": "retained_distinct",
+        "reason": "Pocket allocation is capacity-first using narrow-mouth component decomposition."
+      },
+      {
+        "canonical_id": "c09",
+        "source_candidates": ["r2_c03"],
+        "decision": "retained_distinct",
+        "reason": "One-cell contour repair has priority over interior filling."
+      },
+      {
+        "canonical_id": "c10",
+        "source_candidates": ["r2_c05"],
+        "decision": "retained_distinct",
+        "reason": "The source shape is projected and centered on a receptacle axis."
+      },
+      {
+        "canonical_id": "c11",
+        "source_candidates": ["r2_c04"],
+        "decision": "retained_distinct",
+        "reason": "Only strict holes are filled and surplus source markers remain in place."
+      }
+    ]
+  },
+  "ranking": [
+    {
+      "rank": 1,
+      "canonical_id": "c01",
+      "source_candidates": ["r1_c03", "r1_c06", "r2_c01"],
+      "semantic_signature": "conserved_1_wall_defined_receptacle_bottom_up_with_grid_edge_closure",
+      "representation": {
+        "entities": ["movable color-1 units", "fixed non-1 walls", "wall-defined receptacles"],
+        "relations": ["walls delimit upward-open receptacles", "units relocate globally and settle bottom-up", "the grid edge may close a receptacle"],
+        "invariances": ["grid size", "all non-1 cells", "number of color-1 cells"],
+        "operator": "Erase color 1 and pack the conserved units bottom-up into the deepest wall-defined receptacle, allowing stacking within its interior.",
+        "alternatives": ["hydraulic leveling", "top-first contour completion", "contour repair"]
+      },
+      "execution_spec": "Treat every nonzero non-1 cell as fixed. Remove all color-1 cells, identify upward-open pockets between wall branches or a wall and the grid boundary, choose the deepest usable receptacle, and place exactly the conserved number of units from its bottom upward without altering walls.",
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,1,5],[3,0,0,0,0,0,0,0,1,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,0,0,5,5,5,1,5],[3,3,3,3,5,5,5,5,1,5]]
+      ],
+      "ranking_rationale": "Exact, exception-free, conservative, and grounded in ordinary gravity/receptacle semantics. Equivalent formulations recur independently in both runs."
+    },
+    {
+      "rank": 2,
+      "canonical_id": "c02",
+      "source_candidates": ["r1_c02"],
+      "semantic_signature": "conserved_1_fluid_hydraulic_leveling_in_any_color_wall_basins",
+      "representation": {
+        "entities": ["color-1 fluid", "fixed walls of any nonzero non-1 color", "communicating basins"],
+        "relations": ["fluid crosses open background channels", "fluid cannot cross walls", "surface height equalizes within a communicating basin"],
+        "invariances": ["fixed scaffold", "fluid volume", "gravity direction"],
+        "operator": "Pour the conserved color-1 volume into the connected basin system and occupy lowest available cells up to discrete level surfaces.",
+        "alternatives": ["granular deepest-slot packing", "independent same-color vessels"]
+      },
+      "execution_spec": "Erase color 1 and preserve its volume. Regard every other nonzero cell as impermeable. Find upward-accessible basins and their spill connections. Add color-1 volume from the lowest elevations upward, equalizing levels across components whenever an opening connects them; at a partially occupied level, use left-to-right order.",
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,1,1,1,0,5,5,0,5],[3,3,3,1,1,5,5,5,0,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "ranking_rationale": "Exact, compact, conservative, and based on common fluid semantics; it ranks below c01 because partial-level ordering is not demonstrated."
+    },
+    {
+      "rank": 3,
+      "canonical_id": "c03",
+      "source_candidates": ["r1_c01"],
+      "semantic_signature": "conserved_1_granular_global_gravity_deepest_stable_slots_narrow_basin_tiebreak",
+      "representation": {
+        "entities": ["movable color-1 cells", "fixed nonzero obstacle cells", "zero background", "gravity basins"],
+        "relations": ["obstacles support particles from below", "side walls delimit local basins", "all color-1 cells share a conserved inventory"],
+        "invariances": ["grid size", "all non-1 cells", "number of color-1 cells"],
+        "operator": "Remove all color-1 cells, then place that inventory into the deepest stable basin slots, filling lower rows first and preferring the narrower/deeper pocket when slots compete.",
+        "alternatives": ["fluid leveling", "same-color cavity completion", "vertical-only falling"]
+      },
+      "execution_spec": "Treat every cell whose color is neither 0 nor 1 as fixed. Erase color 1 while retaining its count. Identify zero cells that are gravitationally retainable by fixed structure and the grid floor. Order them by effective depth below their first lateral spill opening, then by lower row, then by narrower containing pocket, then left-to-right. Repaint the first N cells color 1, where N is the erased count.",
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,1,1,5,5,5,1,5],[3,3,3,3,5,5,5,5,1,5]]
+      ],
+      "ranking_rationale": "Exact and physically motivated, but its effective-depth and narrow-pocket tie-break parameters are more complex than c01-c02."
+    },
+    {
+      "rank": 4,
+      "canonical_id": "c04",
+      "source_candidates": ["r1_c04"],
+      "semantic_signature": "conserved_1_complete_lowest_concavities_between_staircase_silhouettes",
+      "representation": {
+        "entities": ["color-1 repair material", "concave gaps between colored stair-step silhouettes", "fixed colored shapes"],
+        "relations": ["facing staircase boundaries define missing interior cells", "lower concavities are completed before higher ones"],
+        "invariances": ["colored silhouettes", "count of repair cells", "background outside selected concavities"],
+        "operator": "Move color 1 into the lowest gaps needed to complete compact interlocking silhouettes.",
+        "alternatives": ["physical fluid", "independent U-vessels"]
+      },
+      "execution_spec": "Erase color 1 and preserve its count. Detect horizontally bounded zero runs lying above a lower closure and between two fixed staircase silhouettes, even when the two sides have different colors. Rank runs by lower row, then by broader enclosing concavity, then left-to-right. Fill cells in that order until the inventory is exhausted.",
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,1,1,1,0,5,5,0,5],[3,3,3,1,1,5,5,5,0,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "ranking_rationale": "Exact and scaffold-preserving, but geometric repair is less causally local than settling and its run ordering is underdetermined."
+    },
+    {
+      "rank": 5,
+      "canonical_id": "c05",
+      "source_candidates": ["r1_c05"],
+      "semantic_signature": "conserved_1_discrete_relaxation_support_graph_maximize_contacts",
+      "representation": {
+        "entities": ["unit blocks of color 1", "support graph over empty cells", "fixed scaffold"],
+        "relations": ["a block is stable if directly supported or laterally wedged", "stable sites form dependency chains", "unsupported blocks repeatedly move down and sideways"],
+        "invariances": ["block count", "fixed cells", "deterministic update order"],
+        "operator": "Relax movable blocks on a support graph until no lower stable site remains.",
+        "alternatives": ["continuous fluid", "shape repair"]
+      },
+      "execution_spec": "Erase color 1 but keep N identical blocks. Construct candidate sites reachable through zero cells. Iteratively select the unoccupied site with greatest fixed support beneath, then greatest lateral confinement, then greatest row, then right-to-left; add it if doing so creates a stable support chain. Stop after N placements.",
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,1,1,5,5,5,1,5],[3,3,3,3,5,5,5,5,1,5]]
+      ],
+      "ranking_rationale": "Exact and local, but the multi-factor contact score and update order add unsupported parameters."
+    },
+    {
+      "rank": 6,
+      "canonical_id": "c06",
+      "source_candidates": ["r2_c06"],
+      "semantic_signature": "conserved_ones|nearest_vessel_mouth|mouth_inward_fill",
+      "representation": {
+        "entities": "Colored vessels, connected components of 1-material, and vessel mouths.",
+        "relations": "Material is poured into the vessel whose mouth is nearest the source component under Manhattan distance.",
+        "invariances": "Walls and marker count are preserved.",
+        "operator": "Choose a receiving vessel by source-to-mouth proximity, then fill from its mouth inward along the vessel axis.",
+        "alternatives": "Destination choice is relational to the source, unlike globally deepest-pocket selection."
+      },
+      "execution_spec": "Identify the source 1-component and each colored object's open mouth. Select the vessel with minimum Manhattan distance from the source's centroid to its mouth. Erase the source and place the same number of 1-cells consecutively from the selected mouth inward along its medial axis, without changing colored cells.",
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,1,5],[0,0,0,0,9,9,9,0,1,5],[0,0,0,0,0,0,0,5,1,5],[3,0,0,0,0,0,0,0,1,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,0,0,5,5,5,0,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "ranking_rationale": "Exact with explicit source/destination correspondence, but nearest-mouth selection and mouth-inward direction have weaker support than gravity."
+    },
+    {
+      "rank": 7,
+      "canonical_id": "c07",
+      "source_candidates": ["r2_c02"],
+      "semantic_signature": "conserved_ones|contour_slot_completion|top_to_bottom|partial_fill",
+      "representation": {
+        "entities": "Colored contour objects and a conserved multiset of fill tokens colored 1.",
+        "relations": "The interior slots of contours are inferred geometrically rather than dynamically.",
+        "invariances": "All contour cells, dimensions, and the count of fill tokens are preserved.",
+        "operator": "Place tokens in inferred contour-interior slots in top-to-bottom reading order when a contour is only partially supplied.",
+        "alternatives": "The training receptacles are exactly supplied, so top-first and bottom-first policies are train-equivalent but differ on the test."
+      },
+      "execution_spec": "Erase all 1-cells. For each non-1 color, infer the empty strip immediately inside two approximately parallel contour branches. Enumerate the selected strip from its highest supported extent downward and place the conserved 1-cells in that order; preserve all contour cells.",
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,1,5],[0,0,0,0,9,9,9,0,1,5],[0,0,0,0,0,0,0,5,1,5],[3,0,0,0,0,0,0,0,1,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,0,0,5,5,5,0,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "ranking_rationale": "Exact and relatively simple, but the top-first convention lacks a causal cue and is explicitly unresolved by training."
+    },
+    {
+      "rank": 8,
+      "canonical_id": "c08",
+      "source_candidates": ["r1_c07"],
+      "semantic_signature": "conserved_1_component_capacity_allocation_below_narrowest_mouth",
+      "representation": {
+        "entities": ["color-1 mass", "background connected components after scaffold removal", "component mouths and floors"],
+        "relations": ["narrow mouths retain mass", "component capacity is measured below its mouth", "mass is allocated by capacity"],
+        "invariances": ["scaffold", "mass", "component topology"],
+        "operator": "Assign mass to retention components in descending below-mouth capacity, packing each from its floor upward.",
+        "alternatives": ["global slot ranking", "same-color vessels"]
+      },
+      "execution_spec": "Erase color 1. Partition background into pockets using one-cell-wide scaffold necks as separators. For each pocket compute the cells below its lowest escape mouth. Sort pockets by retained capacity, then by depth, then left-to-right. Pack each selected pocket from bottom row upward and left-to-right until N cells are placed.",
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,1,1,1,1,5,5,0,5],[3,3,3,1,0,5,5,5,0,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "ranking_rationale": "Exact and unified, but neck segmentation, retained-capacity measurement, and capacity-first ordering are comparatively parameterized."
+    },
+    {
+      "rank": 9,
+      "canonical_id": "c09",
+      "source_candidates": ["r2_c03"],
+      "semantic_signature": "conserved_ones|minimal_contour_repair_first|then_deep_interior",
+      "representation": {
+        "entities": "Imperfect colored containers, 1-valued repair/fill tokens, and background.",
+        "relations": "A one-cell break in a would-be container wall is a structural defect; enclosed interior cells are secondary targets.",
+        "invariances": "Original colored cells never move; token count is conserved.",
+        "operator": "Repair minimal wall discontinuities first, then fill the deepest strict interior cells bottom-up.",
+        "alternatives": "Unlike hydraulic filling, a token may occupy a missing wall position."
+      },
+      "execution_spec": "Erase existing 1-cells. Detect one-cell gaps interrupting a vertical or diagonal contour branch that participates in a receptacle and place 1 at those gaps first. Put remaining 1-cells into the contour's strictly between-wall cells from bottom upward. Preserve every non-1 colored cell.",
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,1,1,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,0,0,5,5,5,1,5],[3,3,3,3,5,5,5,5,1,5]]
+      ],
+      "ranking_rationale": "Exact and locally geometric, but repair-first priority introduces a second operation absent from the visible transformations."
+    },
+    {
+      "rank": 10,
+      "canonical_id": "c10",
+      "source_candidates": ["r2_c05"],
+      "semantic_signature": "source_polyomino|mass_preserving_axis_projection|centered_in_receptacle",
+      "representation": {
+        "entities": "A connected source polyomino of 1-cells and one-dimensional receptacle axes extracted from colored objects.",
+        "relations": "The source polyomino is compressed onto the principal axis of the best-fitting receptacle.",
+        "invariances": "Marker mass and colored geometry are preserved; source connectivity is preserved when the destination allows it.",
+        "operator": "Project the source marker object onto the receptacle's long axis and center the resulting run vertically.",
+        "alternatives": "Uses shape projection rather than gravity or contour scan order."
+      },
+      "execution_spec": "Remove the connected 1-object, choose the narrow interior corridor whose capacity best matches its area, project all marker cells onto that corridor's principal axis, and place the resulting contiguous run centered in the corridor. Keep all other colors fixed.",
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,1,5],[0,0,0,0,0,0,0,5,1,5],[3,0,0,0,0,0,0,0,1,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,0,0,5,5,5,1,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "ranking_rationale": "Exact, but best-fit corridor selection, axis projection, and centering are more representationally elaborate than direct filling."
+    },
+    {
+      "rank": 11,
+      "canonical_id": "c11",
+      "source_candidates": ["r2_c04"],
+      "semantic_signature": "conserved_ones|strict_holes_only|bottom_up|surplus_retained_row_major",
+      "representation": {
+        "entities": "Strictly enclosed contour holes and surplus 1-markers at their original coordinates.",
+        "relations": "Only cells bounded on both horizontal sides and supported below qualify as destinations.",
+        "invariances": "Colored cells and total count of 1 remain fixed; surplus markers are not forced to move.",
+        "operator": "Fill all strict holes bottom-up; if capacity is smaller than the token count, retain earliest source tokens in row-major order.",
+        "alternatives": "Contrasts with overflow stacking beyond strict cavity capacity."
+      },
+      "execution_spec": "Find empty cells strictly between two branches of the same colored contour and connected vertically to a supported bottom. Move 1-cells into those destinations bottom-up. If fewer destinations exist than 1-cells, leave the required number of earliest original 1-cells unchanged; erase only the moved source cells.",
+      "test": [
+        [[1,1,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,0,0,5,5,5,1,5],[3,3,3,3,5,5,5,5,1,5]]
+      ],
+      "ranking_rationale": "Exact, but strict-hole restriction plus a row-major surplus-retention exception is less unified and more task-specific than the other eligible rules."
+    }
+  ]
+}

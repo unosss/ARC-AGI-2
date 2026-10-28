@@ -1,0 +1,177 @@
+{
+  "task_id": "42f14c03",
+  "observations": [
+    {
+      "grid": "train_0_input",
+      "background": 8,
+      "size": [16, 16],
+      "objects": [
+        {"color": 3, "bbox_0_based": [2, 4, 5, 7], "crop_size": [4, 4], "cell_count": 12, "crop_background_gaps": [{"shape": [1, 2], "area": 2, "local_top_left": [0, 1]}, {"shape": [1, 2], "area": 2, "local_top_left": [3, 1]}]},
+        {"color": 1, "bbox_0_based": [8, 5, 12, 7], "crop_size": [5, 3], "cell_count": 12, "crop_background_gaps": [{"shape": [3, 1], "area": 3, "local_top_left": [1, 2]}]},
+        {"color": 6, "bbox_0_based": [6, 11, 6, 12], "crop_size": [1, 2], "cell_count": 2, "solid": true},
+        {"color": 6, "bbox_0_based": [11, 1, 11, 2], "crop_size": [1, 2], "cell_count": 2, "solid": true}
+      ],
+      "output_observation": "The output is the 4x4 color-3 crop, with both 1x2 gaps recolored 6."
+    },
+    {
+      "grid": "train_1_input",
+      "background": 2,
+      "size": [16, 16],
+      "objects": [
+        {"color": 1, "bbox_0_based": [1, 1, 3, 5], "crop_size": [3, 5], "cell_count": 9, "crop_background_gaps": [{"shape": [1, 3], "area": 3, "local_top_left": [0, 1]}, {"shape": [1, 3], "area": 3, "local_top_left": [2, 1]}]},
+        {"color": 3, "bbox_0_based": [2, 8, 7, 11], "crop_size": [6, 4], "cell_count": 20, "crop_background_gaps": [{"shape": [1, 2], "area": 2, "local_top_left": [0, 1]}, {"shape": [1, 2], "area": 2, "local_top_left": [5, 1]}]},
+        {"color": 4, "bbox_0_based": [10, 3, 13, 11], "crop_size": [4, 9], "cell_count": 32, "crop_background_gaps": [{"shape": [2, 1], "area": 2, "local_top_left": [1, 0]}, {"shape": [2, 1], "area": 2, "local_top_left": [1, 8]}]},
+        {"color": 8, "bbox_0_based": [6, 2, 6, 4], "crop_size": [1, 3], "cell_count": 3, "solid": true},
+        {"color": 8, "bbox_0_based": [14, 13, 14, 15], "crop_size": [1, 3], "cell_count": 3, "solid": true}
+      ],
+      "output_observation": "The output is the 3x5 color-1 crop, with its two 1x3 gaps recolored 8; the larger color-3 and color-4 frames are omitted."
+    },
+    {
+      "grid": "train_2_input",
+      "background": 4,
+      "size": [16, 16],
+      "objects": [
+        {"color": 1, "bbox_0_based": [3, 4, 7, 9], "crop_size": [5, 6], "cell_count": 21, "crop_background_gaps": [{"shape": [3, 2], "area": 6, "local_top_left": [1, 0]}, {"shape": [3, 1], "area": 3, "local_top_left": [1, 5]}]},
+        {"color": 2, "bbox_0_based": [9, 9, 14, 12], "crop_size": [6, 4], "cell_count": 16, "crop_background_gaps": [{"shape": [3, 2], "area": 6, "local_top_left": [0, 1]}, {"shape": [1, 2], "area": 2, "local_top_left": [5, 1]}]},
+        {"color": 3, "bbox_0_based": [10, 2, 12, 3], "crop_size": [3, 2], "cell_count": 6, "solid": true},
+        {"color": 6, "bbox_0_based": [1, 14, 3, 14], "crop_size": [3, 1], "cell_count": 3, "solid": true}
+      ],
+      "output_observation": "The output is the 5x6 color-1 crop. Its 3x2 left gap is filled with color 3 and its 3x1 right gap with color 6."
+    },
+    {
+      "grid": "test_0_input",
+      "background": 8,
+      "size": [16, 16],
+      "objects": [
+        {"color": 1, "bbox_0_based": [2, 2, 4, 5], "crop_size": [3, 4], "crop_background_gaps": [{"shape": [1, 2], "area": 2, "local_top_left": [0, 1]}, {"shape": [1, 2], "area": 2, "local_top_left": [2, 1]}]},
+        {"color": 4, "bbox_0_based": [1, 10, 7, 13], "crop_size": [7, 4], "crop_background_gaps": [{"shape": [2, 2], "area": 4, "local_top_left": [0, 1]}, {"shape": [3, 2], "area": 6, "local_top_left": [4, 1]}]},
+        {"color": 2, "bbox_0_based": [7, 3, 9, 8], "crop_size": [3, 6], "crop_background_gaps": [{"shape": [1, 2], "area": 2, "local_top_left": [1, 0]}, {"shape": [1, 2], "area": 2, "local_top_left": [1, 4]}]},
+        {"color": 3, "bbox_0_based": [12, 2, 13, 3], "crop_size": [2, 2], "cell_count": 4, "solid": true},
+        {"color": 9, "bbox_0_based": [12, 9, 14, 10], "crop_size": [3, 2], "cell_count": 6, "solid": true}
+      ],
+      "output_implication": "Only the color-4 template has gaps matching the two detached solid pieces: color 3 goes in the upper 2x2 gap and color 9 in the lower 3x2 gap."
+    }
+  ],
+  "correspondences": [
+    {
+      "train_pair": 0,
+      "template": "input color-3 component at rows 2..5, cols 4..7",
+      "output_mapping": "Its tight 4x4 crop supplies all color-3 output cells at identical local coordinates.",
+      "fill_mapping": [
+        "The color-6 domino at input row 6, cols 11..12 corresponds by exact 1x2 shape to one crop gap.",
+        "The color-6 domino at input row 11, cols 1..2 corresponds by exact 1x2 shape to the other crop gap."
+      ]
+    },
+    {
+      "train_pair": 1,
+      "template": "input color-1 component at rows 1..3, cols 1..5",
+      "output_mapping": "Its tight 3x5 crop supplies all color-1 output cells at identical local coordinates.",
+      "fill_mapping": [
+        "Each detached color-8 1x3 bar corresponds to one of the two 1x3 crop gaps."
+      ]
+    },
+    {
+      "train_pair": 2,
+      "template": "input color-1 component at rows 3..7, cols 4..9",
+      "output_mapping": "Its tight 5x6 crop supplies all color-1 output cells at identical local coordinates.",
+      "fill_mapping": [
+        "The detached color-3 3x2 rectangle maps to local rows 1..3, cols 0..1.",
+        "The detached color-6 3x1 bar maps to local rows 1..3, col 5."
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1_exact_shape_completion",
+      "rule": "For each non-background component, take its tight crop and partition background cells inside that crop into 4-connected gaps. Select the unique component for which every gap can be bijectively paired with a separate solid component of exactly the same oriented shape. Return the template crop with each gap painted the color of its matched solid component; translation is allowed but rotation/reflection is not.",
+      "predicted_train_outputs": [
+        [[3,6,6,3],[3,3,3,3],[3,3,3,3],[3,6,6,3]],
+        [[1,8,8,8,1],[1,1,1,1,1],[1,8,8,8,1]],
+        [[1,1,1,1,1,1],[3,3,1,1,1,6],[3,3,1,1,1,6],[3,3,1,1,1,6],[1,1,1,1,1,1]]
+      ],
+      "train_exact": [
+        {"train_pair": 0, "exact": true, "predicted_size": [4, 4], "mismatched_cells": 0},
+        {"train_pair": 1, "exact": true, "predicted_size": [3, 5], "mismatched_cells": 0},
+        {"train_pair": 2, "exact": true, "predicted_size": [5, 6], "mismatched_cells": 0}
+      ],
+      "contradictions": [],
+      "status": "selected"
+    },
+    {
+      "id": "H2_area_only_completion",
+      "rule": "As in H1, but pair each crop gap to a detached solid component solely by equal cell count, without requiring the same shape. Fill the whole gap with that component's color.",
+      "predicted_train_outputs": [
+        [[3,6,6,3],[3,3,3,3],[3,3,3,3],[3,6,6,3]],
+        [[1,8,8,8,1],[1,1,1,1,1],[1,8,8,8,1]],
+        [[1,1,1,1,1,1],[3,3,1,1,1,6],[3,3,1,1,1,6],[3,3,1,1,1,6],[1,1,1,1,1,1]]
+      ],
+      "train_exact": [
+        {"train_pair": 0, "exact": true, "predicted_size": [4, 4], "mismatched_cells": 0},
+        {"train_pair": 1, "exact": true, "predicted_size": [3, 5], "mismatched_cells": 0},
+        {"train_pair": 2, "exact": true, "predicted_size": [5, 6], "mismatched_cells": 0}
+      ],
+      "contradictions": [
+        "No observed train pair separates area matching from exact-shape matching because every matched piece also has the exact gap shape.",
+        "The rule discards available geometric correspondence and would accept a differently shaped equal-area piece, so it is less constrained than H1."
+      ],
+      "status": "survives_training_but_not_selected"
+    },
+    {
+      "id": "H3_largest_bbox_crop",
+      "rule": "Choose the non-background component with the largest bounding-box area and return its tight crop unchanged.",
+      "predicted_train_outputs": [
+        [[3,8,8,3],[3,3,3,3],[3,3,3,3],[3,8,8,3]],
+        [[4,4,4,4,4,4,4,4,4],[2,4,4,4,4,4,4,4,2],[2,4,4,4,4,4,4,4,2],[4,4,4,4,4,4,4,4,4]],
+        [[1,1,1,1,1,1],[4,4,1,1,1,4],[4,4,1,1,1,4],[4,4,1,1,1,4],[1,1,1,1,1,1]]
+      ],
+      "train_exact": [
+        {"train_pair": 0, "exact": false, "predicted_size": [4, 4], "mismatched_cells": 4},
+        {"train_pair": 1, "exact": false, "predicted_size": [4, 9], "expected_size": [3, 5]},
+        {"train_pair": 2, "exact": false, "predicted_size": [5, 6], "mismatched_cells": 9}
+      ],
+      "contradictions": [
+        "Train 0 requires changing four background cells to color 6, but this rule leaves them color 8.",
+        "Train 1 selects the color-4 4x9 component, while the observed output is the color-1 3x5 completion.",
+        "Train 2 leaves six background-4 cells and three background-4 cells in the crop instead of filling them with colors 3 and 6."
+      ],
+      "status": "rejected"
+    }
+  ],
+  "revision_history": [
+    {
+      "step": 1,
+      "proposal": "The output might simply crop the largest framed object.",
+      "revision": "Rejected as H3: it fails all three exact train comparisons, including output dimensions on train 1."
+    },
+    {
+      "step": 2,
+      "proposal": "Select the frame whose gaps have the same areas as detached solid pieces.",
+      "revision": "H2 exactly reproduces all train outputs, but does not explain why the detached geometry itself matches."
+    },
+    {
+      "step": 3,
+      "proposal": "Require oriented shape equality between every gap and its detached filler.",
+      "revision": "H1 retains exact agreement on all training pairs and adds a directly testable geometric constraint, so it is selected."
+    }
+  ],
+  "selected_rule": {
+    "hypothesis_id": "H1_exact_shape_completion",
+    "summary": "Identify the unique colored template whose background gaps, measured inside its tight bounding box, are exact oriented-shape matches for detached solid colored components. Output the tight template crop and replace each gap by the color of its matching component.",
+    "why_it_survived": "It predicts every training output with the correct dimensions and zero cell mismatches, rejects every displayed distractor template because at least one gap lacks a matching solid piece, and uses both color and geometry of the detached pieces."
+  },
+  "test_construction": {
+    "template": "The color-4 component at input rows 1..7, cols 10..13 has a 7x4 crop.",
+    "gap_matches": [
+      "Its upper local rows 0..1, cols 1..2 form a 2x2 gap, matching the detached solid color-3 2x2 block.",
+      "Its lower local rows 4..6, cols 1..2 form a 3x2 gap, matching the detached solid color-9 3x2 block."
+    ],
+    "distractor_checks": [
+      "The color-1 crop has two 1x2 gaps, but there are no detached solid 1x2 pieces.",
+      "The color-2 crop also has two 1x2 gaps, but there are no detached solid 1x2 pieces."
+    ],
+    "summary": "Copy the 7x4 color-4 crop, paint the upper central 2x2 gap color 3, and paint the lower central 3x2 gap color 9."
+  },
+  "test": [
+    [[4,3,3,4],[4,3,3,4],[4,4,4,4],[4,4,4,4],[4,9,9,4],[4,9,9,4],[4,9,9,4]]
+  ]
+}

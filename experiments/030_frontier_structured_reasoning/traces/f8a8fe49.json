@@ -1,0 +1,210 @@
+{
+  "task_id": "f8a8fe49",
+  "observations": [
+    {
+      "grid": "train_0_input",
+      "facts": "15x15. Red forms two facing vertical boundaries at columns 3 and 10 over rows 3..10, with short inward caps at rows 3 and 10. Gray pixels lie between them: left group at (5,5),(6,6),(7,6),(8,5), and right group at (5,8),(6,8),(7,8),(8,8). Coordinates are zero-based."
+    },
+    {
+      "grid": "train_0_output",
+      "facts": "The red boundary is unchanged, all interior gray is erased, and gray appears outside: left at (5,1),(6,0),(7,0),(8,1), right at (5,12),(6,12),(7,12),(8,12)."
+    },
+    {
+      "grid": "train_1_input",
+      "facts": "15x15. Red forms facing horizontal boundaries at rows 4 and 11 over columns 4..10, with short inward side segments. Gray above the midpoint is at row 6 columns 6..8 and row 7 columns 6 and 8; a lower gray singleton is at (9,7)."
+    },
+    {
+      "grid": "train_1_output",
+      "facts": "Red is unchanged and interior gray is erased. The upper gray pattern appears above the top boundary at (2,6),(2,7),(2,8),(1,6),(1,8); the lower singleton appears below the bottom boundary at (13,7)."
+    },
+    {
+      "grid": "train_2_input",
+      "facts": "15x15. Red forms vertical boundaries at columns 3 and 10 over rows 3..7. Interior gray consists of a left group at (4,5),(5,5),(5,6),(6,6) and a right vertical group at column 8, rows 4..6."
+    },
+    {
+      "grid": "train_2_output",
+      "facts": "Red is unchanged and interior gray is erased. Exterior gray is left at (4,1),(5,0),(5,1),(6,0) and right at column 12, rows 4..6."
+    },
+    {
+      "grid": "test_0_input",
+      "facts": "15x15. It has the same horizontal red boundaries as train_1. Upper interior gray is at row 6 columns 6..9 and row 7 columns 5..7; lower interior gray is at row 9 columns 6..8."
+    }
+  ],
+  "correspondences": [
+    "For a vertical red boundary at column b, an assigned gray pixel (r,c) maps to (r,2b-c): train_0 maps c=5,6 across b=3 to c=1,0 and c=8 across b=10 to c=12.",
+    "For a horizontal red boundary at row b, an assigned gray pixel (r,c) maps to (2b-r,c): train_1 maps rows 6,7 across b=4 to rows 2,1 and row 9 across b=11 to row 13.",
+    "The nearer boundary assigns every gray pixel unambiguously in all examples; reflected pixels land outside the bounded region.",
+    "All red pixels and background cells persist except that source gray pixels are replaced by background."
+  ],
+  "hypotheses": [
+    {
+      "id": "H1_reflect_across_nearest_red_boundary",
+      "rule": "Assign each gray pixel to the nearer of the two facing red boundaries, reflect it across that boundary at equal perpendicular distance, erase the source gray, and preserve the red structure.",
+      "predicted_train_outputs": [
+        [
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,2,2,0,0,0,0,2,2,0,0,0,0],
+          [0,0,0,2,0,0,0,0,0,0,2,0,0,0,0],
+          [0,5,0,2,0,0,0,0,0,0,2,0,5,0,0],
+          [5,0,0,2,0,0,0,0,0,0,2,0,5,0,0],
+          [5,0,0,2,0,0,0,0,0,0,2,0,5,0,0],
+          [0,5,0,2,0,0,0,0,0,0,2,0,5,0,0],
+          [0,0,0,2,0,0,0,0,0,0,2,0,0,0,0],
+          [0,0,0,2,2,0,0,0,0,2,2,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        ],
+        [
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,5,0,5,0,0,0,0,0,0],
+          [0,0,0,0,0,0,5,5,5,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,2,2,2,2,2,2,2,0,0,0,0],
+          [0,0,0,0,2,0,0,0,0,0,2,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,2,0,0,0,0,0,2,0,0,0,0],
+          [0,0,0,0,2,2,2,2,2,2,2,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,5,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        ],
+        [
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,2,2,0,0,0,0,2,2,0,0,0,0],
+          [0,5,0,2,0,0,0,0,0,0,2,0,5,0,0],
+          [5,5,0,2,0,0,0,0,0,0,2,0,5,0,0],
+          [5,0,0,2,0,0,0,0,0,0,2,0,5,0,0],
+          [0,0,0,2,2,0,0,0,0,2,2,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        ]
+      ],
+      "train_exact": [true,true,true],
+      "contradictions": [],
+      "status": "selected"
+    },
+    {
+      "id": "H2_rigidly_translate_components_outside",
+      "rule": "Assign each connected gray component to its nearer red boundary and translate it rigidly to the exterior, leaving one background row or column between it and the boundary; erase the source and preserve red.",
+      "predicted_train_outputs": [
+        [
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,2,2,0,0,0,0,2,2,0,0,0,0],
+          [0,0,0,2,0,0,0,0,0,0,2,0,0,0,0],
+          [5,0,0,2,0,0,0,0,0,0,2,0,5,0,0],
+          [0,5,0,2,0,0,0,0,0,0,2,0,5,0,0],
+          [0,5,0,2,0,0,0,0,0,0,2,0,5,0,0],
+          [5,0,0,2,0,0,0,0,0,0,2,0,5,0,0],
+          [0,0,0,2,0,0,0,0,0,0,2,0,0,0,0],
+          [0,0,0,2,2,0,0,0,0,2,2,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        ],
+        [
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,5,5,5,0,0,0,0,0,0],
+          [0,0,0,0,0,0,5,0,5,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,2,2,2,2,2,2,2,0,0,0,0],
+          [0,0,0,0,2,0,0,0,0,0,2,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,2,0,0,0,0,0,2,0,0,0,0],
+          [0,0,0,0,2,2,2,2,2,2,2,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,5,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        ],
+        [
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,2,2,0,0,0,0,2,2,0,0,0,0],
+          [5,0,0,2,0,0,0,0,0,0,2,0,5,0,0],
+          [5,5,0,2,0,0,0,0,0,0,2,0,5,0,0],
+          [0,5,0,2,0,0,0,0,0,0,2,0,5,0,0],
+          [0,0,0,2,2,0,0,0,0,2,2,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        ]
+      ],
+      "train_exact": [false,false,false],
+      "contradictions": [
+        "train_0: predicted left gray at (5,0),(6,1),(7,1),(8,0), but observed (5,1),(6,0),(7,0),(8,1); the component is mirrored, not rigidly translated.",
+        "train_1: predicted upper rows are row 1 columns 6..8 and row 2 columns 6 and 8, but observed depth order is reversed.",
+        "train_2: predicted left gray at (4,0),(5,0),(5,1),(6,1), differing from observed (4,1),(5,0),(5,1),(6,0)."
+      ],
+      "status": "rejected"
+    }
+  ],
+  "revision_history": [
+    {
+      "step": 1,
+      "proposal": "Move each interior gray component through its nearest red side to the exterior.",
+      "result": "Retained as two concrete variants: rigid translation and reflection."
+    },
+    {
+      "step": 2,
+      "proposal": "Use rigid translation while preserving component orientation.",
+      "result": "Rejected because all three training outputs reverse perpendicular depth ordering."
+    },
+    {
+      "step": 3,
+      "proposal": "Reflect each gray pixel across its nearer red boundary.",
+      "result": "Accepted after exact agreement with all three complete training outputs."
+    }
+  ],
+  "selected_rule": "Preserve red. Erase every gray source pixel. Reflect each gray pixel over the nearer facing red boundary: (r,c)->(r,2b-c) for a vertical boundary at column b, or (r,c)->(2b-r,c) for a horizontal boundary at row b.",
+  "test_construction": {
+    "summary": "The test uses horizontal boundaries at rows 4 and 11. Reflect upper gray rows 6 and 7 across row 4 to rows 2 and 1, respectively. Reflect lower gray row 9 across row 11 to row 13. Preserve the red frame and clear all original gray.",
+    "mapped_pixels": [
+      "Upper: row 6 columns 6..9 -> row 2 columns 6..9.",
+      "Upper: row 7 columns 5..7 -> row 1 columns 5..7.",
+      "Lower: row 9 columns 6..8 -> row 13 columns 6..8."
+    ]
+  },
+  "test": [
+    [
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,5,5,5,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,5,5,5,5,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,2,2,2,2,2,2,2,0,0,0,0],
+      [0,0,0,0,2,0,0,0,0,0,2,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,2,0,0,0,0,0,2,0,0,0,0],
+      [0,0,0,0,2,2,2,2,2,2,2,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,5,5,5,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ]
+  ]
+}

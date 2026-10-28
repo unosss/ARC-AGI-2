@@ -1,0 +1,46 @@
+{
+  "task_id": "ad38a9d0",
+  "source_representation": "representations/ad38a9d0_r1.json",
+  "representation_parse": {
+    "output_dimensions": [9, 9],
+    "background_color": 7,
+    "coordinate_convention": "Zero-based [row,column]; row increases downward and column increases rightward.",
+    "shape_color_lookup": {
+      "plus5": 3,
+      "stair4": 8,
+      "vertical3": 2,
+      "rectangle2x3": 5,
+      "corner3": 4,
+      "vertical2": 9
+    },
+    "component_count": 7
+  },
+  "execution_steps": [
+    "Initialized a 9 by 9 grid with color 7.",
+    "Wrote color 3 to the five cells of te0_c0 (plus5).",
+    "Wrote color 8 to the four cells of te0_c1 (stair4).",
+    "Wrote color 2 to the three cells of te0_c2 (vertical3).",
+    "Wrote color 5 to the six cells of te0_c3 (rectangle2x3).",
+    "Wrote color 4 to the three cells of te0_c4 (corner3).",
+    "Wrote color 4 to the three cells of te0_c5 (corner3).",
+    "Wrote color 9 to the two cells of te0_c6 (vertical2).",
+    "Verified that all component cells are in bounds and pairwise disjoint."
+  ],
+  "unavailable_information": [],
+  "test": [
+    {
+      "test_index": 0,
+      "output": [
+        [7, 3, 7, 7, 8, 8, 7, 7, 7],
+        [3, 3, 3, 7, 7, 8, 8, 7, 7],
+        [7, 3, 7, 7, 7, 7, 7, 7, 2],
+        [7, 7, 7, 5, 5, 5, 7, 7, 2],
+        [7, 7, 7, 5, 5, 5, 7, 7, 2],
+        [7, 7, 7, 7, 7, 7, 7, 7, 7],
+        [4, 4, 7, 7, 7, 7, 7, 4, 4],
+        [7, 4, 7, 7, 7, 9, 7, 7, 4],
+        [7, 7, 7, 7, 7, 9, 7, 7, 7]
+      ]
+    }
+  ]
+}

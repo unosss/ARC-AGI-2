@@ -1,0 +1,212 @@
+{
+  "task_id": "a6f40cea",
+  "run": "r2",
+  "candidates": [
+    {
+      "local_id": "r2_c01",
+      "status": "eligible",
+      "representation": {
+        "entities": ["dominant background", "color-3 rectangular occluding frame", "external axis-aligned rectangular outlines, possibly periodic multicolor"],
+        "relations": ["the frame covers portions of outline objects", "visible fragments determine each outline's bounding rectangle and color phase"],
+        "invariances": ["frame interior dimensions", "object coordinates relative to the frame", "edge color periodicity"],
+        "operator": "Reconstruct every occluded rectangular perimeter beneath the frame, remove the frame layer, and crop to its strict interior.",
+        "alternatives": ["Differs from generic line continuation by requiring each recovered object to be a closed rectangle."]
+      },
+      "semantic_signature": "complete_hidden_rectangular_perimeters_then_crop_frame_interior",
+      "execution_spec": "Locate the color-3 rectangular frame and its strict interior. For each non-background, non-3 exterior object whose fragments define an axis-aligned rectangle, complete all four perimeter edges through the occluded frame while preserving any alternating edge-color phase. Render those recovered perimeter cells over the original interior fill and return only the strict interior.",
+      "predicted_train_outputs": [
+        [[8,8,8,2,8,8,8],[8,8,8,2,8,8,8],[4,4,8,2,2,2,2],[8,4,8,8,8,8,8]],
+        [[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[2,2,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6]],
+        [[2,2,2,4,2,2,2,2],[2,2,2,5,2,2,2,2],[5,4,5,4,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,8,9,8,9,8,9,8],[2,9,2,2,2,2,2,2]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,0,7,8,8,8,8,8],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,4,9,4],[7,7,7,0,7,7,7,9,7,7],[7,7,7,0,7,7,7,4,7,7]]
+      ],
+      "prior_rank": 1,
+      "rank_rationale": "Exactly reconstructs all training outputs with a compact closed-object occlusion model, preserves irrelevant fill, and naturally handles the periodic two-color outlines."
+    },
+    {
+      "local_id": "r2_c02",
+      "status": "eligible",
+      "representation": {
+        "entities": ["rectangular masked region", "horizontal and vertical periodic color signals", "unmasked signal samples"],
+        "relations": ["aligned samples on either side of the mask belong to the same row or column signal"],
+        "invariances": ["axis alignment", "constant or alternating signal period", "strict-interior crop"],
+        "operator": "Inpaint masked rows and columns by deterministic periodic continuation from visible samples, then crop the mask interior.",
+        "alternatives": ["Does not assume objects are closed; an open periodic polyline would be continued the same way."]
+      },
+      "semantic_signature": "periodic_axis_signal_inpainting_inside_rectangular_mask",
+      "execution_spec": "Treat the color-3 frame and its fill as a rectangular mask. Detect maximal horizontal and vertical exterior sequences of non-background colors aligned through the mask. Continue each sequence through masked cells using its observed period (period one for solid lines and period two for alternating lines), stopping at endpoints established by visible perpendicular sequence fragments. Return the strict mask interior.",
+      "predicted_train_outputs": [
+        [[8,8,8,2,8,8,8],[8,8,8,2,8,8,8],[4,4,8,2,2,2,2],[8,4,8,8,8,8,8]],
+        [[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[2,2,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6]],
+        [[2,2,2,4,2,2,2,2],[2,2,2,5,2,2,2,2],[5,4,5,4,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,8,9,8,9,8,9,8],[2,9,2,2,2,2,2,2]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,0,7,8,8,8,8,8],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,4,9,4],[7,7,7,0,7,7,7,9,7,7],[7,7,7,0,7,7,7,4,7,7]]
+      ],
+      "prior_rank": 2,
+      "rank_rationale": "Exact and deterministic with local signal continuation; ranked below rectangle completion because endpoint inference is slightly more parameterized."
+    },
+    {
+      "local_id": "r2_c03",
+      "status": "eligible",
+      "representation": {
+        "entities": ["occluder pane", "paired collinear exterior line fragments", "corner witnesses"],
+        "relations": ["fragments separated by the pane are endpoints of one hidden segment", "corners pair orthogonal segments"],
+        "invariances": ["collinearity", "fragment colors and phase", "pane-relative coordinates"],
+        "operator": "Bridge compatible exterior fragments across the pane and return the revealed interior.",
+        "alternatives": ["Requires evidence from paired fragments or corners rather than globally completing every rectangle."]
+      },
+      "semantic_signature": "bridge_collinear_fragments_across_occluder_using_corner_witnesses",
+      "execution_spec": "Identify the color-3 pane. Pair exterior horizontal or vertical fragments when their alignments, colors or alternating phases, and visible corners are compatible with one segment hidden by the pane. Fill only the interval between each supported pair or corner-determined endpoints. Replace the pane by its original fill color, overlay bridged cells, and crop to the strict interior.",
+      "predicted_train_outputs": [
+        [[8,8,8,2,8,8,8],[8,8,8,2,8,8,8],[4,4,8,2,2,2,2],[8,4,8,8,8,8,8]],
+        [[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[2,2,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6]],
+        [[2,2,2,4,2,2,2,2],[2,2,2,5,2,2,2,2],[5,4,5,4,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,8,9,8,9,8,9,8],[2,9,2,2,2,2,2,2]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,0,7,8,8,8,8,8],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,4,9,4],[7,7,7,0,7,7,7,9,7,7],[7,7,7,0,7,7,7,4,7,7]]
+      ],
+      "prior_rank": 3,
+      "rank_rationale": "Exact and causally local, but support pairing is less simple than directly identifying complete rectangular objects."
+    },
+    {
+      "local_id": "r2_c04",
+      "status": "eligible",
+      "representation": {
+        "entities": ["filled query window", "external object bounding boxes", "bounding-box perimeter templates"],
+        "relations": ["each exterior component indexes a perimeter template in global coordinates", "the query window requests the hidden intersection"],
+        "invariances": ["global bounding boxes", "template edge style", "window interior size"],
+        "operator": "Project each external component's inferred bounding-box perimeter template into the query window.",
+        "alternatives": ["Treats the frame as an explicit query/crop device, not physically as an occluding layer."]
+      },
+      "semantic_signature": "project_external_component_bbox_templates_into_query_window",
+      "execution_spec": "Use the color-3 rectangle as a query window. Group compatible exterior fragments into components and infer each component's minimum axis-aligned bounding box, including portions hidden by the query. Define a perimeter template from its visible edge colors, intersect that template with the strict query interior, and draw the intersections on the window fill.",
+      "predicted_train_outputs": [
+        [[8,8,8,2,8,8,8],[8,8,8,2,8,8,8],[4,4,8,2,2,2,2],[8,4,8,8,8,8,8]],
+        [[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[2,2,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6]],
+        [[2,2,2,4,2,2,2,2],[2,2,2,5,2,2,2,2],[5,4,5,4,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,8,9,8,9,8,9,8],[2,9,2,2,2,2,2,2]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,0,7,8,8,8,8,8],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,4,9,4],[7,7,7,0,7,7,7,9,7,7],[7,7,7,0,7,7,7,4,7,7]]
+      ],
+      "prior_rank": 4,
+      "rank_rationale": "Exact and geometrically clear, but bounding-box templating is a more abstract mechanism than direct occlusion completion."
+    },
+    {
+      "local_id": "r2_c05",
+      "status": "eligible",
+      "representation": {
+        "entities": ["foreground frame layer", "middle object-outline layer", "background/fill layer"],
+        "relations": ["foreground frame layer occludes the middle layer", "middle-layer geometry remains continuous behind it"],
+        "invariances": ["layer order", "continuity of middle-layer contours", "original fill beneath erased frame"],
+        "operator": "Perform amodal completion of middle-layer contours, delete the foreground layer, and expose the interior patch.",
+        "alternatives": ["Allows any simple orthogonal contour, not specifically rectangles or paired signals."]
+      },
+      "semantic_signature": "three_layer_amodal_contour_completion_and_foreground_removal",
+      "execution_spec": "Interpret color 3 and its enclosed fill as a foreground cover over a scene containing simple orthogonal contours. Infer the minimum-complexity continuous contour connecting each exterior object's visible pieces behind that cover, retaining solid or alternating color order. Remove the cover and output the exposed strict-interior patch.",
+      "predicted_train_outputs": [
+        [[8,8,8,2,8,8,8],[8,8,8,2,8,8,8],[4,4,8,2,2,2,2],[8,4,8,8,8,8,8]],
+        [[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[2,2,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6]],
+        [[2,2,2,4,2,2,2,2],[2,2,2,5,2,2,2,2],[5,4,5,4,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,8,9,8,9,8,9,8],[2,9,2,2,2,2,2,2]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,0,7,8,8,8,8,8],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,4,9,4],[7,7,7,0,7,7,7,9,7,7],[7,7,7,0,7,7,7,4,7,7]]
+      ],
+      "prior_rank": 5,
+      "rank_rationale": "Exact and broadly plausible, but its generic minimum-complexity contour completion is less deterministic than explicit rectangle completion."
+    },
+    {
+      "local_id": "r2_c06",
+      "status": "eligible",
+      "representation": {
+        "entities": ["frame boundary crossings", "inward directed rays", "orthogonal turn constraints", "periodic color state"],
+        "relations": ["an exterior line crossing a frame continues inward", "a ray terminates or turns only at the coordinate implied by its object's visible corner"],
+        "invariances": ["entry coordinate and direction", "unit-width path", "color-state progression"],
+        "operator": "Trace rays inward from all crossings under corner-coordinate constraints, then crop the interior.",
+        "alternatives": ["Builds paths from boundary events rather than completing global objects or filling masks."]
+      },
+      "semantic_signature": "boundary_crossing_ray_trace_with_visible_corner_constraints",
+      "execution_spec": "At every place where a non-background object reaches or passes behind the color-3 frame, create an inward axis-aligned ray carrying that object's solid or alternating color state. Continue it through the interior until the coordinate fixed by a visible same-object corner or perpendicular edge; include any constrained turn and stop. Draw all traced cells on the enclosed fill and output the strict interior.",
+      "predicted_train_outputs": [
+        [[8,8,8,2,8,8,8],[8,8,8,2,8,8,8],[4,4,8,2,2,2,2],[8,4,8,8,8,8,8]],
+        [[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[2,2,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6]],
+        [[2,2,2,4,2,2,2,2],[2,2,2,5,2,2,2,2],[5,4,5,4,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,8,9,8,9,8,9,8],[2,9,2,2,2,2,2,2]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,0,7,8,8,8,8,8],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,4,9,4],[7,7,7,0,7,7,7,9,7,7],[7,7,7,0,7,7,7,4,7,7]]
+      ],
+      "prior_rank": 6,
+      "rank_rationale": "Exact and local but has more procedural machinery and endpoint constraints than the higher-ranked hypotheses."
+    },
+    {
+      "local_id": "r2_c07",
+      "status": "rejected",
+      "representation": {
+        "entities": ["color-3 frame", "monochrome exterior rectangular outlines", "multicolor exterior outlines"],
+        "relations": ["only monochrome outlines are treated as recoverable signals"],
+        "invariances": ["monochrome color", "rectangular geometry", "interior crop"],
+        "operator": "Complete only single-color rectangular outlines through the frame and ignore multicolor outlines.",
+        "alternatives": ["Motivated by treating alternating-color fragments as decorative noise."]
+      },
+      "semantic_signature": "complete_only_monochrome_hidden_rectangles",
+      "execution_spec": "Find the strict interior of the color-3 frame. Complete behind it every exterior rectangular outline that uses exactly one color, preserve the fill elsewhere, ignore exterior objects using multiple colors, and return the strict interior.",
+      "predicted_train_outputs": [
+        [[8,8,8,2,8,8,8],[8,8,8,2,8,8,8],[4,4,8,2,2,2,2],[8,4,8,8,8,8,8]],
+        [[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,2,6,6,6,6,8,6,6,8,6,6,6],[2,2,2,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6],[6,6,6,6,6,6,6,8,6,6,8,6,6,6]],
+        [[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2]]
+      ],
+      "train_exact": false,
+      "contradictions": [
+        "Train pair 3 differs in 14 cells: the predicted all-2 interior omits every hidden 4/5 and 8/9 outline cell."
+      ],
+      "test": [
+        [[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,0,7,8,8,8,8,8],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7]]
+      ],
+      "prior_rank": 7,
+      "rank_rationale": "Initially plausible from the first two examples but rejected because the third output explicitly reconstructs alternating multicolor outlines."
+    },
+    {
+      "local_id": "r2_c08",
+      "status": "rejected",
+      "representation": {
+        "entities": ["color-3 frame", "uniform enclosed field"],
+        "relations": ["the frame marks a crop boundary", "exterior objects are irrelevant"],
+        "invariances": ["strict-interior dimensions", "enclosed fill color"],
+        "operator": "Extract the unmodified strict interior of the frame.",
+        "alternatives": ["A literal crop baseline with no hidden-object inference."]
+      },
+      "semantic_signature": "literal_unmodified_frame_interior_crop",
+      "execution_spec": "Locate the color-3 rectangular frame and return exactly the cells strictly enclosed by it, without reconstructing or projecting any exterior object.",
+      "predicted_train_outputs": [
+        [[8,8,8,8,8,8,8],[8,8,8,8,8,8,8],[8,8,8,8,8,8,8],[8,8,8,8,8,8,8]],
+        [[6,6,6,6,6,6,6,6,6,6,6,6,6,6],[6,6,6,6,6,6,6,6,6,6,6,6,6,6],[6,6,6,6,6,6,6,6,6,6,6,6,6,6],[6,6,6,6,6,6,6,6,6,6,6,6,6,6],[6,6,6,6,6,6,6,6,6,6,6,6,6,6],[6,6,6,6,6,6,6,6,6,6,6,6,6,6],[6,6,6,6,6,6,6,6,6,6,6,6,6,6],[6,6,6,6,6,6,6,6,6,6,6,6,6,6],[6,6,6,6,6,6,6,6,6,6,6,6,6,6],[6,6,6,6,6,6,6,6,6,6,6,6,6,6],[6,6,6,6,6,6,6,6,6,6,6,6,6,6],[6,6,6,6,6,6,6,6,6,6,6,6,6,6],[6,6,6,6,6,6,6,6,6,6,6,6,6,6]],
+        [[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2]]
+      ],
+      "train_exact": false,
+      "contradictions": [
+        "Train pair 1 differs in 9 cells by omitting hidden red and yellow segments.",
+        "Train pair 2 differs in 36 cells by omitting hidden red and azure segments.",
+        "Train pair 3 differs in 14 cells by omitting both alternating hidden outlines."
+      ],
+      "test": [
+        [[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,7,7,7]]
+      ],
+      "prior_rank": 8,
+      "rank_rationale": "A low-complexity crop baseline, but visibly contradicted by every training output and therefore ineligible."
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+{
+  "task_id": "28a6681f",
+  "run": "r1",
+  "candidates": [
+    {
+      "local_id": "r1_c01",
+      "status": "eligible",
+      "representation": {
+        "entities": ["movable color-1 cells", "fixed nonzero obstacle cells", "zero background", "gravity basins"],
+        "relations": ["obstacles support particles from below", "side walls delimit local basins", "all color-1 cells share a conserved inventory"],
+        "invariances": ["grid size", "all non-1 cells", "number of color-1 cells"],
+        "operator": "Remove all color-1 cells, then place that inventory into the deepest stable basin slots, filling lower rows first and preferring the narrower/deeper pocket when slots compete.",
+        "alternatives": ["fluid leveling", "same-color cavity completion", "vertical-only falling"]
+      },
+      "semantic_signature": "conserved_1_granular_global_gravity_deepest_stable_slots_narrow_basin_tiebreak",
+      "execution_spec": "Treat every cell whose color is neither 0 nor 1 as fixed. Erase color 1 while retaining its count. Identify zero cells that are gravitationally retainable by fixed structure and the grid floor. Order them by effective depth below their first lateral spill opening, then by lower row, then by narrower containing pocket, then left-to-right. Repaint the first N cells color 1, where N is the erased count.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,1,1,1,1,1,1,1],[0,0,3,1,1,3,1,1,1,1],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,1,4,0,0,0,0],[2,1,2,4,1,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,1,1,5,5,5,1,5],[3,3,3,3,5,5,5,5,1,5]]
+      ],
+      "prior_rank": 1,
+      "rank_rationale": "Exact on all training cells, conserves the mobile color, changes nothing else, and uses a local gravity mechanism that explains both removal from exposed locations and insertion into supported voids."
+    },
+    {
+      "local_id": "r1_c02",
+      "status": "eligible",
+      "representation": {
+        "entities": ["color-1 fluid", "fixed walls of any nonzero non-1 color", "communicating basins"],
+        "relations": ["fluid crosses open background channels", "fluid cannot cross walls", "surface height equalizes within a communicating basin"],
+        "invariances": ["fixed scaffold", "fluid volume", "gravity direction"],
+        "operator": "Pour the conserved color-1 volume into the connected basin system and occupy lowest available cells up to discrete level surfaces.",
+        "alternatives": ["granular deepest-slot packing", "independent same-color vessels"]
+      },
+      "semantic_signature": "conserved_1_fluid_hydraulic_leveling_in_any_color_wall_basins",
+      "execution_spec": "Erase color 1 and preserve its volume. Regard every other nonzero cell as impermeable. Find upward-accessible basins and their spill connections. Add color-1 volume from the lowest elevations upward, equalizing levels across components whenever an opening connects them; at a partially occupied level, use left-to-right order.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,1,1,1,1,1,1,1],[0,0,3,1,1,3,1,1,1,1],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,1,4,0,0,0,0],[2,1,2,4,1,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,1,1,1,0,5,5,0,5],[3,3,3,1,1,5,5,5,0,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "prior_rank": 2,
+      "rank_rationale": "Exact and parsimonious with a standard fluid interpretation. It ranks below granular packing because the training outputs do not directly demonstrate how a partially filled shared level is resolved."
+    },
+    {
+      "local_id": "r1_c03",
+      "status": "eligible",
+      "representation": {
+        "entities": ["color-1 fill units", "monochromatic U-shaped vessels", "grid boundary"],
+        "relations": ["two arms and a lower closure define a vessel", "the grid edge may close a vessel", "fill units settle independently in each vessel"],
+        "invariances": ["vessel-colored cells", "total fill count", "orientation"],
+        "operator": "Recognize U-vessels, allocate fill to their interiors by depth, and use the right boundary as a legal closing wall.",
+        "alternatives": ["mixed-color basins", "global hydraulic communication"]
+      },
+      "semantic_signature": "conserved_1_fill_monochromatic_U_vessels_grid_edge_closure",
+      "execution_spec": "Erase color 1 and count it. For each non-1 color, trace pairs of rising arms joined below, allowing the grid boundary to serve as one arm or floor. The zero cells between the paired arms are vessel interiors. Fill interiors bottom-up, processing vessels by deepest bottom and then by rightmost location, until all units are used.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,1,1,1,1,1,1,1],[0,0,3,1,1,3,1,1,1,1],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,1,4,0,0,0,0],[2,1,2,4,1,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,1,5],[3,0,0,0,0,0,0,0,1,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,0,0,5,5,5,1,5],[3,3,3,3,5,5,5,5,1,5]]
+      ],
+      "prior_rank": 3,
+      "rank_rationale": "Exact and object-based, but treating the grid edge as a closure while overlooking a side-arm gap is a less local extrapolation than the first two candidates."
+    },
+    {
+      "local_id": "r1_c04",
+      "status": "eligible",
+      "representation": {
+        "entities": ["color-1 repair material", "concave gaps between colored stair-step silhouettes", "fixed colored shapes"],
+        "relations": ["facing staircase boundaries define missing interior cells", "lower concavities are completed before higher ones"],
+        "invariances": ["colored silhouettes", "count of repair cells", "background outside selected concavities"],
+        "operator": "Move color 1 into the lowest gaps needed to complete compact interlocking silhouettes.",
+        "alternatives": ["physical fluid", "independent U-vessels"]
+      },
+      "semantic_signature": "conserved_1_complete_lowest_concavities_between_staircase_silhouettes",
+      "execution_spec": "Erase color 1 and preserve its count. Detect horizontally bounded zero runs lying above a lower closure and between two fixed staircase silhouettes, even when the two sides have different colors. Rank runs by lower row, then by broader enclosing concavity, then left-to-right. Fill cells in that order until the inventory is exhausted.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,1,1,1,1,1,1,1],[0,0,3,1,1,3,1,1,1,1],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,1,4,0,0,0,0],[2,1,2,4,1,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,1,1,1,0,5,5,0,5],[3,3,3,1,1,5,5,5,0,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "prior_rank": 4,
+      "rank_rationale": "Exact and preserves the scaffold, but geometric repair is less causally direct than gravity and its partial-run ordering is underdetermined by training."
+    },
+    {
+      "local_id": "r1_c05",
+      "status": "eligible",
+      "representation": {
+        "entities": ["unit blocks of color 1", "support graph over empty cells", "fixed scaffold"],
+        "relations": ["a block is stable if directly supported or laterally wedged", "stable sites form dependency chains", "unsupported blocks repeatedly move down and sideways"],
+        "invariances": ["block count", "fixed cells", "deterministic update order"],
+        "operator": "Relax movable blocks on a support graph until no lower stable site remains.",
+        "alternatives": ["continuous fluid", "shape repair"]
+      },
+      "semantic_signature": "conserved_1_discrete_relaxation_support_graph_maximize_contacts",
+      "execution_spec": "Erase color 1 but keep N identical blocks. Construct candidate sites reachable through zero cells. Iteratively select the unoccupied site with greatest fixed support beneath, then greatest lateral confinement, then greatest row, then right-to-left; add it if doing so creates a stable support chain. Stop after N placements.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,1,1,1,1,1,1,1],[0,0,3,1,1,3,1,1,1,1],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,1,4,0,0,0,0],[2,1,2,4,1,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,1,1,5,5,5,1,5],[3,3,3,3,5,5,5,5,1,5]]
+      ],
+      "prior_rank": 5,
+      "rank_rationale": "Exact and local, but the contact-scoring update rule has more parameters than basin filling and is not uniquely compelled by the examples."
+    },
+    {
+      "local_id": "r1_c06",
+      "status": "eligible",
+      "representation": {
+        "entities": ["color-1 tokens", "same-color boundary pairs", "interior row intervals"],
+        "relations": ["matching-colored endpoints bracket an interior", "bracketed intervals stack vertically", "tokens occupy maximal bracketed intervals"],
+        "invariances": ["endpoint colors", "token count", "non-1 cells"],
+        "operator": "Fill row intervals bracketed by equal colors, extending from low rows upward, then place surplus in edge-bracketed intervals.",
+        "alternatives": ["mixed-color basin detection", "support physics"]
+      },
+      "semantic_signature": "conserved_1_same_color_horizontal_bracket_interiors_bottom_up",
+      "execution_spec": "Erase color 1. On each row, enumerate zero runs whose nearest nonzero cells to left and right have the same color; permit a grid edge to repeat the adjacent boundary color. Group vertically overlapping runs, order groups by their lowest row and depth, and fill runs bottom-up until N cells are placed.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,1,1,1,1,1,1,1],[0,0,3,1,1,3,1,1,1,1],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,1,4,0,0,0,0],[2,1,2,4,1,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,1,5],[3,0,0,0,0,0,0,0,1,5],[3,3,0,0,0,0,5,5,1,5],[3,3,3,0,0,5,5,5,1,5],[3,3,3,3,5,5,5,5,1,5]]
+      ],
+      "prior_rank": 6,
+      "rank_rationale": "The row-bracketing account exactly reconstructs training but uses a special grid-edge convention and ignores plausible mixed-color pockets."
+    },
+    {
+      "local_id": "r1_c07",
+      "status": "eligible",
+      "representation": {
+        "entities": ["color-1 mass", "background connected components after scaffold removal", "component mouths and floors"],
+        "relations": ["narrow mouths retain mass", "component capacity is measured below its mouth", "mass is allocated by capacity"],
+        "invariances": ["scaffold", "mass", "component topology"],
+        "operator": "Assign mass to retention components in descending below-mouth capacity, packing each from its floor upward.",
+        "alternatives": ["global slot ranking", "same-color vessels"]
+      },
+      "semantic_signature": "conserved_1_component_capacity_allocation_below_narrowest_mouth",
+      "execution_spec": "Erase color 1. Partition background into pockets using one-cell-wide scaffold necks as separators. For each pocket compute the cells below its lowest escape mouth. Sort pockets by retained capacity, then by depth, then left-to-right. Pack each selected pocket from bottom row upward and left-to-right until N cells are placed.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,0,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,0,0,0,2,3,1,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,1,1,1,1,1,1,1],[0,0,3,1,1,3,1,1,1,1],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,1,4,0,0,0,0],[2,1,2,4,1,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,0,0],[0,9,9,0,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[0,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,1,1,1,1,5,5,0,5],[3,3,3,1,0,5,5,5,0,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "prior_rank": 7,
+      "rank_rationale": "Exact but more parameterized: component neck detection and capacity-first allocation are not independently evidenced by the training set."
+    },
+    {
+      "local_id": "r1_c08",
+      "status": "rejected",
+      "representation": {
+        "entities": ["individual color-1 cells", "fixed obstacles"],
+        "relations": ["each cell remains in its original column", "cells fall until blocked"],
+        "invariances": ["column of each color-1 cell", "fixed scaffold", "particle count"],
+        "operator": "Apply vertical-only gravity independently in each column.",
+        "alternatives": ["lateral basin flow", "global redistribution"]
+      },
+      "semantic_signature": "color_1_vertical_only_column_preserving_gravity",
+      "execution_spec": "Keep every non-1 cell fixed. Within each column, move color-1 cells downward through zeros until each is directly above the grid floor, a fixed nonzero cell, or another color-1 cell. Do not permit lateral motion.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,0,0,3,1,1],[0,0,0,0,0,3,0,3,1,1],[0,0,0,0,0,3,0,3,1,1],[0,0,0,0,2,3,0,3,1,1],[0,0,0,0,2,3,0,3,1,1],[0,2,2,2,2,3,3,3,1,1]],
+        [[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,0,0,0,0],[0,0,3,0,0,0,1,0,0,0],[0,0,3,0,0,3,1,0,0,1],[0,0,3,0,0,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,1,1,3,5,1,1,5],[0,0,3,3,3,3,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,0],[9,9,0,0,0,0,0,0,9,9],[0,9,9,0,0,0,0,9,9,0],[0,0,9,9,0,0,0,9,0,0],[0,0,0,9,0,0,9,9,0,0],[0,0,0,0,0,9,9,0,0,0],[0,0,0,0,0,4,0,0,0,0],[2,0,0,4,0,4,0,0,0,0],[2,0,2,4,0,4,0,0,0,0],[2,2,2,4,4,4,0,0,0,0]]
+      ],
+      "train_exact": false,
+      "contradictions": [
+        "Train 1: predicts zeros rather than color 1 at rows 6-9, column 7 (1-indexed).",
+        "Train 2: fails to move mass laterally into the interior of the color-3 vessel and disagrees at multiple cells in rows 5-7.",
+        "Train 3: leaves no color 1 because all original color-1 cells are vertically blocked by color 9, while the label moves them into lower cavities."
+      ],
+      "test": [
+        [[0,1,0,0,0,0,0,0,0,0],[9,9,1,1,0,0,0,0,0,0],[0,9,9,1,0,0,0,0,0,0],[0,0,9,9,9,0,0,0,0,5],[0,0,0,0,9,9,9,0,0,5],[1,0,0,0,0,0,0,5,0,5],[3,0,0,0,0,0,0,0,0,5],[3,3,0,0,0,0,5,5,0,5],[3,3,3,0,0,5,5,5,0,5],[3,3,3,3,5,5,5,5,0,5]]
+      ],
+      "prior_rank": 8,
+      "rank_rationale": "A simple gravity baseline, but direct cell-for-cell comparison rejects it because the visible outputs require lateral relocation."
+    }
+  ]
+}

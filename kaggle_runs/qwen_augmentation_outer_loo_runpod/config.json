@@ -1,0 +1,33 @@
+{
+  "experiment": 40,
+  "checkpoint": "sorokin/qwen3_4b_grids15_sft139",
+  "diarc_adapter": "yyxdnmd/DiARC-adapters/qwen3-4b/arc-agi-2",
+  "task_id": "20270e3b",
+  "seed": 40040,
+  "modes": ["control", "rows", "cols", "both"],
+  "global_max_sequence_length": 8192,
+  "task_local": {
+    "rank": 256,
+    "alpha": 32,
+    "dropout": 0.0,
+    "steps": 256,
+    "learning_rate": 0.00005,
+    "train_color_permutations": 16,
+    "train_geometries": 8,
+    "decode_color_permutations": 1,
+    "decode_geometries": 1,
+    "rescore_views": 1,
+    "rescore_batch_size": 1,
+    "merge_for_inference": false,
+    "stretch_max_dim": 30
+  },
+  "dfs": {
+    "batch_size": 1,
+    "max_nodes_per_view": 1024,
+    "max_model_forward_tokens_per_view": 4096,
+    "max_candidates_per_view": 64,
+    "max_new_tokens": 931,
+    "emergency_seconds_per_view": 300,
+    "min_prob": 0.2
+  }
+}

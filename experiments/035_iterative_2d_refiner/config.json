@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "experiment": 35,
+  "runner_config": "../../kaggle_runs/qwen_iterative_refiner_runpod/config.json",
+  "status": "implemented",
+  "primary_metric": "paired_task_level_top2_exact",
+  "arms": ["baseline", "global_refiner", "task_refiner"]
+}

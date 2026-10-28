@@ -1,0 +1,216 @@
+{
+  "task_id": "7039b2d7",
+  "run": "r2",
+  "vocabulary": {
+    "background_color": "The color occupying every cell that is not on a divider line.",
+    "divider_color": "The non-background color used for all complete row and complete column dividers in an instance.",
+    "horizontal_divider": "A row whose every cell has divider_color.",
+    "vertical_divider": "A column whose every cell has divider_color.",
+    "row_interval": "A maximal nonempty contiguous run of row indices that are not horizontal_dividers.",
+    "column_interval": "A maximal nonempty contiguous run of column indices that are not vertical_dividers.",
+    "compartment": "The Cartesian product of one row_interval and one column_interval.",
+    "quotient_grid": "A grid with one output cell per compartment, ordered top-to-bottom by row_interval and left-to-right by column_interval."
+  },
+  "extraction": {
+    "coordinate_convention": "Zero-based [row,column] coordinates; inclusive interval endpoints.",
+    "color_identification": [
+      "Collect rows that are constant and columns that are constant.",
+      "The divider_color is the color shared by the complete constant rows and complete constant columns forming the line system.",
+      "The background_color is the other color. In all encoded instances, every cell outside the extracted divider rows and columns has this color."
+    ],
+    "divider_identification": [
+      "A horizontal_divider is any row all of whose cells equal divider_color.",
+      "A vertical_divider is any column all of whose cells equal divider_color.",
+      "A divider on an outer boundary is still a divider."
+    ],
+    "interval_identification": [
+      "Delete divider row indices conceptually, then take maximal nonempty consecutive runs of remaining row indices.",
+      "Delete divider column indices conceptually, then take maximal nonempty consecutive runs of remaining column indices.",
+      "Do not create an empty interval before or after a boundary divider."
+    ],
+    "instance_encoding": "Store input dimensions, colors, divider index sets, interval endpoint lists, and the resulting compartment matrix dimensions. Store training outputs symbolically as dimensions and a uniform fill rather than repeating cells."
+  },
+  "instances": {
+    "train": [
+      {
+        "pair": 0,
+        "input_dimensions": [27, 27],
+        "background_color": 5,
+        "divider_color": 8,
+        "horizontal_dividers": [9, 14, 19, 24],
+        "vertical_dividers": [6, 16, 19, 25],
+        "row_intervals": [[0, 8], [10, 13], [15, 18], [20, 23], [25, 26]],
+        "column_intervals": [[0, 5], [7, 15], [17, 18], [20, 24], [26, 26]],
+        "row_interval_lengths": [9, 4, 4, 4, 2],
+        "column_interval_lengths": [6, 9, 2, 5, 1],
+        "compartment_matrix_dimensions": [5, 5],
+        "observed_output": {
+          "dimensions": [5, 5],
+          "uniform_fill_color": 5
+        }
+      },
+      {
+        "pair": 1,
+        "input_dimensions": [21, 21],
+        "background_color": 5,
+        "divider_color": 3,
+        "horizontal_dividers": [10, 13],
+        "vertical_dividers": [3, 8, 18],
+        "row_intervals": [[0, 9], [11, 12], [14, 20]],
+        "column_intervals": [[0, 2], [4, 7], [9, 17], [19, 20]],
+        "row_interval_lengths": [10, 2, 7],
+        "column_interval_lengths": [3, 4, 9, 2],
+        "compartment_matrix_dimensions": [3, 4],
+        "observed_output": {
+          "dimensions": [3, 4],
+          "uniform_fill_color": 5
+        }
+      },
+      {
+        "pair": 2,
+        "input_dimensions": [10, 10],
+        "background_color": 1,
+        "divider_color": 4,
+        "horizontal_dividers": [5],
+        "vertical_dividers": [0, 2, 8],
+        "row_intervals": [[0, 4], [6, 9]],
+        "column_intervals": [[1, 1], [3, 7], [9, 9]],
+        "row_interval_lengths": [5, 4],
+        "column_interval_lengths": [1, 5, 1],
+        "compartment_matrix_dimensions": [2, 3],
+        "observed_output": {
+          "dimensions": [2, 3],
+          "uniform_fill_color": 1
+        },
+        "boundary_case": "Column 0 is a divider. It creates no interval to its left; therefore three, not four, column intervals remain."
+      }
+    ],
+    "test": [
+      {
+        "case": 0,
+        "input_dimensions": [16, 16],
+        "background_color": 1,
+        "divider_color": 3,
+        "horizontal_dividers": [6, 14],
+        "vertical_dividers": [2, 4, 6, 9],
+        "row_intervals": [[0, 5], [7, 13], [15, 15]],
+        "column_intervals": [[0, 1], [3, 3], [5, 5], [7, 8], [10, 15]],
+        "row_interval_lengths": [6, 7, 1],
+        "column_interval_lengths": [2, 1, 1, 2, 6],
+        "compartment_matrix_dimensions": [3, 5],
+        "all_compartments_uniform_color": 1
+      }
+    ]
+  },
+  "invariances": {
+    "discarded": [
+      "Absolute input height and width after they have determined the divider and interval index sets.",
+      "The thicknesses and unequal sizes of row_intervals and column_intervals.",
+      "Absolute divider positions.",
+      "The numeric identity of divider_color.",
+      "The detailed repetition count of background cells within a compartment."
+    ],
+    "preserved": [
+      "The top-to-bottom order and count of nonempty row_intervals.",
+      "The left-to-right order and count of nonempty column_intervals.",
+      "The background_color as the output cell value.",
+      "Boundary status insofar as a boundary divider must not induce an empty interval."
+    ]
+  },
+  "candidate_models": [
+    {
+      "name": "interval_quotient",
+      "rule": "Replace each nonempty rectangle between consecutive full divider rows and columns, including edge-to-divider regions, by one cell of its compartment color; omit divider lines.",
+      "predictions_on_training": [
+        {"pair": 0, "dimensions": [5, 5], "uniform_fill_color": 5},
+        {"pair": 1, "dimensions": [3, 4], "uniform_fill_color": 5},
+        {"pair": 2, "dimensions": [2, 3], "uniform_fill_color": 1}
+      ],
+      "status": "Matches every training output exactly."
+    },
+    {
+      "name": "divider_count_plus_one",
+      "rule": "Set output height to horizontal divider count plus one and width to vertical divider count plus one, filling with background_color.",
+      "predictions_on_training": [
+        {"pair": 0, "dimensions": [5, 5], "uniform_fill_color": 5},
+        {"pair": 1, "dimensions": [3, 4], "uniform_fill_color": 5},
+        {"pair": 2, "dimensions": [2, 4], "uniform_fill_color": 1}
+      ],
+      "status": "Contradicted by training pair 2 because a divider lies on the left boundary and does not create a nonempty region on both sides."
+    },
+    {
+      "name": "interior_divider_deletion_only",
+      "rule": "Remove every complete divider row and column but retain all remaining cells at their original multiplicity.",
+      "predictions_on_training": [
+        {"pair": 0, "dimensions": [23, 23]},
+        {"pair": 1, "dimensions": [19, 18]},
+        {"pair": 2, "dimensions": [9, 7]}
+      ],
+      "status": "Contradicted by all training output dimensions; the intervals must be collapsed, not merely the divider lines deleted."
+    }
+  ],
+  "train_validation": {
+    "method": "For each pair, independently derive maximal non-divider row and column runs, create one output coordinate per run pair, and compare dimensions and every output cell.",
+    "pair_results": [
+      {
+        "pair": 0,
+        "derived_dimensions": [5, 5],
+        "observed_dimensions": [5, 5],
+        "derived_cell_rule": "Every one of the 25 compartments contains only color 5, so every quotient cell is 5.",
+        "exact_match": true
+      },
+      {
+        "pair": 1,
+        "derived_dimensions": [3, 4],
+        "observed_dimensions": [3, 4],
+        "derived_cell_rule": "Every one of the 12 compartments contains only color 5, so every quotient cell is 5.",
+        "exact_match": true
+      },
+      {
+        "pair": 2,
+        "derived_dimensions": [2, 3],
+        "observed_dimensions": [2, 3],
+        "derived_cell_rule": "Every one of the 6 nonempty compartments contains only color 1, so every quotient cell is 1.",
+        "exact_match": true
+      }
+    ],
+    "aggregate": {
+      "exact_pairs": 3,
+      "total_pairs": 3,
+      "exact_cells": 43,
+      "total_output_cells": 43,
+      "dimension_matches": 3
+    },
+    "critical_discrimination": "Pair 2 rejects naive divider-count-plus-one because its full divider at column 0 borders no compartment on the outside."
+  },
+  "selected_model": {
+    "name": "interval_quotient",
+    "rationale": "It exactly explains all training dimensions and values, handles the observed boundary divider correctly, and expresses the output as the quotient of the input by divider-induced nonempty intervals."
+  },
+  "remaining_ambiguities": [
+    "All observed compartments are monochromatic background, so training does not distinguish copying a representative compartment cell from majority-color aggregation; these coincide here.",
+    "No divider has thickness greater than one, so behavior for adjacent complete divider rows or columns is unobserved. The selected definition treats all divider indices as removed and creates no empty interval between adjacent dividers.",
+    "No non-divider object color occurs inside a compartment, so behavior for such content is unsupported and unnecessary for the encoded test instance."
+  ],
+  "execution_spec": {
+    "scope": "Construct test case 0 solely from this artifact.",
+    "coordinate_convention": "Output uses zero-based [row,column] coordinates, ordered top-to-bottom and left-to-right.",
+    "test_entities": {
+      "background_color": 1,
+      "divider_color": 3,
+      "row_intervals_in_order": [[0, 5], [7, 13], [15, 15]],
+      "column_intervals_in_order": [[0, 1], [3, 3], [5, 5], [7, 8], [10, 15]],
+      "output_dimensions": [3, 5]
+    },
+    "ordered_construction": [
+      "Allocate a new grid with 3 rows and 5 columns.",
+      "Associate output row r with row_intervals_in_order[r] and output column c with column_intervals_in_order[c].",
+      "For every output coordinate [r,c] in bounds, emit one cell representing that interval-pair compartment.",
+      "Set that cell to background_color, which is 1, because every encoded test compartment is uniformly color 1.",
+      "Return the constructed grid without divider rows or divider columns."
+    ],
+    "collision_behavior": "Exactly one compartment maps to each output coordinate, so collisions cannot occur. If implemented generically, a repeated write must agree with the existing value.",
+    "boundary_behavior": "Only coordinates 0 <= r < 3 and 0 <= c < 5 are emitted. Boundary dividers are omitted and never create empty output rows or columns.",
+    "completeness_statement": "The dimensions, interval ordering, and value for every output coordinate are specified here; the raw challenge is not needed."
+  }
+}

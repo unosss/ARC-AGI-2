@@ -1,0 +1,30 @@
+# Local artifacts and downloaded model weights
+.artifacts/
+models/
+
+# Python caches and environments
+**/__pycache__/
+**/.pytest_cache/
+.pytest_cache/
+**/.venv/
+**/venv/
+*.py[cod]
+
+# Generated training artifacts
+**/runpod_output/
+**/checkpoints/
+**/adapter/
+**/*.safetensors
+**/*.bin
+**/*.pt
+**/*.pth
+kaggle_runs/**/outputs/
+kaggle_runs/**/output/
+kaggle_runs/**/output*/
+outputs/
+
+# Logs and local editor files
+*.log
+.DS_Store
+.vscode/
+.idea/

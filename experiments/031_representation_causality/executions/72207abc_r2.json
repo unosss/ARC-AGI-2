@@ -1,0 +1,54 @@
+{
+  "task_id": "72207abc",
+  "source_representation": "representations/72207abc_r2.json",
+  "representation_parse": {
+    "selected_model": "M1",
+    "rule": "For each in-bounds triangular index T(n) = n*(n+1)/2, write seed_word[n mod seed_length] in the active row; all other cells remain background.",
+    "output_dimensions": [3, 29],
+    "active_row": 1,
+    "background_value": 0,
+    "seed_word": [2, 1, 8],
+    "seed_length": 3,
+    "coordinate_convention": "zero-based [row, column]"
+  },
+  "execution_steps": [
+    {
+      "step": 1,
+      "action": "Allocate a 3 by 29 grid initialized to 0."
+    },
+    {
+      "step": 2,
+      "action": "Generate in-bounds triangular columns for n=0 through n=7.",
+      "columns": [0, 1, 3, 6, 10, 15, 21, 28]
+    },
+    {
+      "step": 3,
+      "action": "Assign seed_word[n mod 3] at row 1 for each generated column.",
+      "assignments": [
+        {"n": 0, "coordinate": [1, 0], "color": 2},
+        {"n": 1, "coordinate": [1, 1], "color": 1},
+        {"n": 2, "coordinate": [1, 3], "color": 8},
+        {"n": 3, "coordinate": [1, 6], "color": 2},
+        {"n": 4, "coordinate": [1, 10], "color": 1},
+        {"n": 5, "coordinate": [1, 15], "color": 8},
+        {"n": 6, "coordinate": [1, 21], "color": 2},
+        {"n": 7, "coordinate": [1, 28], "color": 1}
+      ]
+    },
+    {
+      "step": 4,
+      "action": "Stop because T(8)=36 is outside the width-29 boundary; return the grid unchanged otherwise."
+    }
+  ],
+  "unavailable_information": [],
+  "test": [
+    {
+      "id": "test_0",
+      "output": [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [2, 1, 0, 8, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      ]
+    }
+  ]
+}

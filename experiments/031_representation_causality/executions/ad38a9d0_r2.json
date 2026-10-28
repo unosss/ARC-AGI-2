@@ -1,0 +1,79 @@
+{
+  "task_id": "ad38a9d0",
+  "source_representation": "representations/ad38a9d0_r2.json",
+  "representation_parse": {
+    "selected_model": "normalized_shape_lookup",
+    "output_dimensions": [9, 9],
+    "coordinate_convention": "Zero-based [row,column], rows downward, columns rightward.",
+    "background_color": 7,
+    "entity_count": 7,
+    "shape_color_mapping": {
+      "domino": 9,
+      "straight_triomino": 2,
+      "L_triomino": 4,
+      "zigzag_tetromino": 8,
+      "plus_pentomino": 3,
+      "rectangle_2x3": 5
+    }
+  },
+  "execution_steps": [
+    {
+      "step": 1,
+      "action": "Initialized a 9-by-9 grid with color 7 at all 81 coordinates."
+    },
+    {
+      "step": 2,
+      "action": "Painted te0_c0 cells [[0,1],[1,0],[1,1],[1,2],[2,1]] with color 3."
+    },
+    {
+      "step": 3,
+      "action": "Painted te0_c1 cells [[0,4],[0,5],[1,5],[1,6]] with color 8."
+    },
+    {
+      "step": 4,
+      "action": "Painted te0_c2 cells [[2,8],[3,8],[4,8]] with color 2."
+    },
+    {
+      "step": 5,
+      "action": "Painted te0_c3 cells [[3,3],[3,4],[3,5],[4,3],[4,4],[4,5]] with color 5."
+    },
+    {
+      "step": 6,
+      "action": "Painted te0_c4 cells [[6,0],[6,1],[7,1]] with color 4."
+    },
+    {
+      "step": 7,
+      "action": "Painted te0_c5 cells [[7,5],[8,5]] with color 9."
+    },
+    {
+      "step": 8,
+      "action": "Painted te0_c6 cells [[6,7],[6,8],[7,8]] with color 4."
+    },
+    {
+      "step": 9,
+      "action": "Verified 26 non-background cells, 55 background cells, 81 total cells, in-bounds coordinates, and no collisions."
+    }
+  ],
+  "unavailable_information": [
+    "Original ARC challenge grids",
+    "Experiment 030 materials",
+    "Other representation runs",
+    "Predictions, answer key, reports, canvases, and other ARC data"
+  ],
+  "test": [
+    {
+      "case_id": "test_0",
+      "output": [
+        [7, 3, 7, 7, 8, 8, 7, 7, 7],
+        [3, 3, 3, 7, 7, 8, 8, 7, 7],
+        [7, 3, 7, 7, 7, 7, 7, 7, 2],
+        [7, 7, 7, 5, 5, 5, 7, 7, 2],
+        [7, 7, 7, 5, 5, 5, 7, 7, 2],
+        [7, 7, 7, 7, 7, 7, 7, 7, 7],
+        [4, 4, 7, 7, 7, 7, 7, 4, 4],
+        [7, 4, 7, 7, 7, 9, 7, 7, 4],
+        [7, 7, 7, 7, 7, 9, 7, 7, 7]
+      ]
+    }
+  ]
+}

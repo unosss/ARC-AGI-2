@@ -1,0 +1,81 @@
+{
+  "task_id": "72207abc",
+  "source_representation": "representations/72207abc_r1.json",
+  "representation_parse": {
+    "selected_model": "M1_triangular_periodic",
+    "output_dimensions": [3, 29],
+    "background": 0,
+    "active_row": 1,
+    "seed": [2, 1, 8],
+    "seed_length": 3,
+    "index_rule": "T(n) = n*(n+1)/2",
+    "color_rule": "seed[n mod 3]"
+  },
+  "execution_steps": [
+    {
+      "n": 0,
+      "column": 0,
+      "color": 2
+    },
+    {
+      "n": 1,
+      "column": 1,
+      "color": 1
+    },
+    {
+      "n": 2,
+      "column": 3,
+      "color": 8
+    },
+    {
+      "n": 3,
+      "column": 6,
+      "color": 2
+    },
+    {
+      "n": 4,
+      "column": 10,
+      "color": 1
+    },
+    {
+      "n": 5,
+      "column": 15,
+      "color": 8
+    },
+    {
+      "n": 6,
+      "column": 21,
+      "color": 2
+    },
+    {
+      "n": 7,
+      "column": 28,
+      "color": 1
+    },
+    {
+      "n": 8,
+      "column": 36,
+      "action": "stop because column is out of bounds"
+    }
+  ],
+  "unavailable_information": [
+    "original ARC challenge",
+    "Experiment 030",
+    "other representations",
+    "predictions",
+    "answer key",
+    "reports",
+    "canvases",
+    "other ARC data"
+  ],
+  "test": [
+    {
+      "case": 0,
+      "output": [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [2, 1, 0, 8, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      ]
+    }
+  ]
+}

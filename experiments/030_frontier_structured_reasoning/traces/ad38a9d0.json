@@ -1,0 +1,147 @@
+{
+  "task_id": "ad38a9d0",
+  "observations": [
+    {
+      "grid": "train_0_input",
+      "size": [9, 9],
+      "background": 7,
+      "foreground": 6,
+      "components_4_connected": [
+        {"cells_1_based": [[1,1],[1,2],[2,2]], "shape": "L_tromino"},
+        {"cells_1_based": [[1,5],[1,6],[2,6],[2,7]], "shape": "skew_tetromino"},
+        {"cells_1_based": [[3,9],[4,9],[5,9]], "shape": "straight_tromino"},
+        {"cells_1_based": [[3,4],[4,3],[4,4],[4,5],[5,4]], "shape": "plus_pentomino"},
+        {"cells_1_based": [[4,7],[5,7]], "shape": "domino"},
+        {"cells_1_based": [[5,2],[6,2],[7,2]], "shape": "straight_tromino"},
+        {"cells_1_based": [[7,8],[7,9],[8,9]], "shape": "L_tromino"},
+        {"cells_1_based": [[8,5],[8,6],[8,7],[9,5],[9,6],[9,7]], "shape": "2x3_rectangle"}
+      ]
+    },
+    {
+      "grid": "train_0_output",
+      "size": [9, 9],
+      "observation": "Every input component keeps its cells and is recolored uniformly; all background cells remain 7."
+    },
+    {
+      "grid": "train_1_input",
+      "size": [9, 9],
+      "background": 7,
+      "foreground": 6,
+      "components_4_connected": [
+        {"cells_1_based": [[2,2],[3,1],[3,2],[3,3],[4,2]], "shape": "plus_pentomino"},
+        {"cells_1_based": [[2,5],[3,5]], "shape": "domino"},
+        {"cells_1_based": [[3,7],[3,8],[4,8]], "shape": "L_tromino"},
+        {"cells_1_based": [[6,5],[6,6],[7,6],[7,7]], "shape": "skew_tetromino"},
+        {"cells_1_based": [[7,9],[8,9],[9,9]], "shape": "straight_tromino"},
+        {"cells_1_based": [[8,2],[8,3],[8,4],[9,2],[9,3],[9,4]], "shape": "2x3_rectangle"}
+      ]
+    },
+    {
+      "grid": "train_1_output",
+      "size": [9, 9],
+      "observation": "The same geometric component types receive the same colors as in train_0, independent of position."
+    },
+    {
+      "grid": "test_0_input",
+      "size": [9, 9],
+      "background": 7,
+      "foreground": 6,
+      "components_4_connected": [
+        {"cells_1_based": [[1,2],[2,1],[2,2],[2,3],[3,2]], "shape": "plus_pentomino"},
+        {"cells_1_based": [[1,5],[1,6],[2,6],[2,7]], "shape": "skew_tetromino"},
+        {"cells_1_based": [[3,9],[4,9],[5,9]], "shape": "straight_tromino"},
+        {"cells_1_based": [[4,4],[4,5],[4,6],[5,4],[5,5],[5,6]], "shape": "2x3_rectangle"},
+        {"cells_1_based": [[7,1],[7,2],[8,2]], "shape": "L_tromino"},
+        {"cells_1_based": [[7,8],[7,9],[8,9]], "shape": "L_tromino"},
+        {"cells_1_based": [[8,6],[9,6]], "shape": "domino"}
+      ]
+    }
+  ],
+  "correspondences": [
+    {"input_object": "domino", "output_color": 9, "train_occurrences": 2},
+    {"input_object": "straight_tromino", "output_color": 2, "train_occurrences": 3},
+    {"input_object": "L_tromino", "output_color": 4, "train_occurrences": 3},
+    {"input_object": "skew_tetromino", "output_color": 8, "train_occurrences": 2},
+    {"input_object": "plus_pentomino", "output_color": 3, "train_occurrences": 2},
+    {"input_object": "2x3_rectangle", "output_color": 5, "train_occurrences": 2},
+    {"invariant": "All 7-valued background positions are unchanged, and component footprints do not move."}
+  ],
+  "hypotheses": [
+    {
+      "id": "H1_shape_dictionary",
+      "rule": "Split color-6 cells into 4-connected components and replace each whole component according to its translation/rotation-invariant shape: domino->9, straight tromino->2, L tromino->4, skew tetromino->8, plus pentomino->3, and 2x3 rectangle->5. Preserve 7.",
+      "predicted_train_outputs": [
+        [[4,4,7,7,8,8,7,7,7],[7,4,7,7,7,8,8,7,7],[7,7,7,3,7,7,7,7,2],[7,7,3,3,3,7,9,7,2],[7,2,7,3,7,7,9,7,2],[7,2,7,7,7,7,7,7,7],[7,2,7,7,7,7,7,4,4],[7,7,7,7,5,5,5,7,4],[7,7,7,7,5,5,5,7,7]],
+        [[7,7,7,7,7,7,7,7,7],[7,3,7,7,9,7,7,7,7],[3,3,3,7,9,7,4,4,7],[7,3,7,7,7,7,7,4,7],[7,7,7,7,7,7,7,7,7],[7,7,7,7,8,8,7,7,7],[7,7,7,7,7,8,8,7,2],[7,5,5,5,7,7,7,7,2],[7,5,5,5,7,7,7,7,2]]
+      ],
+      "train_exact": [true, true],
+      "contradictions": [],
+      "status": "selected"
+    },
+    {
+      "id": "H2_area_and_bounding_box",
+      "rule": "Classify each component only by (cell count, unordered bounding-box dimensions): (2,{1,2})->9, (3,{1,3})->2, (3,{2,2})->4, (4,{2,3})->8, (5,{3,3})->3, (6,{2,3})->5; preserve 7.",
+      "predicted_train_outputs": [
+        [[4,4,7,7,8,8,7,7,7],[7,4,7,7,7,8,8,7,7],[7,7,7,3,7,7,7,7,2],[7,7,3,3,3,7,9,7,2],[7,2,7,3,7,7,9,7,2],[7,2,7,7,7,7,7,7,7],[7,2,7,7,7,7,7,4,4],[7,7,7,7,5,5,5,7,4],[7,7,7,7,5,5,5,7,7]],
+        [[7,7,7,7,7,7,7,7,7],[7,3,7,7,9,7,7,7,7],[3,3,3,7,9,7,4,4,7],[7,3,7,7,7,7,7,4,7],[7,7,7,7,7,7,7,7,7],[7,7,7,7,8,8,7,7,7],[7,7,7,7,7,8,8,7,2],[7,5,5,5,7,7,7,7,2],[7,5,5,5,7,7,7,7,2]]
+      ],
+      "train_exact": [true, true],
+      "contradictions": [
+        "No training contradiction: for every observed shape, cell count plus bounding-box dimensions uniquely identifies the shape.",
+        "It is less specific about geometry than H1 and would conflate unseen components having equal area and bounding box but different occupied-cell topology."
+      ],
+      "status": "train-equivalent alternative; same test prediction"
+    },
+    {
+      "id": "H3_area_only",
+      "rule": "Recolor solely by component area, using size 2->9, size 3->2, size 4->8, size 5->3, size 6->5; preserve 7.",
+      "predicted_train_outputs": [
+        [[2,2,7,7,8,8,7,7,7],[7,2,7,7,7,8,8,7,7],[7,7,7,3,7,7,7,7,2],[7,7,3,3,3,7,9,7,2],[7,2,7,3,7,7,9,7,2],[7,2,7,7,7,7,7,7,7],[7,2,7,7,7,7,7,2,2],[7,7,7,7,5,5,5,7,2],[7,7,7,7,5,5,5,7,7]],
+        [[7,7,7,7,7,7,7,7,7],[7,3,7,7,9,7,7,7,7],[3,3,3,7,9,7,2,2,7],[7,3,7,7,7,7,7,2,7],[7,7,7,7,7,7,7,7,7],[7,7,7,7,8,8,7,7,7],[7,7,7,7,7,8,8,7,2],[7,5,5,5,7,7,7,7,2],[7,5,5,5,7,7,7,7,2]]
+      ],
+      "train_exact": [false, false],
+      "contradictions": [
+        "train_0: L trominoes at {(1,1),(1,2),(2,2)} and {(7,8),(7,9),(8,9)} are observed as color 4, but H3 predicts 2.",
+        "train_1: L tromino at {(3,7),(3,8),(4,8)} is observed as color 4, but H3 predicts 2.",
+        "Choosing size 3->4 instead would contradict all three observed straight trominoes, which are color 2."
+      ],
+      "status": "rejected"
+    }
+  ],
+  "revision_history": [
+    {
+      "step": 1,
+      "candidate": "H3_area_only",
+      "result": "Rejected after comparing equal-area components: straight and L trominoes both have area 3 but consistently become 2 and 4 respectively."
+    },
+    {
+      "step": 2,
+      "candidate": "H2_area_and_bounding_box",
+      "result": "Retained as exactly consistent. It separates the two area-3 classes by 1x3 versus 2x2 bounding boxes."
+    },
+    {
+      "step": 3,
+      "candidate": "H1_shape_dictionary",
+      "result": "Selected as the direct object-level formulation supported by repeated translated instances. H1 and H2 agree on every test component, so the residual underdetermination does not affect the answer."
+    }
+  ],
+  "selected_rule": {
+    "hypothesis_id": "H1_shape_dictionary",
+    "reason": "It exactly reproduces both complete train outputs, explains repeated colors by component geometry rather than position, and distinguishes the concrete same-area counterexample. The only surviving alternative gives the identical test output."
+  },
+  "test_construction": {
+    "summary": "Preserve every 7. Recolor the test components independently: plus pentomino->3; skew tetromino->8; straight tromino->2; 2x3 rectangle->5; both L trominoes->4; domino->9.",
+    "component_assignments": [
+      {"cells_1_based": [[1,2],[2,1],[2,2],[2,3],[3,2]], "color": 3},
+      {"cells_1_based": [[1,5],[1,6],[2,6],[2,7]], "color": 8},
+      {"cells_1_based": [[3,9],[4,9],[5,9]], "color": 2},
+      {"cells_1_based": [[4,4],[4,5],[4,6],[5,4],[5,5],[5,6]], "color": 5},
+      {"cells_1_based": [[7,1],[7,2],[8,2]], "color": 4},
+      {"cells_1_based": [[7,8],[7,9],[8,9]], "color": 4},
+      {"cells_1_based": [[8,6],[9,6]], "color": 9}
+    ]
+  },
+  "test": [
+    [[7,3,7,7,8,8,7,7,7],[3,3,3,7,7,8,8,7,7],[7,3,7,7,7,7,7,7,2],[7,7,7,5,5,5,7,7,2],[7,7,7,5,5,5,7,7,2],[7,7,7,7,7,7,7,7,7],[4,4,7,7,7,7,7,4,4],[7,4,7,7,7,9,7,7,4],[7,7,7,7,7,9,7,7,7]]
+  ]
+}

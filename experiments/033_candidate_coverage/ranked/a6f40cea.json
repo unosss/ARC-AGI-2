@@ -1,0 +1,287 @@
+{
+  "task_id": "a6f40cea",
+  "source_runs": ["r1", "r2"],
+  "verification": {
+    "method": "Recomputed structural equality between each supplied predicted_train_outputs list and all three visible challenge train outputs; generator train_exact flags were not trusted.",
+    "raw_candidate_count": 16,
+    "raw_eligible_count": 14,
+    "eligible": ["r1_c1", "r1_c2", "r1_c3", "r1_c4", "r1_c5", "r1_c6", "r1_c7", "r1_c8", "r2_c01", "r2_c02", "r2_c03", "r2_c04", "r2_c05", "r2_c06"],
+    "excluded": [
+      {"source_candidate": "r2_c07", "reason": "Supplied prediction fails visible train 3."},
+      {"source_candidate": "r2_c08", "reason": "Supplied predictions fail all visible train outputs."}
+    ]
+  },
+  "deduplication": {
+    "policy": "Merge only operationally equivalent candidates with identical complete test predictions. Preserve broadly related hypotheses when their stopping, object-family, phase, or optimization rules differ, and always preserve differing test predictions.",
+    "raw_eligible_count": 14,
+    "unique_count": 12,
+    "decisions": [
+      {
+        "canonical_id": "amodal-closed-contour-mask-skip",
+        "source_candidates": ["r1_c1", "r1_c2"],
+        "decision": "merged",
+        "reason": "Both express the same opaque-frame, latent closed-orthogonal-contour completion, the same mask-skipping periodic phase rule, and identical test predictions; layer language is representational only."
+      },
+      {
+        "canonical_id": "rectangle-template-mask-skip",
+        "source_candidates": ["r1_c5"],
+        "decision": "kept_distinct",
+        "reason": "Restricts completions to hollow rectangles, unlike the generic contour canonical candidate."
+      },
+      {
+        "canonical_id": "rectangle-bbox-query-projection",
+        "source_candidates": ["r2_c01", "r2_c04"],
+        "decision": "merged",
+        "reason": "Physical-occluder and query-window wording induce the same minimum bounding-rectangle perimeter projection and identical test predictions."
+      },
+      {
+        "canonical_id": "contact-ray-minimal-join",
+        "source_candidates": ["r1_c3"],
+        "decision": "kept_distinct",
+        "reason": "Joins projected contacts by a minimum-turn rule."
+      },
+      {
+        "canonical_id": "corner-constrained-ray-trace",
+        "source_candidates": ["r2_c06"],
+        "decision": "kept_distinct",
+        "reason": "Requires visible-corner coordinates to stop or turn rays and produces a different test prediction from r1_c3."
+      },
+      {
+        "canonical_id": "side-signature-decoder",
+        "source_candidates": ["r1_c6"],
+        "decision": "kept_distinct",
+        "reason": "Treats contacts as encoded spans rather than physical hidden objects."
+      },
+      {
+        "canonical_id": "periodic-axis-signal-inpainting",
+        "source_candidates": ["r2_c02"],
+        "decision": "kept_distinct",
+        "reason": "Requires aligned periodic signals and paired endpoints; its test prediction differs from r1_c6."
+      },
+      {
+        "canonical_id": "witnessed-collinear-bridging",
+        "source_candidates": ["r2_c03"],
+        "decision": "kept_distinct",
+        "reason": "Fills only intervals supported by paired fragments or corner witnesses."
+      },
+      {
+        "canonical_id": "minimum-endpoint-network",
+        "source_candidates": ["r1_c4"],
+        "decision": "kept_distinct",
+        "reason": "Uses global endpoint pairing with a length-then-turn optimization."
+      },
+      {
+        "canonical_id": "generic-amodal-contour-minimum-complexity",
+        "source_candidates": ["r2_c05"],
+        "decision": "kept_distinct",
+        "reason": "Allows any simple orthogonal contour and yields a different test prediction from the merged r1 amodal candidate."
+      },
+      {
+        "canonical_id": "orthogonal-total-variation-inpainting",
+        "source_candidates": ["r1_c7"],
+        "decision": "kept_distinct",
+        "reason": "Defines a general missing-region optimization rather than an object or contact rule."
+      },
+      {
+        "canonical_id": "global-coordinate-side-phase-rectangles",
+        "source_candidates": ["r1_c8"],
+        "decision": "kept_distinct",
+        "reason": "Counts masked global coordinates and fits each rectangle edge phase independently, producing a distinct test prediction."
+      }
+    ]
+  },
+  "ranking": [
+    {
+      "rank": 1,
+      "canonical_id": "amodal-closed-contour-mask-skip",
+      "source_candidates": ["r1_c1", "r1_c2"],
+      "semantic_signature": "largest-3-frame/interior-window/occluded-axis-aligned-contours/phase-skips-mask",
+      "representation": {
+        "entities": "Largest rectangular color-3 frame, its uniform interior, and non-background contours partially hidden by it.",
+        "relations": "Visible collinear arms and corners identify latent closed axis-aligned contours behind the frame.",
+        "invariances": "Translation, canvas size, palette, frame aspect ratio, and solid versus periodic edge coloring.",
+        "operator": "Amodally complete the smallest compatible closed orthogonal contours, remove the opaque frame, and crop its strict interior; frame cells consume no periodic phase.",
+        "alternatives": "Rectangle-only fitting, contact decoding, endpoint optimization, or phase advancement through masked coordinates."
+      },
+      "execution_spec": "Find the largest axis-aligned rectangle outlined in 3. Initialize its strict-interior crop with the observed fill. Complete every compatible foreign fragment as the smallest closed orthogonal contour behind the opaque frame and render the hidden contour cells in the crop. Preserve solid colors; on periodic contours advance color only over visible or emitted contour cells, not color-3 mask cells.",
+      "test": [[[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,0,7,8,8,8,8,8],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,9,4,9],[7,7,7,0,7,7,7,4,7,7],[7,7,7,0,7,7,7,9,7,7]]],
+      "ranking_rationale": "Exact, deterministic, causally local, and expressed without task-specific exceptions. It uses the common occlusion/completion semantics and has independent agreement inside r1."
+    },
+    {
+      "rank": 2,
+      "canonical_id": "rectangle-template-mask-skip",
+      "source_candidates": ["r1_c5"],
+      "semantic_signature": "partial-hollow-rectangle-template-fit/per-edge-periodic-style",
+      "representation": {
+        "entities": "Main 3 frame and partial hollow rectangular contours in other color families.",
+        "relations": "Each fragment supplies sides or corners of a smallest hollow rectangle with solid or period-2 edge style.",
+        "invariances": "Rectangle dimensions, placement, palette, and frame size.",
+        "operator": "Fit rectangle bounding boxes and edge styles, render hidden perimeter portions while skipping the mask in phase, then crop.",
+        "alternatives": "General orthogonal contours, rays, or latent-layer completion."
+      },
+      "execution_spec": "Choose the largest 3 rectangle. Fit every compatible foreign fragment set as the smallest axis-aligned hollow rectangle matching all visible pixels. Infer solid or period-2 edge style from the nearest visible continuation, treating the color-3 side as a separator rather than a phase position. Render fitted perimeter cells in the strict interior.",
+      "test": [[[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,0,7,8,8,8,8,8],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,9,4,9],[7,7,7,0,7,7,7,4,7,7],[7,7,7,0,7,7,7,9,7,7]]],
+      "ranking_rationale": "Exact, explicit, low-complexity, local, and based on common hollow-rectangle semantics; slightly more restrictive than rank 1."
+    },
+    {
+      "rank": 3,
+      "canonical_id": "rectangle-bbox-query-projection",
+      "source_candidates": ["r2_c01", "r2_c04"],
+      "semantic_signature": "complete_hidden_rectangular_perimeters_then_crop_frame_interior",
+      "representation": {
+        "entities": "Color-3 frame/query window and external axis-aligned rectangular perimeter fragments.",
+        "relations": "Compatible fragments determine a bounding rectangle and edge style whose hidden intersection is requested.",
+        "invariances": "Frame-relative coordinates, rectangle geometry, edge periodicity, and interior dimensions.",
+        "operator": "Complete each minimum bounding-rectangle perimeter and project its strict-window intersection.",
+        "alternatives": "Open signal continuation or arbitrary contour completion."
+      },
+      "execution_spec": "Locate the color-3 rectangular window. Group compatible exterior fragments, infer each minimum axis-aligned bounding rectangle and visible edge style, complete its perimeter through the window, and return the recovered perimeter intersections over the original strict-interior fill.",
+      "test": [[[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,7,7,8,8,8,8,8],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,4,9,4],[7,7,7,7,7,7,7,9,7,7],[7,7,7,7,7,7,7,4,7,7]]],
+      "ranking_rationale": "Exact, compact, common rectangle geometry and independently recurrent across r2 candidates; below rank 2 because its supplied test raster reflects a stricter fragment-grouping/phase interpretation."
+    },
+    {
+      "rank": 4,
+      "canonical_id": "contact-ray-minimal-join",
+      "source_candidates": ["r1_c3"],
+      "semantic_signature": "frame-contact-rays/orthogonal-turns/minimal-connection",
+      "representation": {
+        "entities": "Colored runs ending at frame sides and their inward directional rays.",
+        "relations": "Compatible rays join with the fewest right-angle turns licensed by exterior corners.",
+        "invariances": "Relative side contacts, run direction, and color order.",
+        "operator": "Project contacts inward, join them minimally, and rasterize on the interior fill.",
+        "alternatives": "Complete global objects or optimize all endpoints jointly."
+      },
+      "execution_spec": "Initialize the strict interior of the largest 3 frame with its fill. Project each foreign line meeting a side inward, join compatible projections by the minimum orthogonal continuation supported by exterior turns, and advance periodic colors only on emitted cells.",
+      "test": [[[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,0,7,8,8,8,8,8],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,9,4,9],[7,7,7,0,7,7,7,4,7,7],[7,7,7,0,7,7,7,9,7,7]]],
+      "ranking_rationale": "Exact, local, and parameter-light, with a common line-continuation interpretation; pairing is less explicit than object completion."
+    },
+    {
+      "rank": 5,
+      "canonical_id": "corner-constrained-ray-trace",
+      "source_candidates": ["r2_c06"],
+      "semantic_signature": "boundary_crossing_ray_trace_with_visible_corner_constraints",
+      "representation": {
+        "entities": "Frame crossings, inward rays, visible-corner constraints, and periodic color state.",
+        "relations": "A crossing continues inward and stops or turns only at a coordinate witnessed by an exterior corner.",
+        "invariances": "Entry coordinate, direction, unit width, and color-state progression.",
+        "operator": "Trace constrained rays through the frame and crop the interior.",
+        "alternatives": "Global object completion or unconstrained contact joining."
+      },
+      "execution_spec": "Create an inward axis-aligned ray at each foreign-object crossing of the color-3 frame. Carry its solid or alternating state until a same-object visible corner or perpendicular edge fixes a stop or turn. Draw the constrained cells on the enclosed fill and output the strict interior.",
+      "test": [[[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,7,7,8,8,8,8,8],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,4,9,4],[7,7,7,7,7,7,7,9,7,7],[7,7,7,7,7,7,7,4,7,7]]],
+      "ranking_rationale": "Exact and causally local, with independent ray-based recurrence; visible-corner stopping adds machinery and is more conservative than rank 4."
+    },
+    {
+      "rank": 6,
+      "canonical_id": "side-signature-decoder",
+      "source_candidates": ["r1_c6"],
+      "semantic_signature": "side-signature-decoder/contact-depth-and-span",
+      "representation": {
+        "entities": "A rectangular 3 delimiter and colored contact signatures outside its sides.",
+        "relations": "Contact positions encode interior runs; perpendicular signatures determine corners and spans.",
+        "invariances": "Offsets from frame sides rather than global position.",
+        "operator": "Decode side signatures into interior rows and columns without constructing objects.",
+        "alternatives": "Object completion, endpoint optimization, or latent compositing."
+      },
+      "execution_spec": "Make an interior-sized fill field. Decode each foreign run interrupted by a delimiter side by continuing its row or column at the same offset until a compatible perpendicular signature determines its endpoint. Continue its period from the nearest exterior color and overlay all decoded signatures.",
+      "test": [[[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,0,7,8,8,8,8,8],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,9,4,9],[7,7,7,0,7,7,7,4,7,7],[7,7,7,0,7,7,7,9,7,7]]],
+      "ranking_rationale": "Exact and local but the encoding interpretation is less natural than literal occluded geometry."
+    },
+    {
+      "rank": 7,
+      "canonical_id": "periodic-axis-signal-inpainting",
+      "source_candidates": ["r2_c02"],
+      "semantic_signature": "periodic_axis_signal_inpainting_inside_rectangular_mask",
+      "representation": {
+        "entities": "Rectangular masked region, horizontal and vertical periodic signals, and unmasked samples.",
+        "relations": "Aligned samples across the mask belong to one row or column signal.",
+        "invariances": "Axis alignment, period one or two, and strict-interior crop.",
+        "operator": "Inpaint supported masked signals from visible samples and endpoints.",
+        "alternatives": "Does not require closed objects."
+      },
+      "execution_spec": "Treat the 3 frame as a mask. Detect aligned exterior sequences, continue each through masked cells with its observed constant or alternating period, stop at endpoints established by visible perpendicular fragments, and return the strict interior.",
+      "test": [[[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,7,7,8,8,8,8,8],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,4,9,4],[7,7,7,7,7,7,7,9,7,7],[7,7,7,7,7,7,7,4,7,7]]],
+      "ranking_rationale": "Exact and deterministic with local continuation; endpoint establishment is more parameterized than direct contact decoding."
+    },
+    {
+      "rank": 8,
+      "canonical_id": "witnessed-collinear-bridging",
+      "source_candidates": ["r2_c03"],
+      "semantic_signature": "bridge_collinear_fragments_across_occluder_using_corner_witnesses",
+      "representation": {
+        "entities": "Occluder pane, paired collinear exterior fragments, and corner witnesses.",
+        "relations": "Compatible fragments or corners support one hidden segment.",
+        "invariances": "Collinearity, fragment phase, and pane-relative coordinates.",
+        "operator": "Bridge only witnessed intervals and reveal the interior.",
+        "alternatives": "Global rectangle or arbitrary contour completion."
+      },
+      "execution_spec": "Pair exterior fragments when alignment, colors or alternating phase, and visible corners support one segment hidden by the color-3 pane. Fill only supported intervals, restore the interior fill elsewhere, and crop strictly inside the pane.",
+      "test": [[[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,7,7,8,8,8,8,8],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,4,9,4],[7,7,7,7,7,7,7,9,7,7],[7,7,7,7,7,7,7,4,7,7]]],
+      "ranking_rationale": "Exact and conservative, but support pairing is less simple and can omit continuations lacking explicit witnesses."
+    },
+    {
+      "rank": 9,
+      "canonical_id": "minimum-endpoint-network",
+      "source_candidates": ["r1_c4"],
+      "semantic_signature": "dangling-endpoint-pairing/minimum-orthogonal-network/interior-crop",
+      "representation": {
+        "entities": "Foreign path endpoints adjacent to the frame and periodic endpoint states.",
+        "relations": "Endpoints pair by color family and orientation across the occluded region.",
+        "invariances": "Orthogonality and frame-relative pairing costs.",
+        "operator": "Minimize hidden path length and then turns, then crop the raster.",
+        "alternatives": "Rectangle fitting or sidewise projection."
+      },
+      "execution_spec": "Extract every foreign endpoint directed into the largest 3 frame. Pair same-family endpoints to minimize total hidden length and then turns under exterior-geometry constraints. Draw those paths on the strict-interior fill, continuing alternating state at emitted cells.",
+      "test": [[[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,0,7,8,8,8,8,8],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,9,4,9],[7,7,7,0,7,7,7,4,7,7],[7,7,7,0,7,7,7,9,7,7]]],
+      "ranking_rationale": "Exact and deterministic, but introduces a global optimization absent from simpler local completion rules."
+    },
+    {
+      "rank": 10,
+      "canonical_id": "generic-amodal-contour-minimum-complexity",
+      "source_candidates": ["r2_c05"],
+      "semantic_signature": "three_layer_amodal_contour_completion_and_foreground_removal",
+      "representation": {
+        "entities": "Foreground frame layer, middle object-contour layer, and background fill.",
+        "relations": "The foreground occludes continuous middle-layer orthogonal contours.",
+        "invariances": "Layer order, contour continuity, and fill under the erased frame.",
+        "operator": "Minimum-complexity amodal contour completion, foreground deletion, and interior exposure.",
+        "alternatives": "Allows any simple orthogonal contour rather than rectangles or paired signals."
+      },
+      "execution_spec": "Interpret color 3 and its enclosed fill as a foreground cover. Infer the minimum-complexity continuous orthogonal contour connecting each exterior object's visible pieces while retaining solid or alternating order. Remove the cover and return the exposed strict-interior patch.",
+      "test": [[[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,7,7,8,8,8,8,8],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,7,7,7],[7,7,7,7,7,7,7,4,9,4],[7,7,7,7,7,7,7,9,7,7],[7,7,7,7,7,7,7,4,7,7]]],
+      "ranking_rationale": "Exact and uses standard layering semantics, but 'minimum complexity' is less operationally explicit and its supplied test completion is more conservative."
+    },
+    {
+      "rank": 11,
+      "canonical_id": "orthogonal-total-variation-inpainting",
+      "source_candidates": ["r1_c7"],
+      "semantic_signature": "largest-enclosure-hole-fill/inpainting-by-orthogonal-continuation",
+      "representation": {
+        "entities": "The strict interior as a missing-data hole and surrounding colored line evidence.",
+        "relations": "Rows and columns crossing the hole provide boundary conditions.",
+        "invariances": "Enclosure topology, line continuity, dimensions, and palette.",
+        "operator": "Minimize painted cells and orthogonal turns subject to line and period evidence.",
+        "alternatives": "Object templates or direct contact decoding."
+      },
+      "execution_spec": "Treat the largest 3 enclosure and interior as a missing region with its observed fill as default. Extend nearby horizontal and vertical evidence into the hole, selecting the completion with the fewest painted cells and turns that closes implied corners, continue period-2 evidence by reconstructed adjacency, and return the hole.",
+      "test": [[[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,0,7,8,8,8,8,8],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,9,4,9],[7,7,7,0,7,7,7,4,7,7],[7,7,7,0,7,7,7,9,7,7]]],
+      "ranking_rationale": "Exact and structure-preserving, but its general optimization vocabulary has greater description and parameter complexity."
+    },
+    {
+      "rank": 12,
+      "canonical_id": "global-coordinate-side-phase-rectangles",
+      "source_candidates": ["r1_c8"],
+      "semantic_signature": "global-coordinate-rectangle-completion/edge-phase-fitted-by-side",
+      "representation": {
+        "entities": "Principal 3 frame and global hollow rectangular contours with side-specific periodic phases.",
+        "relations": "Visible fragments determine each bounding box and each edge phase independently.",
+        "invariances": "Global bounding-box coordinates and parity through masking.",
+        "operator": "Complete perimeters with independently fitted global-coordinate edge phases, then crop.",
+        "alternatives": "One contour-step sequence that skips the occluder."
+      },
+      "execution_spec": "Fit each interrupted foreign object as the smallest hollow rectangle. Fill monochrome edges identically. On period-2 edges, fit each side's phase independently and alternate by global row or column coordinate through masked positions. Crop the strict frame interior over its original fill.",
+      "test": [[[7,7,7,7,7,8,7,7,7,7],[0,0,0,0,7,8,7,7,7,7],[7,7,7,0,7,8,8,8,8,8],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,7,7,7],[7,7,7,0,7,7,7,4,9,4],[7,7,7,0,7,7,7,9,7,7],[7,7,7,0,7,7,7,4,7,7]]],
+      "ranking_rationale": "Exact on train and geometrically defined, but independent per-edge phase parameters increase complexity and global masked-coordinate phase is less causally local."
+    }
+  ]
+}

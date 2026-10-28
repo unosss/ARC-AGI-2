@@ -1,0 +1,127 @@
+{
+  "family": "incidence",
+  "condition": "overlap",
+  "source_artifact": "artifacts/incidence_overlap.json",
+  "computed_relations": [
+    {
+      "case_id": "incidence_0",
+      "selected": [
+        {
+          "id": "C0",
+          "evidence": "component rows 4-6, cols 5-6 intersects horizontal guide row 5, cols 0-8 at cells [5,5] and [5,6]"
+        }
+      ],
+      "unselected": [
+        {
+          "id": "C1",
+          "evidence": "component rows 3-4, cols 1-2 has no cell on horizontal guide row 5 or vertical guide col 3"
+        },
+        {
+          "id": "C2",
+          "evidence": "component rows 7-8, cols 4-5 has no cell on horizontal guide row 5 or vertical guide col 3"
+        },
+        {
+          "id": "C3",
+          "evidence": "component rows 3-4, cols 9-10 has no cell on horizontal guide row 5 or vertical guide col 3"
+        },
+        {
+          "id": "C4",
+          "evidence": "component rows 9-10, cols 10-12 has no cell on horizontal guide row 5 or vertical guide col 3"
+        }
+      ]
+    },
+    {
+      "case_id": "incidence_1",
+      "selected": [
+        {
+          "id": "C0",
+          "evidence": "component rows 1-2, cols 4-5 intersects horizontal guide row 2, cols 2-7 at cells [2,4] and [2,5]"
+        }
+      ],
+      "unselected": [
+        {
+          "id": "C1",
+          "evidence": "component rows 3-4, cols 2-3 has no cell on horizontal guide row 2 or vertical guide col 7"
+        },
+        {
+          "id": "C2",
+          "evidence": "component rows 6-7, cols 5-6 has no cell on horizontal guide row 2 or vertical guide col 7"
+        },
+        {
+          "id": "C3",
+          "evidence": "component rows 0-1, cols 8-9 has no cell on horizontal guide row 2 or vertical guide col 7"
+        },
+        {
+          "id": "C4",
+          "evidence": "component rows 7-8, cols 1-2 has no cell on horizontal guide row 2 or vertical guide col 7"
+        }
+      ]
+    },
+    {
+      "case_id": "incidence_2",
+      "selected": [
+        {
+          "id": "C0",
+          "evidence": "component rows 5-7, cols 9-10 intersects horizontal guide row 6, cols 4-12 at cells [6,9] and [6,10]"
+        }
+      ],
+      "unselected": [
+        {
+          "id": "C1",
+          "evidence": "component rows 3-5, cols 5-6 has no cell on guide row 6"
+        },
+        {
+          "id": "C2",
+          "evidence": "component rows 4-5, cols 2-3 has no cell on guide row 6"
+        },
+        {
+          "id": "C3",
+          "evidence": "component rows 7-8, cols 11-12 has no cell on guide row 6"
+        },
+        {
+          "id": "C4",
+          "evidence": "component rows 0-1, cols 8-9 has no cell on guide row 6"
+        }
+      ]
+    }
+  ],
+  "test": [
+    [
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 2, 2, 1, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0],
+      [0, 2, 2, 1, 0, 1, 1, 0, 0, 2, 2, 0, 0, 0],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0],
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0],
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ],
+    [
+      [0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
+      [0, 0, 0, 0, 1, 1, 0, 0, 2, 2],
+      [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
+      [0, 0, 2, 2, 0, 0, 0, 1, 0, 0],
+      [0, 0, 2, 2, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 2, 2, 1, 0, 0],
+      [0, 2, 2, 0, 0, 2, 2, 1, 0, 0],
+      [0, 2, 2, 0, 0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+    ],
+    [
+      [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2, 2, 0, 2, 2, 0, 0, 0, 0, 0, 0],
+      [0, 0, 2, 2, 0, 2, 2, 0, 0, 1, 1, 0, 0],
+      [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2]
+    ]
+  ]
+}

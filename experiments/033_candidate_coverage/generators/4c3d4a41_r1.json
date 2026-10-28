@@ -1,0 +1,206 @@
+{
+  "task_id": "4c3d4a41",
+  "run": "r1",
+  "candidates": [
+    {
+      "local_id": "r1_c01",
+      "status": "eligible",
+      "representation": {
+        "entities": ["four gray columns in the left panel", "four colored vertical payload bars in the right frame", "five usable vertical slots per right lane"],
+        "relations": ["left columns correspond left-to-right to right lanes", "each left gray cell becomes an occupied gray slot", "payload cells stack immediately above occupied slots"],
+        "invariances": ["payload color", "payload-cell count up to available capacity", "outer right frame", "lane order"],
+        "operator": "Erase the left panel, transfer each left gray column into the corresponding right lane, then pack that lane's colored payload downward into the remaining cells; discard overflow above the frame.",
+        "alternatives": ["direct overlay without repacking", "fill all capacity regardless of payload count", "top-align payload", "reverse lane correspondence"]
+      },
+      "semantic_signature": "erase-left|ordered-column-profile-to-right|gravity-pack-colored-count|top-overflow-clipped",
+      "execution_spec": "For each odd left column 1,3,5,7, map it to right column 11,13,15,17. In right rows 1 through 5, paint gray exactly where the mapped left column is gray. Count all nonzero non-gray cells of the mapped right input lane and take their unique color. Put min(count, remaining-capacity) cells of that color in the lowest remaining positions directly above the gray profile. Leave unused remaining positions as gray background. Zero the entire left panel and preserve the right outer frame and separator zeros.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,2,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,4,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,4,0,6,0,7,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,6,0,7,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,6,0,3,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,9,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "prior_rank": 1,
+      "rank_rationale": "The only candidate with exact reconstruction of both trains; it uses direct ordered correspondence, a local collision rule, preserves color counts when capacity permits, and needs no exception."
+    },
+    {
+      "local_id": "r1_c02",
+      "status": "rejected",
+      "representation": {
+        "entities": ["left gray profile", "right colored cells"],
+        "relations": ["same-order lane overlay"],
+        "invariances": ["original colored-cell coordinates unless overwritten"],
+        "operator": "Overlay the left profile on the right without moving payload cells.",
+        "alternatives": ["gravity repacking"]
+      },
+      "semantic_signature": "erase-left|ordered-profile-overlay|stationary-payload",
+      "execution_spec": "Erase the left panel. Copy each left odd-column gray mask to the corresponding right lane at identical row coordinates, overwriting anything there; preserve all other right cells.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,2,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,4,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,6,0,7,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "train_exact": false,
+      "contradictions": ["train[0] differs at zero-indexed cell [1,15]: predicted 5, visible 4", "train[1] differs at [1,11]: predicted 5, visible 4"],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "prior_rank": 5,
+      "rank_rationale": "Simple and local, but directly contradicted because visible outputs relocate payload cells."
+    },
+    {
+      "local_id": "r1_c03",
+      "status": "rejected",
+      "representation": {
+        "entities": ["left profile capacities", "right lane colors"],
+        "relations": ["same-order lanes"],
+        "invariances": ["lane color but not payload count"],
+        "operator": "Fill every non-profile slot with the lane color.",
+        "alternatives": ["count-preserving packing"]
+      },
+      "semantic_signature": "erase-left|ordered-profile|capacity-saturated-color-fill",
+      "execution_spec": "Transfer the left gray profile to corresponding right lanes and color every remaining slot with that lane's unique payload color, regardless of how many colored cells were supplied.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,2,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,4,0,6,0,7,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,4,0,6,0,7,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,6,0,7,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "train_exact": false,
+      "contradictions": ["train[1] differs at [1,13] and [1,15]: predicted payload colors 6 and 7, visible gray 5"],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,9,0,6,0,3,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,9,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "prior_rank": 2,
+      "rank_rationale": "Explains the first train compactly but violates payload-count preservation exposed by the second train."
+    },
+    {
+      "local_id": "r1_c04",
+      "status": "rejected",
+      "representation": {
+        "entities": ["profile capacity", "colored payload count"],
+        "relations": ["same-order lanes", "payload aligned to top of free region"],
+        "invariances": ["color", "count subject to clipping"],
+        "operator": "Top-align payload in free capacity.",
+        "alternatives": ["gravity alignment to profile"]
+      },
+      "semantic_signature": "erase-left|ordered-profile|top-aligned-count-preserving-payload",
+      "execution_spec": "Transfer the profile in lane order. Place up to the available number of colored cells at the highest free positions, leaving any lower unused free positions gray.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,2,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,4,0,6,0,7,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,4,0,6,0,7,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "train_exact": false,
+      "contradictions": ["train[1] lane 13 predicts color at rows 1-2 and gray at row 3, but visible output has gray at row 1 and color at rows 2-3"],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,9,0,6,0,3,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "prior_rank": 3,
+      "rank_rationale": "Preserves counts and locality, but the second train specifically rejects ceiling alignment."
+    },
+    {
+      "local_id": "r1_c05",
+      "status": "rejected",
+      "representation": {
+        "entities": ["ordered left columns", "ordered right payload lanes"],
+        "relations": ["left columns correspond in reverse order"],
+        "invariances": ["payload count and color"],
+        "operator": "Reverse-map profiles, then gravity-pack payload.",
+        "alternatives": ["same-order mapping"]
+      },
+      "semantic_signature": "erase-left|reverse-column-profile-to-right|gravity-pack-colored-count",
+      "execution_spec": "Map left columns 7,5,3,1 respectively to right lanes 11,13,15,17, transfer their gray profiles, and gravity-pack each right lane's own payload above its mapped profile.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,2,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,2,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,4,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,6,0,7,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,6,0,7,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "train_exact": false,
+      "contradictions": ["train[0] differs at [3,13] and [3,15] because the middle profile heights are swapped", "train[1] differs at [2,11] and [2,17]"],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,6,0,3,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,9,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "prior_rank": 4,
+      "rank_rationale": "Uses common mirror semantics, but direct cell comparisons reject the reversed correspondence."
+    },
+    {
+      "local_id": "r1_c06",
+      "status": "rejected",
+      "representation": {
+        "entities": ["left bar heights", "right payload bars"],
+        "relations": ["same-order lanes", "left heights become ceiling-hung barriers"],
+        "invariances": ["payload color and clipped count"],
+        "operator": "Vertically mirror each profile before packing payload at the floor.",
+        "alternatives": ["unmirrored floor profile"]
+      },
+      "semantic_signature": "erase-left|vertical-mirror-profile|floor-pack-payload",
+      "execution_spec": "For each lane, turn the left bar height into that many gray cells descending from row 1. Put the clipped payload count into the lowest unoccupied rows through row 5.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,2,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,3,5,2,5,4,5,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,4,0,6,0,7,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,4,5,6,5,7,5,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "train_exact": false,
+      "contradictions": ["train[0] differs throughout right rows 1-5; for example [1,11] is predicted gray 5 rather than 3", "train[1] differs at [5,17]: predicted 8 rather than gray 5"],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,0,0,9,5,6,5,3,5,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,0,0,3,5,2,5,4,5,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "prior_rank": 7,
+      "rank_rationale": "A coherent vertical-reflection hypothesis, but it has widespread exactness failures."
+    },
+    {
+      "local_id": "r1_c07",
+      "status": "rejected",
+      "representation": {
+        "entities": ["left profile", "right frame and payload"],
+        "relations": ["profile is copied rather than moved"],
+        "invariances": ["entire left source panel", "gravity-packed right result"],
+        "operator": "Duplicate the profile transformation while retaining its source.",
+        "alternatives": ["consume and erase source"]
+      },
+      "semantic_signature": "preserve-left|ordered-profile-copy|gravity-pack-colored-count",
+      "execution_spec": "Produce the same packed right result as candidate r1_c01, but preserve the left input panel instead of erasing it.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,5,0,0,0,0,0,5,0,5,0,5,0,2,0,4,0,5,0,5],[0,5,0,5,0,0,0,5,0,5,0,5,0,5,0,4,0,5,0,5],[0,5,0,5,0,5,0,5,0,0,0,5,0,5,0,5,0,5,0,5],[0,5,5,5,5,5,5,5,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,4,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,5,0,5,0,4,0,6,0,7,0,5,0,5],[0,5,0,0,0,0,0,5,0,5,0,5,0,6,0,7,0,5,0,5],[0,5,0,5,0,5,0,5,0,0,0,5,0,5,0,5,0,5,0,5],[0,5,5,5,5,5,5,5,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "train_exact": false,
+      "contradictions": ["Both visible outputs erase every left-panel gray cell; this candidate retains them, e.g. train[0] [2,1] is predicted 5 rather than 0"],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,6,0,3,0,8,0,5],[0,0,0,5,0,5,0,0,0,5,0,9,0,5,0,5,0,8,0,5],[0,5,0,5,0,5,0,0,0,5,0,5,0,5,0,5,0,8,0,5],[0,5,0,5,0,5,0,5,0,0,0,5,0,5,0,5,0,5,0,5],[0,5,5,5,5,5,5,5,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,5,0,5,0,5,0,5,0,0,0,5,0,5,0,5,0,5,0,5],[0,5,5,5,5,5,5,5,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "prior_rank": 6,
+      "rank_rationale": "Its right-side mechanism is strong, but explicit source preservation contradicts every training output."
+    },
+    {
+      "local_id": "r1_c08",
+      "status": "rejected",
+      "representation": {
+        "entities": ["right payload bars", "five-cell right lanes"],
+        "relations": ["payloads align to the upper frame independently of the left panel"],
+        "invariances": ["payload colors and counts"],
+        "operator": "Erase left and top-pack each right payload.",
+        "alternatives": ["left profile controls lane floor"]
+      },
+      "semantic_signature": "erase-left|ignore-profile|top-pack-right-payload-count",
+      "execution_spec": "Erase the left panel. In each right lane, count its colored cells and repaint that many cells from row 1 downward with its color; paint all remaining lane cells through row 5 gray.",
+      "predicted_train_outputs": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,2,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,4,0,6,0,7,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,4,0,6,0,7,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "train_exact": false,
+      "contradictions": ["train[0] differs at [2,11]: predicted 3 rather than gray 5", "train[1] differs at [1,13]: predicted 6 rather than gray 5"],
+      "test": [
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,9,0,6,0,3,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,6,0,3,0,8,0,5],[0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,8,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]],
+        [[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,7,0,5],[0,0,0,0,0,0,0,0,0,5,0,3,0,2,0,4,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,0,2,0,5,0,5,0,5],[0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,0,5],[0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,5],[0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5]]
+      ],
+      "prior_rank": 8,
+      "rank_rationale": "A simple right-only normalization, but it ignores the left structure that visibly determines gray occupancy."
+    }
+  ]
+}

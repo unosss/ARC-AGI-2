@@ -1,0 +1,166 @@
+{
+  "task_id": "78332cb0",
+  "run": "r1",
+  "candidates": [
+    {
+      "local_id": "r1_c01",
+      "status": "eligible",
+      "representation": {"entities":"5x5 tiles delimited by full color-6 separator lines","relations":"tile positions in a separator-defined macro-grid","invariances":"each tile's pixels and orientation are preserved","operator":"linearize the macro-grid along its clockwise quarter-turn axis; for a square macro-grid use alternating main-diagonal shells","alternatives":"distinguished from feature sorting because placement alone determines order"},
+      "semantic_signature": "separator_tiles|preserve_tiles|clockwise_axis_linearization|diagonal_shell_tie",
+      "execution_spec": "Split on complete 6-lines into 5x5 tiles. Preserve every tile. Emit one strip perpendicular to the source's one-dimensional axis; a vertical source is read bottom-to-top and emitted left-to-right, and a horizontal source is read left-to-right and emitted top-to-bottom. For a square 2x2 source, read TL, BR, TR, BL and emit top-to-bottom. Put a complete 6-line between adjacent tiles.",
+      "predicted_train_outputs": [
+        [[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7],[7,2,2,2,7],[7,7,2,7,7],[6,6,6,6,6],[7,7,3,7,7],[7,3,3,7,7],[7,3,7,7,7],[7,3,7,7,7],[7,3,7,7,7],[6,6,6,6,6],[7,4,7,7,7],[7,4,4,4,7],[7,7,7,4,7],[7,7,7,4,7],[7,7,7,4,7],[6,6,6,6,6],[7,7,7,1,7],[7,1,1,1,7],[7,1,1,1,7],[7,1,1,1,7],[7,7,7,7,7]],
+        [[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7],[7,9,7,9,9,6,2,2,2,7,7,6,7,7,8,8,7],[7,9,9,9,7,6,7,7,2,2,7,6,7,7,8,8,7],[7,9,7,7,7,6,7,7,7,2,2,6,8,8,8,7,7],[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7]],
+        [[7,7,7,7,7],[7,8,8,8,7],[7,7,8,7,7],[7,7,8,7,7],[7,7,8,7,7],[6,6,6,6,6],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[6,6,6,6,6],[7,7,9,7,7],[7,9,9,9,7],[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[7,7,7,7,7],[7,4,4,4,7],[4,4,7,4,7],[7,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,7,4,4],[7,4,7,4,7],[4,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,4],[7,7,7,4,4],[7,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,7],[7,4,7,4,7],[7,4,7,4,4],[7,7,7,7,7]],
+        [[7,7,7,7,7,6,7,7,2,7,7,6,7,2,7,7,7,6,7,7,7,7,9],[7,7,7,9,7,6,7,2,2,2,7,6,7,2,7,7,7,6,7,7,9,9,7],[7,7,9,9,7,6,7,7,7,2,7,6,7,2,2,7,7,6,7,9,9,7,7],[7,9,9,7,7,6,7,7,7,2,7,6,7,7,2,7,7,6,7,9,7,7,7],[7,9,7,7,7,6,7,7,7,2,7,6,7,7,2,7,7,6,7,7,7,7,7]]
+      ],
+      "prior_rank": 1,
+      "rank_rationale": "Exact on all three pairs, purely geometric, preserves all tile content, and uses one uniform quarter-turn interpretation."
+    },
+    {
+      "local_id": "r1_c02",
+      "status": "eligible",
+      "representation": {"entities":"separator-delimited tiles and their non-background pixel areas","relations":"stable area ordering conditioned by macro-grid orientation","invariances":"tile shape, color, and orientation","operator":"sort tiles by occupied area, with vertical outputs using the orientation-selected direction and reverse-source tie order","alternatives":"uses intrinsic tile mass instead of only macro-position"},
+      "semantic_signature": "separator_tiles|stable_area_order|orientation_conditioned_direction|preserve_tiles",
+      "execution_spec": "Split into tiles. For a multirow source sort by increasing count of non-7 pixels; for a one-row source sort by decreasing count. Break equal-area ties in reverse source order for a one-column source and by diagonal source order otherwise. Emit vertically unless the source is taller than wide, in which case emit horizontally, retaining separator 6-lines.",
+      "predicted_train_outputs": [
+        [[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7],[7,2,2,2,7],[7,7,2,7,7],[6,6,6,6,6],[7,7,3,7,7],[7,3,3,7,7],[7,3,7,7,7],[7,3,7,7,7],[7,3,7,7,7],[6,6,6,6,6],[7,4,7,7,7],[7,4,4,4,7],[7,7,7,4,7],[7,7,7,4,7],[7,7,7,4,7],[6,6,6,6,6],[7,7,7,1,7],[7,1,1,1,7],[7,1,1,1,7],[7,1,1,1,7],[7,7,7,7,7]],
+        [[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7],[7,9,7,9,9,6,2,2,2,7,7,6,7,7,8,8,7],[7,9,9,9,7,6,7,7,2,2,7,6,7,7,8,8,7],[7,9,7,7,7,6,7,7,7,2,2,6,8,8,8,7,7],[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7]],
+        [[7,7,7,7,7],[7,8,8,8,7],[7,7,8,7,7],[7,7,8,7,7],[7,7,8,7,7],[6,6,6,6,6],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[6,6,6,6,6],[7,7,9,7,7],[7,9,9,9,7],[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[7,7,7,7,7],[7,4,4,4,7],[7,4,7,4,7],[7,4,7,4,4],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,7],[4,4,7,4,7],[7,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,7,4,4],[7,4,7,4,7],[4,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,4],[7,7,7,4,4],[7,4,4,4,7],[7,7,7,7,7]],
+        [[7,2,7,7,7,6,7,7,7,7,7,6,7,7,2,7,7,6,7,7,7,7,9],[7,2,7,7,7,6,7,7,7,9,7,6,7,2,2,2,7,6,7,7,9,9,7],[7,2,2,7,7,6,7,7,9,9,7,6,7,7,7,2,7,6,7,9,9,7,7],[7,7,2,7,7,6,7,9,9,7,7,6,7,7,7,2,7,6,7,9,7,7,7],[7,7,2,7,7,6,7,9,7,7,7,6,7,7,7,2,7,6,7,7,7,7,7]]
+      ],
+      "prior_rank": 4,
+      "rank_rationale": "Exact and deterministic, but area-direction conditioning is more complex and less local than direct macro-grid rotation."
+    },
+    {
+      "local_id": "r1_c03",
+      "status": "eligible",
+      "representation": {"entities":"separator tiles with foreground bounding boxes","relations":"clockwise ordering by the side first touched by each foreground bounding box","invariances":"tile raster is copied unchanged","operator":"order boundary-touch classes clockwise, resolving interior tiles by source rotation","alternatives":"intrinsic boundary geometry can change the order of equally placed test tiles"},
+      "semantic_signature": "separator_tiles|foreground_boundary_class|clockwise_class_order|unchanged_raster",
+      "execution_spec": "Extract tiles and classify the foreground bounding box by nearest outer tile side. Order classes in the clockwise direction implied by rotating the macro-grid ninety degrees; within a class preserve that rotated source order. Use the observed square diagonal class traversal TL, BR, TR, BL. Emit as a perpendicular strip with 6 separators.",
+      "predicted_train_outputs": [
+        [[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7],[7,2,2,2,7],[7,7,2,7,7],[6,6,6,6,6],[7,7,3,7,7],[7,3,3,7,7],[7,3,7,7,7],[7,3,7,7,7],[7,3,7,7,7],[6,6,6,6,6],[7,4,7,7,7],[7,4,4,4,7],[7,7,7,4,7],[7,7,7,4,7],[7,7,7,4,7],[6,6,6,6,6],[7,7,7,1,7],[7,1,1,1,7],[7,1,1,1,7],[7,1,1,1,7],[7,7,7,7,7]],
+        [[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7],[7,9,7,9,9,6,2,2,2,7,7,6,7,7,8,8,7],[7,9,9,9,7,6,7,7,2,2,7,6,7,7,8,8,7],[7,9,7,7,7,6,7,7,7,2,2,6,8,8,8,7,7],[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7]],
+        [[7,7,7,7,7],[7,8,8,8,7],[7,7,8,7,7],[7,7,8,7,7],[7,7,8,7,7],[6,6,6,6,6],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[6,6,6,6,6],[7,7,9,7,7],[7,9,9,9,7],[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[7,7,7,7,7],[7,4,4,4,7],[4,4,7,4,7],[7,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,4],[7,7,7,4,4],[7,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,7,4,4],[7,4,7,4,7],[4,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,7],[7,4,7,4,7],[7,4,7,4,4],[7,7,7,7,7]],
+        [[7,7,7,7,7,6,7,7,2,7,7,6,7,2,7,7,7,6,7,7,7,7,9],[7,7,7,9,7,6,7,2,2,2,7,6,7,2,7,7,7,6,7,7,9,9,7],[7,7,9,9,7,6,7,7,7,2,7,6,7,2,2,7,7,6,7,9,9,7,7],[7,9,9,7,7,6,7,7,7,2,7,6,7,7,2,7,7,6,7,9,7,7,7],[7,9,7,7,7,6,7,7,7,2,7,6,7,7,2,7,7,6,7,7,7,7,7]]
+      ],
+      "prior_rank": 5,
+      "rank_rationale": "Exact and object-geometric, but the boundary classification is less economical than a direct layout operation."
+    },
+    {
+      "local_id": "r1_c04",
+      "status": "eligible",
+      "representation": {"entities":"separator tiles interpreted as binary foreground masks","relations":"canonical lexicographic order of normalized mask descriptors","invariances":"original colors and complete rasters are retained after ordering","operator":"sort by a directional raster code selected by source macro-orientation","alternatives":"shape-code ordering rather than area or pure position"},
+      "semantic_signature": "separator_tiles|directional_mask_code_sort|orientation_selects_code|copy_original_tiles",
+      "execution_spec": "Convert each tile to a binary non-7 mask and form its boundary-first clockwise raster code. Select ascending code for square or horizontal macro-grids and descending code for vertical macro-grids, using source position only for equal codes. Emit the resulting tiles in the perpendicular one-dimensional strip and restore each original tile raster unchanged.",
+      "predicted_train_outputs": [
+        [[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7],[7,2,2,2,7],[7,7,2,7,7],[6,6,6,6,6],[7,7,3,7,7],[7,3,3,7,7],[7,3,7,7,7],[7,3,7,7,7],[7,3,7,7,7],[6,6,6,6,6],[7,4,7,7,7],[7,4,4,4,7],[7,7,7,4,7],[7,7,7,4,7],[7,7,7,4,7],[6,6,6,6,6],[7,7,7,1,7],[7,1,1,1,7],[7,1,1,1,7],[7,1,1,1,7],[7,7,7,7,7]],
+        [[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7],[7,9,7,9,9,6,2,2,2,7,7,6,7,7,8,8,7],[7,9,9,9,7,6,7,7,2,2,7,6,7,7,8,8,7],[7,9,7,7,7,6,7,7,7,2,2,6,8,8,8,7,7],[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7]],
+        [[7,7,7,7,7],[7,8,8,8,7],[7,7,8,7,7],[7,7,8,7,7],[7,7,8,7,7],[6,6,6,6,6],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[6,6,6,6,6],[7,7,9,7,7],[7,9,9,9,7],[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[7,7,7,7,7],[7,4,7,4,4],[7,4,7,4,7],[4,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,4],[7,7,7,4,4],[7,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,7],[7,4,7,4,7],[7,4,7,4,4],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,7],[4,4,7,4,7],[7,4,4,4,7],[7,7,7,7,7]],
+        [[7,7,7,7,7,6,7,7,2,7,7,6,7,7,7,7,9,6,7,2,7,7,7],[7,7,7,9,7,6,7,2,2,2,7,6,7,7,9,9,7,6,7,2,7,7,7],[7,7,9,9,7,6,7,7,7,2,7,6,7,9,9,7,7,6,7,2,2,7,7],[7,9,9,7,7,6,7,7,7,2,7,6,7,9,7,7,7,6,7,7,2,7,7],[7,9,7,7,7,6,7,7,7,2,7,6,7,7,7,7,7,6,7,7,2,7,7]]
+      ],
+      "prior_rank": 7,
+      "rank_rationale": "Train-exact but has the highest descriptor and direction complexity among exact candidates."
+    },
+    {
+      "local_id": "r1_c05",
+      "status": "eligible",
+      "representation": {"entities":"fixed raster tiles separated by 6","relations":"macro-cells traversed by a clockwise space-filling path","invariances":"micro-grid content and orientation","operator":"apply a clockwise Hilbert-like macro traversal then collapse to one strip","alternatives":"generalizes the 2x2 diagonal order recursively"},
+      "semantic_signature": "macrogrid_space_filling_path|clockwise_orientation|collapse_strip|tile_invariant",
+      "execution_spec": "Treat separator intersections as defining a macro-grid. Traverse macro-cells with the clockwise recursive path whose 2x2 base order is TL, BR, TR, BL; degenerate one-row and one-column cases use the corresponding clockwise quarter-turn order. Copy visited tiles into a perpendicular strip separated by 6.",
+      "predicted_train_outputs": [
+        [[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7],[7,2,2,2,7],[7,7,2,7,7],[6,6,6,6,6],[7,7,3,7,7],[7,3,3,7,7],[7,3,7,7,7],[7,3,7,7,7],[7,3,7,7,7],[6,6,6,6,6],[7,4,7,7,7],[7,4,4,4,7],[7,7,7,4,7],[7,7,7,4,7],[7,7,7,4,7],[6,6,6,6,6],[7,7,7,1,7],[7,1,1,1,7],[7,1,1,1,7],[7,1,1,1,7],[7,7,7,7,7]],
+        [[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7],[7,9,7,9,9,6,2,2,2,7,7,6,7,7,8,8,7],[7,9,9,9,7,6,7,7,2,2,7,6,7,7,8,8,7],[7,9,7,7,7,6,7,7,7,2,2,6,8,8,8,7,7],[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7]],
+        [[7,7,7,7,7],[7,8,8,8,7],[7,7,8,7,7],[7,7,8,7,7],[7,7,8,7,7],[6,6,6,6,6],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[6,6,6,6,6],[7,7,9,7,7],[7,9,9,9,7],[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[7,7,7,7,7],[7,4,4,4,7],[4,4,7,4,7],[7,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,7,4,4],[7,4,7,4,7],[4,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,4],[7,7,7,4,4],[7,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,7],[7,4,7,4,7],[7,4,7,4,4],[7,7,7,7,7]],
+        [[7,7,7,7,7,6,7,7,2,7,7,6,7,2,7,7,7,6,7,7,7,7,9],[7,7,7,9,7,6,7,2,2,2,7,6,7,2,7,7,7,6,7,7,9,9,7],[7,7,9,9,7,6,7,7,7,2,7,6,7,2,2,7,7,6,7,9,9,7,7],[7,9,9,7,7,6,7,7,7,2,7,6,7,7,2,7,7,6,7,9,7,7,7],[7,9,7,7,7,6,7,7,7,2,7,6,7,7,2,7,7,6,7,7,7,7,7]]
+      ],
+      "prior_rank": 3,
+      "rank_rationale": "Exact and positional, but recursive space-filling semantics add complexity absent from the simpler axis rule."
+    },
+    {
+      "local_id": "r1_c06",
+      "status": "eligible",
+      "representation": {"entities":"tiles and foreground centroids","relations":"angular order of centroids around the tile center combined with macro orientation","invariances":"full tile rasters","operator":"stable angular bucket ordering followed by perpendicular packing","alternatives":"centroid geometry resolves square-layout ambiguity"},
+      "semantic_signature": "separator_tiles|foreground_centroid_angle|macro_orientation|stable_pack",
+      "execution_spec": "Measure each tile foreground centroid relative to its center. Use clockwise angular buckets, initialized by the source macro-grid's long axis, and stable source order within a bucket. The resulting sequence is packed perpendicular to the source long axis; for square sources pack vertically. Preserve every tile and insert 6 separators.",
+      "predicted_train_outputs": [
+        [[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7],[7,2,2,2,7],[7,7,2,7,7],[6,6,6,6,6],[7,7,3,7,7],[7,3,3,7,7],[7,3,7,7,7],[7,3,7,7,7],[7,3,7,7,7],[6,6,6,6,6],[7,4,7,7,7],[7,4,4,4,7],[7,7,7,4,7],[7,7,7,4,7],[7,7,7,4,7],[6,6,6,6,6],[7,7,7,1,7],[7,1,1,1,7],[7,1,1,1,7],[7,1,1,1,7],[7,7,7,7,7]],
+        [[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7],[7,9,7,9,9,6,2,2,2,7,7,6,7,7,8,8,7],[7,9,9,9,7,6,7,7,2,2,7,6,7,7,8,8,7],[7,9,7,7,7,6,7,7,7,2,2,6,8,8,8,7,7],[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7]],
+        [[7,7,7,7,7],[7,8,8,8,7],[7,7,8,7,7],[7,7,8,7,7],[7,7,8,7,7],[6,6,6,6,6],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[6,6,6,6,6],[7,7,9,7,7],[7,9,9,9,7],[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[7,7,7,7,7],[7,4,4,4,7],[4,4,7,4,7],[7,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,7],[7,4,7,4,7],[7,4,7,4,4],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,7,4,4],[7,4,7,4,7],[4,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,4],[7,7,7,4,4],[7,4,4,4,7],[7,7,7,7,7]],
+        [[7,7,7,7,7,6,7,7,2,7,7,6,7,2,7,7,7,6,7,7,7,7,9],[7,7,7,9,7,6,7,2,2,2,7,6,7,2,7,7,7,6,7,7,9,9,7],[7,7,9,9,7,6,7,7,7,2,7,6,7,2,2,7,7,6,7,9,9,7,7],[7,9,9,7,7,6,7,7,7,2,7,6,7,7,2,7,7,6,7,9,7,7,7],[7,9,7,7,7,6,7,7,7,2,7,6,7,7,2,7,7,6,7,7,7,7,7]]
+      ],
+      "prior_rank": 6,
+      "rank_rationale": "Exact with common object features, but centroid bucketing is less direct and more parameterized."
+    },
+    {
+      "local_id": "r1_c07",
+      "status": "eligible",
+      "representation": {"entities":"separator-defined tiles as immutable records","relations":"a clockwise stable topological sort using foreground extent then macro position","invariances":"colors, shapes, and tile orientation","operator":"order by major-axis extent and resolve ties by quarter-turned source order","alternatives":"extent rather than area, centroid, mask code, or position alone"},
+      "semantic_signature": "separator_tiles|major_axis_extent_sort|rotated_position_tiebreak|immutable_tiles",
+      "execution_spec": "For each tile compute foreground extent along the source macro-grid's major axis. Sort by the extent direction selected by a clockwise quarter-turn of that axis; resolve equal extents in quarter-turned source order. In a square macro-grid use vertical extent first and TL, BR, TR, BL as the tie traversal. Pack the immutable tiles perpendicular to the source axis with 6 separators.",
+      "predicted_train_outputs": [
+        [[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7],[7,2,2,2,7],[7,7,2,7,7],[6,6,6,6,6],[7,7,3,7,7],[7,3,3,7,7],[7,3,7,7,7],[7,3,7,7,7],[7,3,7,7,7],[6,6,6,6,6],[7,4,7,7,7],[7,4,4,4,7],[7,7,7,4,7],[7,7,7,4,7],[7,7,7,4,7],[6,6,6,6,6],[7,7,7,1,7],[7,1,1,1,7],[7,1,1,1,7],[7,1,1,1,7],[7,7,7,7,7]],
+        [[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7],[7,9,7,9,9,6,2,2,2,7,7,6,7,7,8,8,7],[7,9,9,9,7,6,7,7,2,2,7,6,7,7,8,8,7],[7,9,7,7,7,6,7,7,7,2,2,6,8,8,8,7,7],[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7]],
+        [[7,7,7,7,7],[7,8,8,8,7],[7,7,8,7,7],[7,7,8,7,7],[7,7,8,7,7],[6,6,6,6,6],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[7,7,1,7,7],[6,6,6,6,6],[7,7,9,7,7],[7,9,9,9,7],[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[7,7,7,7,7],[7,4,4,4,7],[7,4,7,4,7],[7,4,7,4,4],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,7,4,4],[7,4,7,4,7],[4,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,4],[7,7,7,4,4],[7,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,7],[4,4,7,4,7],[7,4,4,4,7],[7,7,7,7,7]],
+        [[7,2,7,7,7,6,7,7,7,7,7,6,7,7,2,7,7,6,7,7,7,7,9],[7,2,7,7,7,6,7,7,7,9,7,6,7,2,2,2,7,6,7,7,9,9,7],[7,2,2,7,7,6,7,7,9,9,7,6,7,7,7,2,7,6,7,9,9,7,7],[7,7,2,7,7,6,7,9,9,7,7,6,7,7,7,2,7,6,7,9,7,7,7],[7,7,2,7,7,6,7,9,7,7,7,6,7,7,7,2,7,6,7,7,7,7,7]]
+      ],
+      "prior_rank": 2,
+      "rank_rationale": "Exact, deterministic, and based on simple geometric extent; ranked below pure macro-layout because it introduces content dependence."
+    },
+    {
+      "local_id": "r1_c08",
+      "status": "rejected",
+      "representation": {"entities":"separator-delimited binary foreground tiles","relations":"same geometric tile ordering as candidate 1","invariances":"background and separators","operator":"linearize then normalize all foreground colors to 4","alternatives":"tests whether color identity is irrelevant decoration"},
+      "semantic_signature": "separator_tiles|clockwise_axis_linearization|normalize_foreground_to_4",
+      "execution_spec": "Apply the candidate-1 tile ordering and strip packing, but replace every non-7, non-6 foreground cell by color 4.",
+      "predicted_train_outputs": [
+        [[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7],[7,4,4,4,7],[7,7,4,7,7],[6,6,6,6,6],[7,7,4,7,7],[7,4,4,7,7],[7,4,7,7,7],[7,4,7,7,7],[7,4,7,7,7],[6,6,6,6,6],[7,4,7,7,7],[7,4,4,4,7],[7,7,7,4,7],[7,7,7,4,7],[7,7,7,4,7],[6,6,6,6,6],[7,7,7,4,7],[7,4,4,4,7],[7,4,4,4,7],[7,4,4,4,7],[7,7,7,7,7]],
+        [[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7],[7,4,7,4,4,6,4,4,4,7,7,6,7,7,4,4,7],[7,4,4,4,7,6,7,7,4,4,7,6,7,7,4,4,7],[7,4,7,7,7,6,7,7,7,4,4,6,4,4,4,7,7],[7,7,7,7,7,6,7,7,7,7,7,6,7,7,7,7,7]],
+        [[7,7,7,7,7],[7,4,4,4,7],[7,7,4,7,7],[7,7,4,7,7],[7,7,4,7,7],[6,6,6,6,6],[7,7,4,7,7],[7,7,4,7,7],[7,7,4,7,7],[7,7,4,7,7],[7,7,4,7,7],[6,6,6,6,6],[7,7,4,7,7],[7,4,4,4,7],[7,7,7,7,7],[7,7,7,7,7],[7,7,7,7,7]]
+      ],
+      "train_exact": false,
+      "contradictions": ["Train pair 1 differs wherever foreground colors 2, 3, or 1 are normalized to 4.","Train pair 2 differs at every foreground cell because colors 9, 2, and 8 must be preserved.","Train pair 3 differs at every foreground cell because colors 8, 1, and 9 must be preserved."],
+      "test": [
+        [[7,7,7,7,7],[7,4,4,4,7],[4,4,7,4,7],[7,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,7,4,4],[7,4,7,4,7],[4,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,4],[7,7,7,4,4],[7,4,4,4,7],[7,7,7,7,7],[6,6,6,6,6],[7,7,7,7,7],[7,4,4,4,7],[7,4,7,4,7],[7,4,7,4,4],[7,7,7,7,7]],
+        [[7,7,7,7,7,6,7,7,4,7,7,6,7,4,7,7,7,6,7,7,7,7,4],[7,7,7,4,7,6,7,4,4,4,7,6,7,4,7,7,7,6,7,7,4,4,7],[7,7,4,4,7,6,7,7,7,4,7,6,7,4,4,7,7,6,7,4,4,7,7],[7,4,4,7,7,6,7,7,7,4,7,6,7,7,4,7,7,6,7,4,7,7,7],[7,4,7,7,7,6,7,7,7,4,7,6,7,7,4,7,7,6,7,7,7,7,7]]
+      ],
+      "prior_rank": 8,
+      "rank_rationale": "Rejected before ranking because visible outputs preserve foreground colors rather than normalizing them."
+    }
+  ]
+}

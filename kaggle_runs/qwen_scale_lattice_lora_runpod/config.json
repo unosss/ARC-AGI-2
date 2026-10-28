@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "experiment": 39,
+  "checkpoint": "sorokin/qwen3_4b_grids15_sft139",
+  "diarc_adapter": "yyxdnmd/DiARC-adapters/qwen3-4b/arc-agi-2",
+  "arms": ["repeat_control", "scale_lattice"],
+  "seed": 39039,
+  "global_max_sequence_length": 8192,
+  "task_local": {
+    "rank": 256,
+    "alpha": 32,
+    "dropout": 0.0,
+    "base_steps": 128,
+    "steps": 512,
+    "learning_rate": 0.00005,
+    "train_color_permutations": 16,
+    "train_geometries": 8,
+    "decode_color_permutations": 1,
+    "decode_geometries": 8,
+    "rescore_views": 8,
+    "rescore_batch_size": 1,
+    "merge_for_inference": false,
+    "scale_modes": ["identity", "rows", "cols", "both"],
+    "schedule_order": "deterministic_shuffle_v1",
+    "stretch_max_dim": 30
+  },
+  "dfs": {
+    "batch_size": 4,
+    "max_nodes_per_view": 4096,
+    "max_model_forward_tokens_per_view": 12288,
+    "max_candidates_per_view": 128,
+    "max_new_tokens": 931,
+    "emergency_seconds_per_view": 900,
+    "min_prob": 0.2
+  },
+  "calibration": {
+    "task_id": "20270e3b",
+    "base_steps": 4,
+    "steps": 16,
+    "train_color_permutations": 4,
+    "train_geometries": 1,
+    "decode_color_permutations": 1,
+    "decode_geometries": 1,
+    "rescore_views": 1,
+    "dfs": {
+      "batch_size": 1,
+      "max_nodes_per_view": 64,
+      "max_model_forward_tokens_per_view": 512,
+      "max_candidates_per_view": 8,
+      "max_new_tokens": 256,
+      "emergency_seconds_per_view": 120,
+      "min_prob": 0.2
+    }
+  },
+  "hard_exploratory": {"default_task_ids": ["20270e3b"]}
+}

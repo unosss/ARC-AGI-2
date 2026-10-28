@@ -1,0 +1,228 @@
+{
+  "task_id": "fcc82909",
+  "observations": [
+    {
+      "grid": "train_0_input",
+      "facts": [
+        "The 10x10 grid has two isolated 2x2 nonzero objects on a zero background.",
+        "Object A is rows 1-2, columns 2-3: [[4,8],[9,4]], with 3 distinct colors and maximum color frequency 2.",
+        "Object B is rows 4-5, columns 6-7: [[2,1],[1,2]], with 2 distinct colors and maximum color frequency 2."
+      ]
+    },
+    {
+      "grid": "train_0_output",
+      "facts": [
+        "All input cells are preserved.",
+        "A 2-column-wide color-3 extension is placed immediately below each object.",
+        "A has extension length 3 rows; B has extension length 2 rows."
+      ]
+    },
+    {
+      "grid": "train_1_input",
+      "facts": [
+        "Object A at rows 2-3, columns 1-2 is [[9,9],[6,6]], with 2 distinct colors and maximum frequency 2.",
+        "Object B at rows 5-6, columns 5-6 is [[8,4],[7,7]], with 3 distinct colors and maximum frequency 2."
+      ]
+    },
+    {
+      "grid": "train_1_output",
+      "facts": [
+        "Input cells are preserved and color-3 bars continue downward from each object's columns.",
+        "A has extension length 2; B has extension length 3."
+      ]
+    },
+    {
+      "grid": "train_2_input",
+      "facts": [
+        "Object A at rows 1-2, columns 2-3 is [[2,4],[6,7]], with 4 distinct colors and maximum frequency 1.",
+        "Object B at rows 1-2, columns 6-7 is [[9,8],[8,9]], with 2 distinct colors and maximum frequency 2.",
+        "Object C at rows 5-6, columns 4-5 is [[7,6],[6,6]], with 2 distinct colors and maximum frequency 3."
+      ]
+    },
+    {
+      "grid": "train_2_output",
+      "facts": [
+        "The three downward color-3 extensions have lengths 4, 2, and 2 respectively.",
+        "The varying multiplicities in A and C separate distinct-color count from maximum-frequency rules."
+      ]
+    },
+    {
+      "grid": "test_0_input",
+      "facts": [
+        "Object A at rows 1-2, columns 0-1 is [[1,1],[2,1]] and has 2 distinct colors.",
+        "Object B at rows 1-2, columns 6-7 is [[2,9],[1,6]] and has 4 distinct colors.",
+        "Object C at rows 3-4, columns 3-4 is [[4,7],[8,4]] and has 3 distinct colors.",
+        "There is sufficient space below every object for the inferred extension."
+      ]
+    }
+  ],
+  "correspondences": [
+    {
+      "source": "train_0_object_A",
+      "target": "rows 3-5, columns 2-3",
+      "relation": "3 distinct source colors correspond to a 3-row color-3 extension"
+    },
+    {
+      "source": "train_0_object_B",
+      "target": "rows 6-7, columns 6-7",
+      "relation": "2 distinct source colors correspond to a 2-row color-3 extension"
+    },
+    {
+      "source": "train_1_object_A",
+      "target": "rows 4-5, columns 1-2",
+      "relation": "2 distinct source colors correspond to a 2-row color-3 extension"
+    },
+    {
+      "source": "train_1_object_B",
+      "target": "rows 7-9, columns 5-6",
+      "relation": "3 distinct source colors correspond to a 3-row color-3 extension"
+    },
+    {
+      "source": "train_2_objects_A_B_C",
+      "target": "same-column extensions immediately below each object",
+      "relation": "distinct-color counts 4, 2, 2 correspond exactly to extension lengths 4, 2, 2"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1_distinct_color_count",
+      "rule": "For each isolated 2x2 nonzero object, preserve the input and append a width-2 vertical bar of color 3 immediately below it. The bar height equals the number of distinct colors in that 2x2 object.",
+      "predicted_train_outputs": [
+        [
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,4,8,0,0,0,0,0,0],
+          [0,0,9,4,0,0,0,0,0,0],
+          [0,0,3,3,0,0,0,0,0,0],
+          [0,0,3,3,0,0,2,1,0,0],
+          [0,0,3,3,0,0,1,2,0,0],
+          [0,0,0,0,0,0,3,3,0,0],
+          [0,0,0,0,0,0,3,3,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]
+        ],
+        [
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,9,9,0,0,0,0,0,0,0],
+          [0,6,6,0,0,0,0,0,0,0],
+          [0,3,3,0,0,0,0,0,0,0],
+          [0,3,3,0,0,8,4,0,0,0],
+          [0,0,0,0,0,7,7,0,0,0],
+          [0,0,0,0,0,3,3,0,0,0],
+          [0,0,0,0,0,3,3,0,0,0],
+          [0,0,0,0,0,3,3,0,0,0]
+        ],
+        [
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,2,4,0,0,9,8,0,0],
+          [0,0,6,7,0,0,8,9,0,0],
+          [0,0,3,3,0,0,3,3,0,0],
+          [0,0,3,3,0,0,3,3,0,0],
+          [0,0,3,3,7,6,0,0,0,0],
+          [0,0,3,3,6,6,0,0,0,0],
+          [0,0,0,0,3,3,0,0,0,0],
+          [0,0,0,0,3,3,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]
+        ]
+      ],
+      "train_exact": [true, true, true],
+      "contradictions": [],
+      "status": "selected"
+    },
+    {
+      "id": "H2_maximum_color_frequency",
+      "rule": "For each isolated 2x2 nonzero object, preserve the input and append a width-2 vertical bar of color 3 immediately below it. The bar height equals the largest number of cells occupied by any one color in the object.",
+      "predicted_train_outputs": [
+        [
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,4,8,0,0,0,0,0,0],
+          [0,0,9,4,0,0,0,0,0,0],
+          [0,0,3,3,0,0,0,0,0,0],
+          [0,0,3,3,0,0,2,1,0,0],
+          [0,0,0,0,0,0,1,2,0,0],
+          [0,0,0,0,0,0,3,3,0,0],
+          [0,0,0,0,0,0,3,3,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]
+        ],
+        [
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,9,9,0,0,0,0,0,0,0],
+          [0,6,6,0,0,0,0,0,0,0],
+          [0,3,3,0,0,0,0,0,0,0],
+          [0,3,3,0,0,8,4,0,0,0],
+          [0,0,0,0,0,7,7,0,0,0],
+          [0,0,0,0,0,3,3,0,0,0],
+          [0,0,0,0,0,3,3,0,0,0],
+          [0,0,0,0,0,0,0,0,0,0]
+        ],
+        [
+          [0,0,0,0,0,0,0,0,0,0],
+          [0,0,2,4,0,0,9,8,0,0],
+          [0,0,6,7,0,0,8,9,0,0],
+          [0,0,3,3,0,0,3,3,0,0],
+          [0,0,0,0,0,0,3,3,0,0],
+          [0,0,0,0,7,6,0,0,0,0],
+          [0,0,0,0,6,6,0,0,0,0],
+          [0,0,0,0,3,3,0,0,0,0],
+          [0,0,0,0,3,3,0,0,0,0],
+          [0,0,0,0,3,3,0,0,0,0]
+        ]
+      ],
+      "train_exact": [false, false, false],
+      "contradictions": [
+        "Train 0 object A has maximum frequency 2, predicting 2 extension rows, but the observed extension has 3 rows.",
+        "Train 1 object B has maximum frequency 2, predicting 2 extension rows, but the observed extension has 3 rows.",
+        "Train 2 object A has maximum frequency 1, predicting 1 extension row, but the observed extension has 4 rows.",
+        "Train 2 object C has maximum frequency 3, predicting 3 extension rows, but the observed extension has 2 rows."
+      ],
+      "status": "rejected"
+    }
+  ],
+  "revision_history": [
+    {
+      "step": 1,
+      "statement": "Identified each nonzero component as a 2x2 object and the additions as same-width, downward color-3 bars."
+    },
+    {
+      "step": 2,
+      "statement": "Considered two content-derived bar-height statistics: distinct-color count and maximum color frequency."
+    },
+    {
+      "step": 3,
+      "statement": "Rejected maximum frequency after exact reconstruction failures, especially the all-distinct train_2 object (predicted height 1 versus observed 4) and the three-of-a-kind object (predicted 3 versus observed 2)."
+    },
+    {
+      "step": 4,
+      "statement": "Retained distinct-color count because it exactly reconstructs all seven object extensions and all three full training outputs."
+    }
+  ],
+  "selected_rule": {
+    "hypothesis_id": "H1_distinct_color_count",
+    "rule": "Below every 2x2 colored object, fill both of its columns with color 3 for as many rows as there are distinct colors in the object; leave all original cells unchanged.",
+    "why": "It predicts extension heights 3,2; 2,3; and 4,2,2 for the training objects and exactly equals every complete training output."
+  },
+  "test_construction": {
+    "summary": "The test objects have 2, 4, and 3 distinct colors. Add color-3 bars of heights 2 below columns 0-1 starting at row 3, 4 below columns 6-7 starting at row 3, and 3 below columns 3-4 starting at row 5. Preserve every input cell.",
+    "object_extensions": [
+      {"object": "rows 1-2, columns 0-1", "distinct_colors": [1,2], "height": 2, "added_rows": [3,4]},
+      {"object": "rows 1-2, columns 6-7", "distinct_colors": [1,2,6,9], "height": 4, "added_rows": [3,4,5,6]},
+      {"object": "rows 3-4, columns 3-4", "distinct_colors": [4,7,8], "height": 3, "added_rows": [5,6,7]}
+    ]
+  },
+  "test": [
+    [
+      [0,0,0,0,0,0,0,0,0,0],
+      [1,1,0,0,0,0,2,9,0,0],
+      [2,1,0,0,0,0,1,6,0,0],
+      [3,3,0,4,7,0,3,3,0,0],
+      [3,3,0,8,4,0,3,3,0,0],
+      [0,0,0,3,3,0,3,3,0,0],
+      [0,0,0,3,3,0,3,3,0,0],
+      [0,0,0,3,3,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0]
+    ]
+  ]
+}

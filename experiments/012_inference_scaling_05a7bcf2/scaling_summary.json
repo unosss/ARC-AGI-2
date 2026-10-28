@@ -1,0 +1,83 @@
+{
+  "model": "/kaggle/input/models/dangkhoa2016/qwen-qwen3-8-27b/transformers/default/1",
+  "transformers": "5.16.1",
+  "gpu": "NVIDIA L4",
+  "task_id": "05a7bcf2",
+  "thinking": [
+    {
+      "name": "off",
+      "reasoning_effort": null,
+      "max_new_tokens": 4096,
+      "output_tokens": 1021,
+      "seconds": 232.738,
+      "candidate_programs": 1,
+      "valid_programs": 0,
+      "best_train_matches": 0,
+      "train_total": 3,
+      "best_cell_accuracy": 0.0,
+      "train_exact": false,
+      "test_exact": null,
+      "test_total": null
+    },
+    {
+      "name": "low",
+      "reasoning_effort": "low",
+      "max_new_tokens": 12288,
+      "output_tokens": 12288,
+      "seconds": 2494.744,
+      "candidate_programs": 0,
+      "valid_programs": 0,
+      "best_train_matches": 0,
+      "train_total": 3,
+      "best_cell_accuracy": 0.0,
+      "train_exact": false,
+      "test_exact": null,
+      "test_total": null
+    },
+    {
+      "name": "medium",
+      "reasoning_effort": "medium",
+      "max_new_tokens": 12288,
+      "output_tokens": 12288,
+      "seconds": 2495.351,
+      "candidate_programs": 0,
+      "valid_programs": 0,
+      "best_train_matches": 0,
+      "train_total": 3,
+      "best_cell_accuracy": 0.0,
+      "train_exact": false,
+      "test_exact": null,
+      "test_total": null
+    },
+    {
+      "name": "xhigh",
+      "reasoning_effort": "xhigh",
+      "max_new_tokens": 12288,
+      "output_tokens": 12288,
+      "seconds": 2497.336,
+      "candidate_programs": 0,
+      "valid_programs": 0,
+      "best_train_matches": 0,
+      "train_total": 3,
+      "best_cell_accuracy": 0.0,
+      "train_exact": false,
+      "test_exact": null,
+      "test_total": null
+    }
+  ],
+  "agentic": {
+    "turns_executed": 10,
+    "first_train_exact_turn": null,
+    "first_test_exact_turn": null,
+    "total_output_tokens": 22074,
+    "seconds": 4724.303,
+    "candidate_programs": 6,
+    "valid_programs": 0,
+    "best_train_matches": 0,
+    "train_total": 3,
+    "best_cell_accuracy": 0.0,
+    "train_exact": false,
+    "test_exact": null,
+    "test_total": null
+  }
+}

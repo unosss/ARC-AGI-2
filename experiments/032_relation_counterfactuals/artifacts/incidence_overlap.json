@@ -1,0 +1,261 @@
+{
+  "experiment": 32,
+  "family": "incidence",
+  "condition": "overlap",
+  "coordinate_convention": "zero-based [row,column], inclusive bounds where ranges are used",
+  "colors": {
+    "background": 0,
+    "guide": 1,
+    "payload": 2
+  },
+  "rule": "Select a component iff at least one of its cells is also a guide cell.",
+  "cases": [
+    {
+      "id": "incidence_0",
+      "dimensions": [
+        12,
+        14
+      ],
+      "guides": [
+        {
+          "orientation": "horizontal",
+          "fixed": 5,
+          "span": [
+            0,
+            8
+          ]
+        },
+        {
+          "orientation": "vertical",
+          "fixed": 3,
+          "span": [
+            0,
+            11
+          ]
+        }
+      ],
+      "components": [
+        {
+          "id": "C0",
+          "rows": [
+            4,
+            6
+          ],
+          "cols": [
+            5,
+            6
+          ]
+        },
+        {
+          "id": "C1",
+          "rows": [
+            3,
+            4
+          ],
+          "cols": [
+            1,
+            2
+          ]
+        },
+        {
+          "id": "C2",
+          "rows": [
+            7,
+            8
+          ],
+          "cols": [
+            4,
+            5
+          ]
+        },
+        {
+          "id": "C3",
+          "rows": [
+            3,
+            4
+          ],
+          "cols": [
+            9,
+            10
+          ]
+        },
+        {
+          "id": "C4",
+          "rows": [
+            9,
+            10
+          ],
+          "cols": [
+            10,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "id": "incidence_1",
+      "dimensions": [
+        10,
+        10
+      ],
+      "guides": [
+        {
+          "orientation": "horizontal",
+          "fixed": 2,
+          "span": [
+            2,
+            7
+          ]
+        },
+        {
+          "orientation": "vertical",
+          "fixed": 7,
+          "span": [
+            2,
+            9
+          ]
+        }
+      ],
+      "components": [
+        {
+          "id": "C0",
+          "rows": [
+            1,
+            2
+          ],
+          "cols": [
+            4,
+            5
+          ]
+        },
+        {
+          "id": "C1",
+          "rows": [
+            3,
+            4
+          ],
+          "cols": [
+            2,
+            3
+          ]
+        },
+        {
+          "id": "C2",
+          "rows": [
+            6,
+            7
+          ],
+          "cols": [
+            5,
+            6
+          ]
+        },
+        {
+          "id": "C3",
+          "rows": [
+            0,
+            1
+          ],
+          "cols": [
+            8,
+            9
+          ]
+        },
+        {
+          "id": "C4",
+          "rows": [
+            7,
+            8
+          ],
+          "cols": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "incidence_2",
+      "dimensions": [
+        9,
+        13
+      ],
+      "guides": [
+        {
+          "orientation": "horizontal",
+          "fixed": 6,
+          "span": [
+            4,
+            12
+          ]
+        }
+      ],
+      "components": [
+        {
+          "id": "C0",
+          "rows": [
+            5,
+            7
+          ],
+          "cols": [
+            9,
+            10
+          ]
+        },
+        {
+          "id": "C1",
+          "rows": [
+            3,
+            5
+          ],
+          "cols": [
+            5,
+            6
+          ]
+        },
+        {
+          "id": "C2",
+          "rows": [
+            4,
+            5
+          ],
+          "cols": [
+            2,
+            3
+          ]
+        },
+        {
+          "id": "C3",
+          "rows": [
+            7,
+            8
+          ],
+          "cols": [
+            11,
+            12
+          ]
+        },
+        {
+          "id": "C4",
+          "rows": [
+            0,
+            1
+          ],
+          "cols": [
+            8,
+            9
+          ]
+        }
+      ]
+    }
+  ],
+  "construction": [
+    "Initialize the output to background.",
+    "Paint every component rectangle payload color.",
+    "Paint every guide segment guide color.",
+    "Compute the guide cell set and each component cell set.",
+    "Repaint every selected component in full with guide color."
+  ],
+  "precomputed_memberships_included": false,
+  "literal_output_grids_included": false
+}

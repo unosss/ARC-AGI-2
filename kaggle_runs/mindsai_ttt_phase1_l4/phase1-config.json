@@ -1,0 +1,7 @@
+{
+  "mode": "phase1",
+  "task_limit": 20,
+  "conditions": ["baseline", "ttt", "ttt_airv"],
+  "ttt_items": 800,
+  "inference_items": 400
+}

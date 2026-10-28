@@ -1,0 +1,239 @@
+{
+  "task_id": "0d87d2a6",
+  "run": "r2",
+  "vocabulary": {
+    "colors": {"0": "background", "1": "guide", "2": "payload"},
+    "entity_types": {
+      "guide_marker": "An input cell of color 1.",
+      "guide_axis": "A full-height column or full-width row determined by same-index color-1 markers on opposite borders.",
+      "payload_component": "A maximal 4-connected set of input cells of color 2.",
+      "selected_component": "A payload component sharing at least one original cell with a guide axis."
+    },
+    "relations": {
+      "paired_on_opposite_borders": "Markers share a column on top and bottom borders, or share a row on left and right borders.",
+      "defines": "Each opposite-border pair defines the full joining row or column.",
+      "overlaps": "Cell sets have nonempty intersection.",
+      "four_neighbor_contact": "Disjoint cell sets have cells at Manhattan distance 1; considered only in a competing model."
+    }
+  },
+  "extraction": {
+    "coordinates": "Zero-based [row,column], rows downward and columns rightward; all bounds inclusive.",
+    "dimensions": "Count rows H and columns W.",
+    "guide_markers": "Collect all input color-1 coordinates.",
+    "guide_axes": [
+      "Markers [0,c] and [H-1,c] define every [r,c] for 0 <= r < H.",
+      "Markers [r,0] and [r,W-1] define every [r,c] for 0 <= c < W."
+    ],
+    "payload_components": "Find maximal 4-connected color-2 sets. Every observed set is a filled rectangle, encoded losslessly by inclusive row and column bounds.",
+    "selection": "Select exactly the payload components overlapping the union of guide axes.",
+    "completeness": "Dimensions, axes, and all rectangular components reconstruct the input and, with selection labels, the output; uncovered cells are background."
+  },
+  "instances": {
+    "train": [
+      {
+        "pair": 1,
+        "dimensions": [10, 20],
+        "guide_markers": [[0, 6], [9, 6]],
+        "guide_axes": [{"orientation": "vertical", "index": 6, "span": [0, 9]}],
+        "payload_components": [
+          {"id": "tr1_c1", "rows": [2, 5], "cols": [3, 7], "area": 20, "selected": true},
+          {"id": "tr1_c2", "rows": [2, 3], "cols": [14, 17], "area": 8, "selected": false},
+          {"id": "tr1_c3", "rows": [5, 7], "cols": [9, 11], "area": 9, "selected": false},
+          {"id": "tr1_c4", "rows": [5, 7], "cols": [16, 19], "area": 12, "selected": false},
+          {"id": "tr1_c5", "rows": [7, 8], "cols": [2, 3], "area": 4, "selected": false}
+        ],
+        "observed_output": {
+          "guide_axes_colored_1": true,
+          "selected_components_recolored_2_to_1": ["tr1_c1"],
+          "unselected_components_unchanged": ["tr1_c2", "tr1_c3", "tr1_c4", "tr1_c5"],
+          "all_other_cells_unchanged": true
+        }
+      },
+      {
+        "pair": 2,
+        "dimensions": [20, 20],
+        "guide_markers": [[0, 7], [8, 0], [8, 19], [19, 7]],
+        "guide_axes": [
+          {"orientation": "vertical", "index": 7, "span": [0, 19]},
+          {"orientation": "horizontal", "index": 8, "span": [0, 19]}
+        ],
+        "payload_components": [
+          {"id": "tr2_c1", "rows": [0, 2], "cols": [14, 17], "area": 12, "selected": false},
+          {"id": "tr2_c2", "rows": [2, 5], "cols": [6, 10], "area": 20, "selected": true},
+          {"id": "tr2_c3", "rows": [7, 9], "cols": [2, 5], "area": 12, "selected": true},
+          {"id": "tr2_c4", "rows": [8, 10], "cols": [11, 14], "area": 12, "selected": true},
+          {"id": "tr2_c5", "rows": [13, 15], "cols": [2, 5], "area": 12, "selected": false},
+          {"id": "tr2_c6", "rows": [16, 17], "cols": [14, 18], "area": 10, "selected": false}
+        ],
+        "observed_output": {
+          "guide_axes_colored_1": true,
+          "selected_components_recolored_2_to_1": ["tr2_c2", "tr2_c3", "tr2_c4"],
+          "unselected_components_unchanged": ["tr2_c1", "tr2_c5", "tr2_c6"],
+          "all_other_cells_unchanged": true
+        }
+      },
+      {
+        "pair": 3,
+        "dimensions": [13, 14],
+        "guide_markers": [[0, 7], [2, 0], [2, 13], [12, 7]],
+        "guide_axes": [
+          {"orientation": "vertical", "index": 7, "span": [0, 12]},
+          {"orientation": "horizontal", "index": 2, "span": [0, 13]}
+        ],
+        "payload_components": [
+          {"id": "tr3_c1", "rows": [0, 3], "cols": [2, 4], "area": 12, "selected": true},
+          {"id": "tr3_c2", "rows": [2, 3], "cols": [7, 9], "area": 6, "selected": true},
+          {"id": "tr3_c3", "rows": [5, 6], "cols": [0, 1], "area": 4, "selected": false},
+          {"id": "tr3_c4", "rows": [5, 9], "cols": [4, 9], "area": 30, "selected": true},
+          {"id": "tr3_c5", "rows": [7, 11], "cols": [11, 13], "area": 15, "selected": false},
+          {"id": "tr3_c6", "rows": [11, 12], "cols": [1, 5], "area": 10, "selected": false}
+        ],
+        "observed_output": {
+          "guide_axes_colored_1": true,
+          "selected_components_recolored_2_to_1": ["tr3_c1", "tr3_c2", "tr3_c4"],
+          "unselected_components_unchanged": ["tr3_c3", "tr3_c5", "tr3_c6"],
+          "all_other_cells_unchanged": true
+        }
+      }
+    ],
+    "test": [
+      {
+        "case": 1,
+        "dimensions": [23, 25],
+        "guide_markers": [[0, 5], [4, 0], [4, 24], [11, 0], [11, 24], [22, 5]],
+        "guide_axes": [
+          {"orientation": "vertical", "index": 5, "span": [0, 22]},
+          {"orientation": "horizontal", "index": 4, "span": [0, 24]},
+          {"orientation": "horizontal", "index": 11, "span": [0, 24]}
+        ],
+        "payload_components": [
+          {"id": "te1_c1", "rows": [0, 3], "cols": [9, 11], "area": 12, "selected": false, "four_neighbor_contact_only": true},
+          {"id": "te1_c2", "rows": [1, 4], "cols": [19, 22], "area": 16, "selected": true},
+          {"id": "te1_c3", "rows": [3, 5], "cols": [4, 6], "area": 9, "selected": true},
+          {"id": "te1_c4", "rows": [3, 7], "cols": [13, 17], "area": 25, "selected": true},
+          {"id": "te1_c5", "rows": [6, 8], "cols": [22, 23], "area": 6, "selected": false},
+          {"id": "te1_c6", "rows": [9, 11], "cols": [9, 10], "area": 6, "selected": true},
+          {"id": "te1_c7", "rows": [10, 13], "cols": [1, 5], "area": 20, "selected": true},
+          {"id": "te1_c8", "rows": [16, 20], "cols": [5, 13], "area": 45, "selected": true},
+          {"id": "te1_c9", "rows": [16, 18], "cols": [21, 23], "area": 9, "selected": false},
+          {"id": "te1_c10", "rows": [18, 19], "cols": [17, 18], "area": 4, "selected": false}
+        ]
+      }
+    ]
+  },
+  "invariances": {
+    "preserved": [
+      "Output dimensions equal input dimensions.",
+      "All unselected payload cells remain color 2.",
+      "All cells outside guide axes and selected components preserve their input color.",
+      "Component geometry and position are preserved; selection changes color only."
+    ],
+    "discarded": [
+      "Payload component area, aspect ratio, and absolute position do not affect selection except through geometric overlap.",
+      "The number and ordering of components do not affect the rule.",
+      "A selected component may overlap one or several axes with the same result."
+    ],
+    "symmetries": [
+      "The rule is equivariant under reflections and 90-degree rotation when marker pairs, axes, and components are transformed together.",
+      "Horizontal and vertical guide axes are handled identically."
+    ]
+  },
+  "candidate_models": [
+    {
+      "id": "M_overlap",
+      "description": "Extend each paired guide across the grid; recolor exactly those original payload components that share a cell with an axis.",
+      "train_fit": "Exact on all three train pairs.",
+      "test_implication": "Selects te1_c2, te1_c3, te1_c4, te1_c6, te1_c7, and te1_c8; leaves te1_c1 unchanged."
+    },
+    {
+      "id": "M_contact",
+      "description": "Extend each paired guide; recolor payload components that overlap or are 4-neighbor adjacent to an axis.",
+      "train_fit": "Also exact on all three train pairs because no training component provides an overlap-versus-adjacency counterexample.",
+      "test_implication": "Differs only by additionally selecting te1_c1, which is directly above and 4-neighbor adjacent to horizontal axis row 4."
+    },
+    {
+      "id": "M_crossed_only",
+      "description": "Recolor only components overlapping both a horizontal and a vertical guide.",
+      "train_fit": "Contradicted by train 1 and by singly intersected selected components in trains 2 and 3."
+    }
+  ],
+  "train_validation": {
+    "exact_pair_results": [
+      {
+        "pair": 1,
+        "predicted_selected": ["tr1_c1"],
+        "observed_selected": ["tr1_c1"],
+        "predicted_unselected": ["tr1_c2", "tr1_c3", "tr1_c4", "tr1_c5"],
+        "observed_unselected": ["tr1_c2", "tr1_c3", "tr1_c4", "tr1_c5"],
+        "recolored_payload_cells": 20,
+        "new_background_to_guide_cells": 4,
+        "exact": true
+      },
+      {
+        "pair": 2,
+        "predicted_selected": ["tr2_c2", "tr2_c3", "tr2_c4"],
+        "observed_selected": ["tr2_c2", "tr2_c3", "tr2_c4"],
+        "predicted_unselected": ["tr2_c1", "tr2_c5", "tr2_c6"],
+        "observed_unselected": ["tr2_c1", "tr2_c5", "tr2_c6"],
+        "recolored_payload_cells": 44,
+        "new_background_to_guide_cells": 23,
+        "exact": true
+      },
+      {
+        "pair": 3,
+        "predicted_selected": ["tr3_c1", "tr3_c2", "tr3_c4"],
+        "observed_selected": ["tr3_c1", "tr3_c2", "tr3_c4"],
+        "predicted_unselected": ["tr3_c3", "tr3_c5", "tr3_c6"],
+        "observed_unselected": ["tr3_c3", "tr3_c5", "tr3_c6"],
+        "recolored_payload_cells": 48,
+        "new_background_to_guide_cells": 10,
+        "exact": true
+      }
+    ],
+    "global_result": "M_overlap reproduces every train output cell exactly.",
+    "contradictions": {
+      "M_crossed_only": "Train 1 has no horizontal axis yet recolors tr1_c1; trains 2 and 3 recolor components intersecting only one axis.",
+      "component_size_or_shape_selection": "Selected and unselected rectangles vary in size, while axis overlap consistently separates their observed behavior."
+    }
+  },
+  "selected_model": {
+    "id": "M_overlap",
+    "rationale": "It is the minimal literal relation evidenced by every changed payload component: direct intersection with a guide axis. Adjacency is unnecessary on training data and is therefore not added."
+  },
+  "remaining_ambiguities": [
+    {
+      "ambiguity": "Training does not distinguish overlap-only from overlap-or-4-neighbor-contact.",
+      "localized_test_effect": "Only te1_c1 is disputed: it does not overlap an axis but its bottom edge at row 3 is adjacent to horizontal axis row 4.",
+      "resolution_used": "Execute M_overlap, leaving te1_c1 color 2."
+    }
+  ],
+  "execution_spec": {
+    "model": "M_overlap",
+    "output_dimensions": "For test case 1 create a 23-by-25 grid.",
+    "coordinate_convention": "Zero-based [row,column], inclusive rectangle bounds.",
+    "required_test_entities": {
+      "background_color": 0,
+      "guide_color": 1,
+      "payload_color": 2,
+      "guide_axes": ["column 5, rows 0 through 22", "row 4, columns 0 through 24", "row 11, columns 0 through 24"],
+      "selected_components": ["te1_c2", "te1_c3", "te1_c4", "te1_c6", "te1_c7", "te1_c8"],
+      "unselected_components": ["te1_c1", "te1_c5", "te1_c9", "te1_c10"],
+      "component_geometry_source": "Use the exact inclusive bounds in instances.test[0].payload_components."
+    },
+    "ordered_construction": [
+      "Initialize every cell of the 23-by-25 output to color 0.",
+      "Paint every rectangle listed in instances.test[0].payload_components color 2.",
+      "Paint the complete guide axes column 5, row 4, and row 11 color 1.",
+      "Paint every full rectangle whose id is in selected_components color 1.",
+      "Do not recolor any unselected component beyond any guide-axis cell itself; in this test none of the unselected rectangles overlaps a guide axis."
+    ],
+    "collision_behavior": "Color 1 wins over colors 0 and 2 wherever a guide axis or selected component is painted. Overlapping guide axes remain color 1.",
+    "boundary_behavior": "Guide axes include both border endpoints and stop at the grid boundary. Rectangle bounds are clipped only if necessary; all supplied bounds are already in range.",
+    "integrity_checks": [
+      "The guide-axis union has 71 cells.",
+      "The six selected rectangles contain 121 cells, 29 of which lie on guide axes.",
+      "The completed output has 163 color-1 cells, 31 color-2 cells, and 381 color-0 cells.",
+      "Do not materialize or copy a literal final grid from this artifact; construct it from the entities and procedure."
+    ]
+  }
+}

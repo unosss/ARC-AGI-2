@@ -1,0 +1,230 @@
+{
+  "task_id": "f931b4a8",
+  "run": "r2",
+  "candidates": [
+    {
+      "local_id": "r2_c01",
+      "status": "eligible",
+      "representation": {
+        "entities": "Four equal input panels: two upper size headers and two lower pattern panels.",
+        "relations": "Each upper panel's occupied-cell count gives one output dimension; the lower-right panel is a fine stencil and the lower-left panel supplies one coarse fill color per stencil-sized macrocell.",
+        "invariances": "Color identities in the headers do not matter; zero is transparent; the lower stencil repeats periodically and output is cropped from the upper-left.",
+        "operator": "Count all nonzero cells in upper-left and upper-right to obtain H and W. For output (r,c), take fine cell F[r mod hF,c mod wF]; if nonzero emit it, otherwise emit coarse cell C[floor(r/hF) mod hC,floor(c/wF) mod wC]. If the nominal fine panel is all zero, use the other lower panel directly as the periodic fine pattern.",
+        "alternatives": "Header colors might select only one color class; coarse scanning might be reversed; equal colors across layers might signal transparency."
+      },
+      "semantic_signature": "occupied-count-dimensions|right-fine-zero-transparent|left-coarse-row-major|top-left-crop|blank-fine-fallback",
+      "execution_spec": "Split the input into four equal quadrants. Let H and W be the numbers of nonzero cells in the upper-left and upper-right quadrants. Normally set C=lower-left and F=lower-right. If F has no nonzero cells, set F=C and use no coarse layer. Build an infinite macrocell raster in row-major order: repeat F within every macrocell, preserve each nonzero F cell, and replace each zero F cell by the corresponding C macrocell value. Return its upper-left H by W crop.",
+      "predicted_train_outputs": [
+        [[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6]],
+        [[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]],
+        [[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8],[8,1,8,1,1,6,1,6,8,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[6,1,6,1,1,8,1,8,6,1],[1,6,1,1,1,1,8,1,1,6],[6,1,6,1,1,8,1,8,6,1],[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8]],
+        [[2,5,2,5],[2,5,2,5],[2,5,2,5],[2,5,2,5]],
+        [[1,1,1,1],[6,6,6,6],[1,1,1,1]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,7,7,3],[7,7,3,7],[7,6,7,8],[6,7,8,7]]
+      ],
+      "prior_rank": 1,
+      "rank_rationale": "Directly reconstructs every output with a uniform four-panel correspondence, ordinary row-major hierarchical tiling, and no test-specific condition."
+    },
+    {
+      "local_id": "r2_c02",
+      "status": "eligible",
+      "representation": {
+        "entities": "Four equal panels; each upper header may contain a dominant signal color plus distractor colors.",
+        "relations": "The frequency of the most common nonzero color in each header gives the output dimensions; lower panels compose hierarchically.",
+        "invariances": "Header distractors are ignored; lower composition is color-permutation invariant except for zero transparency.",
+        "operator": "Use modal-nonzero counts for H and W, then apply the same right-fine, left-coarse row-major stencil expansion as candidate r2_c01.",
+        "alternatives": "All occupied cells or a position-designated color may instead be counted."
+      },
+      "semantic_signature": "modal-nonzero-header-counts|right-fine-zero-transparent|left-coarse-row-major|top-left-crop",
+      "execution_spec": "Split into four equal quadrants. In each upper quadrant find the nonzero color with greatest frequency, breaking ties by first raster occurrence, and use its frequency as H or W. Compose the lower-right zero-transparent fine stencil over row-major lower-left coarse macrocells; if the right panel is blank, periodically crop the left panel. Return the upper-left H by W crop.",
+      "predicted_train_outputs": [
+        [[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6]],
+        [[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]],
+        [[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8],[8,1,8,1,1,6,1,6,8,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[6,1,6,1,1,8,1,8,6,1],[1,6,1,1,1,1,8,1,1,6],[6,1,6,1,1,8,1,8,6,1],[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8]],
+        [[2,5,2,5],[2,5,2,5],[2,5,2,5],[2,5,2,5]],
+        [[1,1,1,1],[6,6,6,6],[1,1,1,1]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[2,3,3,3,2,3],[3,2,3,2,3,2],[3,2,2,5,3,2],[3,3,1,2,3,3],[2,3,3,3,2,3],[3,2,3,2,3,2],[3,2,2,5,3,2]],
+        [[7,7,7,3],[7,7,3,7],[7,6,7,8],[6,7,8,7]]
+      ],
+      "prior_rank": 4,
+      "rank_rationale": "Exact and systematic, but positing distractor colors in headers is more complex than counting all occupied cells."
+    },
+    {
+      "local_id": "r2_c03",
+      "status": "eligible",
+      "representation": {
+        "entities": "Four panels with a raster-designated header color in each upper panel.",
+        "relations": "The first nonzero cell identifies which color class is counted for each output dimension.",
+        "invariances": "Later colors in a header are annotations rather than size mass; lower-layer geometry is unchanged.",
+        "operator": "Count occurrences of the first raster nonzero color in each header, then perform ordinary hierarchical stencil composition.",
+        "alternatives": "The designated class could be modal, last, or all occupied cells."
+      },
+      "semantic_signature": "first-raster-color-header-counts|right-fine-zero-transparent|left-coarse-row-major|top-left-crop",
+      "execution_spec": "Split into quadrants. In each upper quadrant, scan row-major to the first nonzero cell and count all cells of that color; these counts are H and W. Compose lower-right as a repeating zero-transparent fine stencil over lower-left coarse cells in row-major order, with blank-right fallback to periodic lower-left. Crop upper-left H by W.",
+      "predicted_train_outputs": [
+        [[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6]],
+        [[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]],
+        [[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8],[8,1,8,1,1,6,1,6,8,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[6,1,6,1,1,8,1,8,6,1],[1,6,1,1,1,1,8,1,1,6],[6,1,6,1,1,8,1,8,6,1],[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8]],
+        [[2,5,2,5],[2,5,2,5],[2,5,2,5],[2,5,2,5]],
+        [[1,1,1,1],[6,6,6,6],[1,1,1,1]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[2,3,3,3,2,3],[3,2,3,2,3,2]],
+        [[7,7,7,3],[7,7,3,7],[7,6,7,8],[6,7,8,7]]
+      ],
+      "prior_rank": 5,
+      "rank_rationale": "A conventional positional-key generalization and exactly consistent, but less direct than total occupancy because no training header contains competing colors."
+    },
+    {
+      "local_id": "r2_c04",
+      "status": "eligible",
+      "representation": {
+        "entities": "Four panels with an end-of-message designated color in each upper header.",
+        "relations": "The final nonzero raster cell identifies the color class whose cardinality encodes each dimension.",
+        "invariances": "Earlier header colors are ignored as annotations; lower composition remains hierarchical.",
+        "operator": "Count the last-raster nonzero color in each header and use those counts as output dimensions.",
+        "alternatives": "The key color could instead be first, modal, or occupancy-independent."
+      },
+      "semantic_signature": "last-raster-color-header-counts|right-fine-zero-transparent|left-coarse-row-major|top-left-crop",
+      "execution_spec": "Split into quadrants. In each upper quadrant take the color of the last nonzero cell in row-major order and count that color to obtain H or W. Compose lower-right over lower-left by zero-transparent row-major macrocell substitution, with blank-right fallback, and crop the upper-left H by W rectangle.",
+      "predicted_train_outputs": [
+        [[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6]],
+        [[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]],
+        [[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8],[8,1,8,1,1,6,1,6,8,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[6,1,6,1,1,8,1,8,6,1],[1,6,1,1,1,1,8,1,1,6],[6,1,6,1,1,8,1,8,6,1],[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8]],
+        [[2,5,2,5],[2,5,2,5],[2,5,2,5],[2,5,2,5]],
+        [[1,1,1,1],[6,6,6,6],[1,1,1,1]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[2,3],[3,2]],
+        [[7,7,7,3],[7,7,3,7],[7,6,7,8],[6,7,8,7]]
+      ],
+      "prior_rank": 8,
+      "rank_rationale": "Exact but the last-cell key convention has weaker geometric motivation than occupancy, modal, or first-marker readings."
+    },
+    {
+      "local_id": "r2_c05",
+      "status": "eligible",
+      "representation": {
+        "entities": "Occupied-cell headers and a fine stencil laid over coarse cells scanned right-to-left within each row.",
+        "relations": "Header counts define dimensions; each coarse row is consumed from right to left while rows remain top to bottom.",
+        "invariances": "Fine geometry and zero transparency are preserved; horizontal coarse order is mirrored.",
+        "operator": "Use all nonzero header counts, but horizontally reverse the lower-left coarse panel before macrocell substitution.",
+        "alternatives": "Standard raster or boustrophedon coarse traversal."
+      },
+      "semantic_signature": "occupied-count-dimensions|right-fine-zero-transparent|left-coarse-reverse-columns|top-left-crop",
+      "execution_spec": "Split into quadrants and count all nonzero upper cells for H and W. Mirror the lower-left panel horizontally, then use its cells in top-to-bottom, right-to-left macrocell order to fill zeros of repeated lower-right stencils. Preserve nonzero fine cells; use the lower-left directly if the right panel is blank. Crop H by W from the upper-left.",
+      "predicted_train_outputs": [
+        [[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6]],
+        [[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]],
+        [[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8],[8,1,8,1,1,6,1,6,8,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[6,1,6,1,1,8,1,8,6,1],[1,6,1,1,1,1,8,1,1,6],[6,1,6,1,1,8,1,8,6,1],[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8]],
+        [[2,5,2,5],[2,5,2,5],[2,5,2,5],[2,5,2,5]],
+        [[1,1,1,1],[6,6,6,6],[1,1,1,1]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,3,7,7],[3,7,7,7],[7,8,7,6],[8,7,6,7]]
+      ],
+      "prior_rank": 6,
+      "rank_rationale": "Exact and geometrically coherent, but horizontal reversal adds an unsupported orientation choice."
+    },
+    {
+      "local_id": "r2_c06",
+      "status": "eligible",
+      "representation": {
+        "entities": "Occupied-cell headers plus a boustrophedon coarse raster and a repeated fine stencil.",
+        "relations": "Successive coarse rows alternate left-to-right and right-to-left traversal.",
+        "invariances": "The fine stencil is unchanged and zero remains transparent.",
+        "operator": "Count all occupied header cells; reverse odd-indexed rows of the coarse panel before expansion.",
+        "alternatives": "Uniform row-major or uniformly mirrored traversal."
+      },
+      "semantic_signature": "occupied-count-dimensions|right-fine-zero-transparent|left-coarse-boustrophedon|top-left-crop",
+      "execution_spec": "Split into quadrants and let H,W be total nonzero counts in the upper pair. Read lower-left coarse rows in a boustrophedon scan: even rows left-to-right and odd rows right-to-left. For each coarse cell, repeat lower-right as a fine stencil, preserving its nonzeros and filling its zeros with that coarse color. If lower-right is blank, crop periodic lower-left. Return the upper-left H by W crop.",
+      "predicted_train_outputs": [
+        [[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6]],
+        [[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]],
+        [[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8],[8,1,8,1,1,6,1,6,8,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[6,1,6,1,1,8,1,8,6,1],[1,6,1,1,1,1,8,1,1,6],[6,1,6,1,1,8,1,8,6,1],[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8]],
+        [[2,5,2,5],[2,5,2,5],[2,5,2,5],[2,5,2,5]],
+        [[1,1,1,1],[6,6,6,6],[1,1,1,1]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,7,7,3],[7,7,3,7],[7,8,7,6],[8,7,6,7]]
+      ],
+      "prior_rank": 7,
+      "rank_rationale": "Exact and a known scan convention, but it adds alternating orientation with no positive evidence."
+    },
+    {
+      "local_id": "r2_c07",
+      "status": "eligible",
+      "representation": {
+        "entities": "Occupied-cell headers and two palette-bearing lower layers with collision-sensitive transparency.",
+        "relations": "Normally zero holes in the fine stencil receive the coarse color; a coarse color equal to a fine foreground color instead leaves those holes transparent.",
+        "invariances": "Distinct-palette examples reduce to ordinary hierarchical stencil filling.",
+        "operator": "Use total occupied header counts and row-major expansion, except shared coarse/fine nonzero colors suppress fill in that macrocell.",
+        "alternatives": "Shared colors may simply merge, as in ordinary opaque compositing."
+      },
+      "semantic_signature": "occupied-count-dimensions|right-fine|shared-color-collision-keeps-zero|left-coarse-row-major|top-left-crop",
+      "execution_spec": "Split into quadrants and count all nonzero upper cells for H,W. Expand lower-right over lower-left in row-major macrocells. Preserve nonzero fine cells. At a zero fine cell, emit the coarse value unless that value also occurs as a nonzero fine color, in which case emit zero to preserve a collision boundary. If the fine panel is blank, use the coarse pattern directly. Crop H by W.",
+      "predicted_train_outputs": [
+        [[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6]],
+        [[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]],
+        [[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8],[8,1,8,1,1,6,1,6,8,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[6,1,6,1,1,8,1,8,6,1],[1,6,1,1,1,1,8,1,1,6],[6,1,6,1,1,8,1,8,6,1],[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8]],
+        [[2,5,2,5],[2,5,2,5],[2,5,2,5],[2,5,2,5]],
+        [[1,1,1,1],[6,6,6,6],[1,1,1,1]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,0,7,3],[0,7,3,7],[7,6,7,8],[6,7,8,7]]
+      ],
+      "prior_rank": 3,
+      "rank_rationale": "Maintains local layer semantics and is exactly consistent; ranked below ordinary compositing because collision transparency is unobserved in training."
+    },
+    {
+      "local_id": "r2_c08",
+      "status": "eligible",
+      "representation": {
+        "entities": "Two size headers and two lower candidate layers selected by structural sparsity rather than fixed side.",
+        "relations": "The lower panel with both zeros and nonzeros and the greater zero count is the fine stencil; the other is the coarse fill source.",
+        "invariances": "Swapping lower panels does not matter when their structural roles remain identifiable; zero is transparent.",
+        "operator": "Count all nonzero header cells. Select the mixed, sparser lower panel as fine; use the other as coarse. If one lower panel is blank and the other has no zeros, use the nonblank panel directly.",
+        "alternatives": "Roles can instead be fixed left-coarse/right-fine."
+      },
+      "semantic_signature": "occupied-count-dimensions|sparsity-selected-fine-layer|other-coarse-row-major|top-left-crop|blank-panel-direct",
+      "execution_spec": "Split into quadrants and count all nonzero cells in the upper pair for H,W. Among lower panels, choose as fine the nonblank panel containing zeros and having the larger zero count; ties favor the right panel. Use the other as row-major coarse macrocells, preserving fine nonzeros and filling fine zeros with coarse values. If one lower panel is blank and the other is fully nonzero, periodically crop the nonblank panel directly. Return the upper-left H by W crop.",
+      "predicted_train_outputs": [
+        [[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6],[6,5,6,5],[5,6,5,6]],
+        [[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,1,1,4,4,1,1,4,4,1,1,4,4,1,1,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,5,5,4,4,5,5,4,4,5,5,4,4,5,5,4],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]],
+        [[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8],[8,1,8,1,1,6,1,6,8,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[6,1,6,1,1,8,1,8,6,1],[1,6,1,1,1,1,8,1,1,6],[6,1,6,1,1,8,1,8,6,1],[8,1,8,1,1,6,1,6,8,1],[1,8,1,1,1,1,6,1,1,8]],
+        [[2,5,2,5],[2,5,2,5],[2,5,2,5],[2,5,2,5]],
+        [[1,1,1,1],[6,6,6,6],[1,1,1,1]]
+      ],
+      "train_exact": true,
+      "contradictions": [],
+      "test": [
+        [[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2],[3,2,2,5,3,2,2,5],[3,3,1,2,3,3,1,2],[2,3,3,3,2,3,3,3],[3,2,3,2,3,2,3,2]],
+        [[7,7,7,3],[7,7,3,7],[7,6,7,8],[6,7,8,7]]
+      ],
+      "prior_rank": 2,
+      "rank_rationale": "Exact and structurally motivated by stencil sparsity, but fixed quadrant roles are simpler and already explain all examples."
+    }
+  ]
+}

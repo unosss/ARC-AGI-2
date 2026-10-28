@@ -1,0 +1,20 @@
+{
+  "id": "unosss/qwen-2d-batched-dfs-l4x4",
+  "title": "Qwen 2D Batched DFS L4x4",
+  "code_file": "qwen_2d_batched_dfs_l4.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": ["arc-agi", "nvarc", "batched-dfs", "throughput"],
+  "dataset_sources": [],
+  "kernel_sources": ["sorokin/pip-install-unsloth-flash-patch"],
+  "competition_sources": ["arc-prize-2026-arc-agi-2"],
+  "model_sources": ["sorokin/qwen3_4b_grids15_sft139/Transformers/bfloat16/1"],
+  "docker_image": "gcr.io/kaggle-private-byod/python@sha256:320043e14c68293f1c946585b9257123385205a58af4b94b17d31868cae4e868",
+  "machine_shape": "NvidiaL4",
+  "gpu_count": 4,
+  "accelerator": "Nvidia L4 x4"
+}

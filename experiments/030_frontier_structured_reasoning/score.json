@@ -1,0 +1,197 @@
+{
+  "experiment": 30,
+  "label_boundary": "all ten trace files validated before answer_key read",
+  "trace_sha256": {
+    "42f14c03": "7c71672320da933d26735eb9d94b94a9c63c738c5a8d84e8556b8b80b0486019",
+    "72207abc": "e965ec9ae591ddfd7c25b0a750b2d7aa5dab6b6a9e64b6cc0dbe06d8bff1f6da",
+    "0d87d2a6": "c2beed90989838dbabe9dcf1d782fe67542ef4bd6eba8ea3ba9d88123028041f",
+    "bf32578f": "491e7fe13f7bad3ddf0f7a8583ee4655a0db6c87c3f23c0e3819311a7171fbfe",
+    "7ee1c6ea": "1d5be680afc8d9a5525ac1dc92f81cae7e5045b9196416c52fdefa9c0613dc95",
+    "ad38a9d0": "b5e07140913cf1d9701372d772be39f3c30304377647b84d252fd541631480ec",
+    "7039b2d7": "9fbdb4274c00295838f6c5770a7c6227494650cfd257495516c31f8a09aee2b7",
+    "b27ca6d3": "bd88b63755387bdd40f82f2fbc5ed47d11ad01d08e36e42dd764c0e17bae38e3",
+    "f8a8fe49": "3156090cb33a451d724baa9c866f13df39d9c720ab1621dbf7da799abf4b40db",
+    "fcc82909": "d617f9714fb0a97e1a1929b41bda219df9586442bc04ddd31254a562546f7dcf"
+  },
+  "task_exact": 9,
+  "task_count": 10,
+  "item_exact": 9,
+  "item_count": 10,
+  "cell_accuracy": 0.9922430510665805,
+  "tasks": [
+    {
+      "task_id": "42f14c03",
+      "task_exact": true,
+      "items": [
+        {
+          "index": 0,
+          "exact": true,
+          "cell_accuracy": 1.0,
+          "shape_match": true
+        }
+      ],
+      "selected_rule": {
+        "hypothesis_id": "H1_exact_shape_completion",
+        "summary": "Identify the unique colored template whose background gaps, measured inside its tight bounding box, are exact oriented-shape matches for detached solid colored components. Output the tight template crop and replace each gap by the color of its matching component.",
+        "why_it_survived": "It predicts every training output with the correct dimensions and zero cell mismatches, rejects every displayed distractor template because at least one gap lacks a matching solid piece, and uses both color and geometry of the detached pieces."
+      },
+      "hypothesis_count": 3
+    },
+    {
+      "task_id": "72207abc",
+      "task_exact": true,
+      "items": [
+        {
+          "index": 0,
+          "exact": true,
+          "cell_accuracy": 1.0,
+          "shape_match": true
+        }
+      ],
+      "selected_rule": {
+        "hypothesis_id": "H1",
+        "rule": "Populate triangular-number columns 0,1,3,6,10,15,21,28,... in the active row by cyclically repeating the input seed values; preserve zeros elsewhere.",
+        "why": "It is exact on all three train pairs, explains the shared increasing gaps 1,2,3,... across both grid widths, and explains the differing output color cycles from the differing input seeds."
+      },
+      "hypothesis_count": 2
+    },
+    {
+      "task_id": "0d87d2a6",
+      "task_exact": false,
+      "items": [
+        {
+          "index": 0,
+          "exact": false,
+          "cell_accuracy": 0.9791304347826087,
+          "shape_match": true
+        }
+      ],
+      "selected_rule": {
+        "hypothesis_id": "H1",
+        "reason": "It reproduces every cell of all three training outputs exactly and explains both line completion and whole-object recoloring."
+      },
+      "hypothesis_count": 2
+    },
+    {
+      "task_id": "bf32578f",
+      "task_exact": true,
+      "items": [
+        {
+          "index": 0,
+          "exact": true,
+          "cell_accuracy": 1.0,
+          "shape_match": true
+        }
+      ],
+      "selected_rule": {
+        "hypothesis_id": "H1_reflect_boundary_and_fill_enclosed_background",
+        "rule": "Mirror the colored half-boundary horizontally across the seam immediately to the right of its global rightmost occupied column. Recolor only the background enclosed between the original boundary and its mirror, excluding and erasing all boundary pixels.",
+        "why_it_survived": "It reproduces every training cell exactly, follows the varying row widths in the two V examples, explains empty endpoint rows without an exception, and handles the test's thicker raster steps by using their inward edges."
+      },
+      "hypothesis_count": 3
+    },
+    {
+      "task_id": "7ee1c6ea",
+      "task_exact": true,
+      "items": [
+        {
+          "index": 0,
+          "exact": true,
+          "cell_accuracy": 1.0,
+          "shape_match": true
+        }
+      ],
+      "selected_rule": {
+        "hypothesis_id": "H1",
+        "rule": "Swap the two nonzero, non-5 colors only within the strict interior of the color-5 frame; leave zero, the frame, and the exterior unchanged.",
+        "why": "It is exact on all three training pairs and explains why occurrences of the same colors outside the frame do not change."
+      },
+      "hypothesis_count": 2
+    },
+    {
+      "task_id": "ad38a9d0",
+      "task_exact": true,
+      "items": [
+        {
+          "index": 0,
+          "exact": true,
+          "cell_accuracy": 1.0,
+          "shape_match": true
+        }
+      ],
+      "selected_rule": {
+        "hypothesis_id": "H1_shape_dictionary",
+        "reason": "It exactly reproduces both complete train outputs, explains repeated colors by component geometry rather than position, and distinguishes the concrete same-area counterexample. The only surviving alternative gives the identical test output."
+      },
+      "hypothesis_count": 3
+    },
+    {
+      "task_id": "7039b2d7",
+      "task_exact": true,
+      "items": [
+        {
+          "index": 0,
+          "exact": true,
+          "cell_accuracy": 1.0,
+          "shape_match": true
+        }
+      ],
+      "selected_rule": {
+        "hypothesis_id": "H1",
+        "rule": "Use full monochromatic line-color rows and columns as grid dividers. Enumerate maximal non-divider row runs and column runs; their Cartesian products are compartments. Emit one pixel per compartment in the same spatial arrangement, colored by the compartment's uniform color.",
+        "why": "It is exact on every train pair, explains output dimensions and colors, and correctly handles the boundary divider in train pair 2 without inventing an empty compartment."
+      },
+      "hypothesis_count": 3
+    },
+    {
+      "task_id": "b27ca6d3",
+      "task_exact": true,
+      "items": [
+        {
+          "index": 0,
+          "exact": true,
+          "cell_accuracy": 1.0,
+          "shape_match": true
+        }
+      ],
+      "selected_rule": {
+        "hypothesis_id": "H1_chebyshev_domino_border",
+        "rule": "For each maximal two-cell 4-connected red component, preserve all input cells and turn every in-bounds zero in the component's one-cell Chebyshev neighborhood green.",
+        "why": "It exactly reproduces both full training outputs, including corner cells and boundary clipping, while leaving all isolated red cells untouched."
+      },
+      "hypothesis_count": 2
+    },
+    {
+      "task_id": "f8a8fe49",
+      "task_exact": true,
+      "items": [
+        {
+          "index": 0,
+          "exact": true,
+          "cell_accuracy": 1.0,
+          "shape_match": true
+        }
+      ],
+      "selected_rule": "Preserve red. Erase every gray source pixel. Reflect each gray pixel over the nearer facing red boundary: (r,c)->(r,2b-c) for a vertical boundary at column b, or (r,c)->(2b-r,c) for a horizontal boundary at row b.",
+      "hypothesis_count": 2
+    },
+    {
+      "task_id": "fcc82909",
+      "task_exact": true,
+      "items": [
+        {
+          "index": 0,
+          "exact": true,
+          "cell_accuracy": 1.0,
+          "shape_match": true
+        }
+      ],
+      "selected_rule": {
+        "hypothesis_id": "H1_distinct_color_count",
+        "rule": "Below every 2x2 colored object, fill both of its columns with color 3 for as many rows as there are distinct colors in the object; leave all original cells unchanged.",
+        "why": "It predicts extension heights 3,2; 2,3; and 4,2,2 for the training objects and exactly equals every complete training output."
+      },
+      "hypothesis_count": 2
+    }
+  ]
+}

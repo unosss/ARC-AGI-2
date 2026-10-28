@@ -1,0 +1,1916 @@
+{
+  "schema_version": 1,
+  "experiment": "018_qwen_stage_diagnosis",
+  "status": "gpu_run_complete",
+  "task_id": "0934a4d8",
+  "test_index": 0,
+  "config": {
+    "mode": "single_task_stage_diagnosis",
+    "task_id": "0934a4d8",
+    "test_index": 0,
+    "n_train_aug": 16,
+    "train_geometries": 8,
+    "epochs": 1,
+    "optimizer_steps": 128,
+    "learning_rate": 5e-05,
+    "lora_seed": 42,
+    "train_aug_seed": 1,
+    "eval_seed": 2,
+    "score_seed_offset": 0,
+    "min_prob": 0.2,
+    "dfs_window_seconds": 300,
+    "condition_budget_seconds": 300,
+    "phase_timeout_seconds": 10800,
+    "lora": {
+      "type": "RSLoRA",
+      "rank": 256,
+      "alpha": 32,
+      "dropout": 0.0
+    },
+    "prefix_rows": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      8
+    ],
+    "source_bbox_half_open": [
+      0,
+      3,
+      14,
+      23
+    ],
+    "report_filename": "stage_diagnosis_report.json",
+    "checkpoint": "sorokin/qwen3_4b_grids15_sft139",
+    "model_source": "sorokin/qwen3_4b_grids15_sft139/Transformers/bfloat16/1",
+    "kernel_source": "sorokin/pip-install-unsloth-flash-patch",
+    "competition_source": "arc-prize-2026-arc-agi-2"
+  },
+  "label_lifecycle": {
+    "valid": true,
+    "events": [
+      "ordinary_training_completed",
+      "ordinary_generation_completed",
+      "ordinary_worker_exited",
+      "labels_opened",
+      "oracle_payload_written",
+      "oracle_training_completed",
+      "oracle_payload_opened",
+      "oracle_diagnostics_completed",
+      "oracle_worker_exited"
+    ],
+    "ordinary_labels_available": false,
+    "oracle_payload_opened_after_training": true,
+    "post_label_optimizer_steps": 0
+  },
+  "training_runs": {
+    "ordinary": {
+      "steps": 128,
+      "loss": 0.002995242364704609,
+      "seconds": 425.658,
+      "training_examples": 128
+    },
+    "oracle_replay_before_payload_open": {
+      "steps": 128,
+      "loss": 0.0029342409688979387,
+      "seconds": 408.811,
+      "training_examples": 128
+    }
+  },
+  "causal_questions": {
+    "execution": {
+      "transpose_probe": {
+        "budget_seconds": 300,
+        "prefix_token_count": 0,
+        "score_scope": "generated_suffix_only",
+        "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+        "candidates": [
+          {
+            "grid": [
+              [
+                7,
+                7,
+                9
+              ],
+              [
+                7,
+                2,
+                9
+              ],
+              [
+                7,
+                2,
+                9
+              ],
+              [
+                7,
+                7,
+                9
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                4,
+                4,
+                7
+              ],
+              [
+                6,
+                6,
+                1
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                1,
+                6,
+                1
+              ]
+            ],
+            "suffix_score": 0.7105560302734375,
+            "generated_suffix_tokens": 36,
+            "suffix_mean_score": 0.019737667507595487
+          },
+          {
+            "grid": [
+              [
+                7,
+                7
+              ],
+              [
+                7,
+                2
+              ],
+              [
+                7,
+                2
+              ],
+              [
+                7,
+                7
+              ],
+              [
+                4,
+                4
+              ],
+              [
+                4,
+                4
+              ],
+              [
+                6,
+                6
+              ],
+              [
+                6,
+                6
+              ],
+              [
+                6,
+                1
+              ]
+            ],
+            "suffix_score": 1.4128875732421875,
+            "generated_suffix_tokens": 27,
+            "suffix_mean_score": 0.052329169379340276
+          }
+        ],
+        "truth_present": true,
+        "exact_candidate_count": 1,
+        "metadata": {
+          "causal_question": "execution",
+          "oracle": true,
+          "oracle_operation_hint": true,
+          "fair_solver_condition": false,
+          "ood": true
+        }
+      },
+      "can_transpose_oracle_crop_with_hint": true
+    },
+    "localization": {
+      "baseline": {
+        "budget_seconds": 300,
+        "prefix_token_count": 0,
+        "score_scope": "generated_suffix_only",
+        "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+        "candidates": [
+          {
+            "grid": [
+              [
+                9,
+                1,
+                3
+              ],
+              [
+                9,
+                9,
+                2
+              ],
+              [
+                9,
+                9,
+                2
+              ],
+              [
+                9,
+                1,
+                3
+              ],
+              [
+                7,
+                2,
+                7
+              ],
+              [
+                7,
+                7,
+                9
+              ],
+              [
+                1,
+                6,
+                7
+              ],
+              [
+                6,
+                6,
+                7
+              ],
+              [
+                1,
+                5,
+                4
+              ]
+            ],
+            "suffix_score": 0.3044891357421875,
+            "generated_suffix_tokens": 36,
+            "suffix_mean_score": 0.008458031548394097
+          }
+        ],
+        "truth_present": false,
+        "exact_candidate_count": 0
+      },
+      "oracle_crop": {
+        "budget_seconds": 300,
+        "prefix_token_count": 0,
+        "score_scope": "generated_suffix_only",
+        "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+        "candidates": [],
+        "truth_present": false,
+        "exact_candidate_count": 0,
+        "metadata": {
+          "causal_question": "localization",
+          "oracle": true,
+          "ood": true
+        }
+      },
+      "oracle_mask": {
+        "budget_seconds": 300,
+        "prefix_token_count": 0,
+        "score_scope": "generated_suffix_only",
+        "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+        "candidates": [
+          {
+            "grid": [
+              [
+                1,
+                6,
+                6,
+                6,
+                4,
+                4,
+                7,
+                7,
+                7,
+                7
+              ],
+              [
+                6,
+                6,
+                6,
+                6,
+                4,
+                4,
+                7,
+                2,
+                2,
+                7
+              ],
+              [
+                1,
+                6,
+                1,
+                7,
+                7,
+                7,
+                9,
+                9,
+                9,
+                9
+              ]
+            ],
+            "suffix_score": 0.9430694580078125,
+            "generated_suffix_tokens": 33,
+            "suffix_mean_score": 0.028577862363873108
+          },
+          {
+            "grid": [
+              [
+                1,
+                6,
+                6,
+                6,
+                4,
+                4,
+                7,
+                7
+              ],
+              [
+                6,
+                6,
+                6,
+                6,
+                4,
+                4,
+                7,
+                2
+              ],
+              [
+                1,
+                6,
+                1,
+                7,
+                7,
+                7,
+                9,
+                9
+              ]
+            ],
+            "suffix_score": 1.4106369018554688,
+            "generated_suffix_tokens": 27,
+            "suffix_mean_score": 0.05224581117983217
+          }
+        ],
+        "truth_present": false,
+        "exact_candidate_count": 0,
+        "metadata": {
+          "causal_question": "localization",
+          "oracle": true,
+          "ood": false
+        }
+      }
+    },
+    "correspondence": {
+      "crops": [
+        {
+          "condition_id": "crop_0",
+          "bbox": [
+            0,
+            3,
+            0,
+            9
+          ],
+          "is_true_source": false,
+          "budget_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7
+                ]
+              ],
+              "suffix_score": 0.9114303588867188,
+              "generated_suffix_tokens": 2,
+              "suffix_mean_score": 0.4557151794433594
+            }
+          ],
+          "truth_present": false,
+          "exact_candidate_count": 0
+        },
+        {
+          "condition_id": "crop_1",
+          "bbox": [
+            0,
+            3,
+            7,
+            16
+          ],
+          "is_true_source": false,
+          "budget_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  6
+                ]
+              ],
+              "suffix_score": 1.4062423706054688,
+              "generated_suffix_tokens": 2,
+              "suffix_mean_score": 0.7031211853027344
+            }
+          ],
+          "truth_present": false,
+          "exact_candidate_count": 0
+        },
+        {
+          "condition_id": "crop_2",
+          "bbox": [
+            0,
+            3,
+            14,
+            23
+          ],
+          "is_true_source": true,
+          "budget_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [],
+          "truth_present": false,
+          "exact_candidate_count": 0
+        },
+        {
+          "condition_id": "crop_3",
+          "bbox": [
+            0,
+            3,
+            21,
+            30
+          ],
+          "is_true_source": false,
+          "budget_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7
+                ]
+              ],
+              "suffix_score": 0.5470809936523438,
+              "generated_suffix_tokens": 2,
+              "suffix_mean_score": 0.2735404968261719
+            }
+          ],
+          "truth_present": false,
+          "exact_candidate_count": 0
+        },
+        {
+          "condition_id": "crop_4",
+          "bbox": [
+            9,
+            12,
+            14,
+            23
+          ],
+          "is_true_source": false,
+          "budget_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  6
+                ]
+              ],
+              "suffix_score": 1.3736801147460938,
+              "generated_suffix_tokens": 2,
+              "suffix_mean_score": 0.6868400573730469
+            },
+            {
+              "grid": [
+                [
+                  6,
+                  4
+                ]
+              ],
+              "suffix_score": 1.5974502563476562,
+              "generated_suffix_tokens": 3,
+              "suffix_mean_score": 0.5324834187825521
+            }
+          ],
+          "truth_present": false,
+          "exact_candidate_count": 0
+        }
+      ],
+      "only_true_source_yields_truth": false
+    },
+    "model_likelihood": {
+      "prompt_condition": "baseline_full_30x30",
+      "base": {
+        "token_count": 36,
+        "cell_count": 27,
+        "sum_nll": 14.923112134554685,
+        "per_token_nll": 0.41453089262651904,
+        "cell_mean_nll": 0.5526581229097685,
+        "rows": [
+          {
+            "row": 0,
+            "cell_count": 3,
+            "sum_nll": 7.545158579945564,
+            "mean_nll": 2.515052859981855,
+            "mean_correct_probability": 0.3076285286806524,
+            "mean_correct_rank": 1.6666666666666667
+          },
+          {
+            "row": 1,
+            "cell_count": 3,
+            "sum_nll": 2.574929267168045,
+            "mean_nll": 0.8583097557226816,
+            "mean_correct_probability": 0.49047234654426575,
+            "mean_correct_rank": 1.6666666666666667
+          },
+          {
+            "row": 2,
+            "cell_count": 3,
+            "sum_nll": 0.5740064496640116,
+            "mean_nll": 0.1913354832213372,
+            "mean_correct_probability": 0.8339723944664001,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 3,
+            "cell_count": 3,
+            "sum_nll": 0.01259944566845661,
+            "mean_nll": 0.00419981522281887,
+            "mean_correct_probability": 0.9958228270212809,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 4,
+            "cell_count": 3,
+            "sum_nll": 2.4601827654987574,
+            "mean_nll": 0.8200609218329191,
+            "mean_correct_probability": 0.6132309089104334,
+            "mean_correct_rank": 1.3333333333333333
+          },
+          {
+            "row": 5,
+            "cell_count": 3,
+            "sum_nll": 0.015732115134596825,
+            "mean_nll": 0.005244038378198941,
+            "mean_correct_probability": 0.9947736461957296,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 6,
+            "cell_count": 3,
+            "sum_nll": 1.4141207267530262,
+            "mean_nll": 0.47137357558434206,
+            "mean_correct_probability": 0.7246638834476471,
+            "mean_correct_rank": 1.3333333333333333
+          },
+          {
+            "row": 7,
+            "cell_count": 3,
+            "sum_nll": 0.0019808024117082823,
+            "mean_nll": 0.0006602674705694275,
+            "mean_correct_probability": 0.9993400375048319,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 8,
+            "cell_count": 3,
+            "sum_nll": 0.323059166319581,
+            "mean_nll": 0.10768638877319366,
+            "mean_correct_probability": 0.9040983517964681,
+            "mean_correct_rank": 1.0
+          }
+        ],
+        "tokens": [
+          {
+            "kind": "cell",
+            "row": 0,
+            "column": 0,
+            "token_id": 7,
+            "nll": 5.0227179527282715,
+            "correct_probability": 0.006586600560694933,
+            "correct_rank": 2
+          },
+          {
+            "kind": "cell",
+            "row": 0,
+            "column": 1,
+            "token_id": 7,
+            "nll": 2.321794033050537,
+            "correct_probability": 0.09809744358062744,
+            "correct_rank": 2
+          },
+          {
+            "kind": "cell",
+            "row": 0,
+            "column": 2,
+            "token_id": 9,
+            "nll": 0.20064659416675568,
+            "correct_probability": 0.8182015419006348,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 0,
+            "token_id": 10,
+            "nll": 0.0003363520372658968,
+            "correct_probability": 0.9996637105941772,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 1,
+            "column": 0,
+            "token_id": 7,
+            "nll": 1.1172645092010498,
+            "correct_probability": 0.3271735906600952,
+            "correct_rank": 2
+          },
+          {
+            "kind": "cell",
+            "row": 1,
+            "column": 1,
+            "token_id": 2,
+            "nll": 0.12828591465950012,
+            "correct_probability": 0.8796018362045288,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 1,
+            "column": 2,
+            "token_id": 9,
+            "nll": 1.3293788433074951,
+            "correct_probability": 0.2646416127681732,
+            "correct_rank": 2
+          },
+          {
+            "kind": "newline",
+            "after_row": 1,
+            "token_id": 10,
+            "nll": 7.509902934543788e-05,
+            "correct_probability": 0.999924898147583,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 2,
+            "column": 0,
+            "token_id": 7,
+            "nll": 0.327842652797699,
+            "correct_probability": 0.7204763889312744,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 2,
+            "column": 1,
+            "token_id": 2,
+            "nll": 0.244533509016037,
+            "correct_probability": 0.7830697298049927,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 2,
+            "column": 2,
+            "token_id": 9,
+            "nll": 0.0016302878502756357,
+            "correct_probability": 0.9983710646629333,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 2,
+            "token_id": 10,
+            "nll": 2.1457441107486375e-05,
+            "correct_probability": 0.9999785423278809,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 3,
+            "column": 0,
+            "token_id": 7,
+            "nll": 0.011646846309304237,
+            "correct_probability": 0.9884207248687744,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 3,
+            "column": 1,
+            "token_id": 7,
+            "nll": 0.0008406681008636951,
+            "correct_probability": 0.9991596937179565,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 3,
+            "column": 2,
+            "token_id": 9,
+            "nll": 0.00011193125828867778,
+            "correct_probability": 0.9998880624771118,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 3,
+            "token_id": 10,
+            "nll": 2.1457441107486375e-05,
+            "correct_probability": 0.9999785423278809,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 4,
+            "column": 0,
+            "token_id": 4,
+            "nll": 2.135373592376709,
+            "correct_probability": 0.11820043623447418,
+            "correct_rank": 2
+          },
+          {
+            "kind": "cell",
+            "row": 4,
+            "column": 1,
+            "token_id": 4,
+            "nll": 0.3205227851867676,
+            "correct_probability": 0.7257695198059082,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 4,
+            "column": 2,
+            "token_id": 7,
+            "nll": 0.0042863879352808,
+            "correct_probability": 0.995722770690918,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 4,
+            "token_id": 10,
+            "nll": 4.541770613286644e-05,
+            "correct_probability": 0.9999545812606812,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 5,
+            "column": 0,
+            "token_id": 4,
+            "nll": 0.003226434113457799,
+            "correct_probability": 0.9967787861824036,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 5,
+            "column": 1,
+            "token_id": 4,
+            "nll": 0.0032703985925763845,
+            "correct_probability": 0.9967349171638489,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 5,
+            "column": 2,
+            "token_id": 7,
+            "nll": 0.009235282428562641,
+            "correct_probability": 0.9908072352409363,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 5,
+            "token_id": 10,
+            "nll": 0.00026127262390218675,
+            "correct_probability": 0.9997387528419495,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 6,
+            "column": 0,
+            "token_id": 6,
+            "nll": 0.09317244589328766,
+            "correct_probability": 0.9110363721847534,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 6,
+            "column": 1,
+            "token_id": 6,
+            "nll": 1.315566897392273,
+            "correct_probability": 0.2683221995830536,
+            "correct_rank": 2
+          },
+          {
+            "kind": "cell",
+            "row": 6,
+            "column": 2,
+            "token_id": 1,
+            "nll": 0.005381383467465639,
+            "correct_probability": 0.9946330785751343,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 6,
+            "token_id": 10,
+            "nll": 0.00012337400403339416,
+            "correct_probability": 0.9998766183853149,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 7,
+            "column": 0,
+            "token_id": 6,
+            "nll": 0.0009420248097740114,
+            "correct_probability": 0.9990584254264832,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 7,
+            "column": 1,
+            "token_id": 6,
+            "nll": 0.0009873997187241912,
+            "correct_probability": 0.9990130662918091,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 7,
+            "column": 2,
+            "token_id": 6,
+            "nll": 5.1377883210079744e-05,
+            "correct_probability": 0.9999486207962036,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 7,
+            "token_id": 10,
+            "nll": 0.00043084874050691724,
+            "correct_probability": 0.9995692372322083,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 8,
+            "column": 0,
+            "token_id": 1,
+            "nll": 0.27316638827323914,
+            "correct_probability": 0.7609661817550659,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 8,
+            "column": 1,
+            "token_id": 6,
+            "nll": 0.04983996972441673,
+            "correct_probability": 0.9513816833496094,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 8,
+            "column": 2,
+            "token_id": 1,
+            "nll": 5.280832192511298e-05,
+            "correct_probability": 0.999947190284729,
+            "correct_rank": 1
+          },
+          {
+            "kind": "eos",
+            "token_id": 15,
+            "nll": 2.753696753643453e-05,
+            "correct_probability": 0.9999724626541138,
+            "correct_rank": 1
+          }
+        ]
+      },
+      "rslora": {
+        "token_count": 36,
+        "cell_count": 27,
+        "sum_nll": 28.808018656410553,
+        "per_token_nll": 0.8002227404558487,
+        "cell_mean_nll": 1.0669620644948905,
+        "rows": [
+          {
+            "row": 0,
+            "cell_count": 3,
+            "sum_nll": 17.63428831100464,
+            "mean_nll": 5.878096103668213,
+            "mean_correct_probability": 0.22832084959994367,
+            "mean_correct_rank": 2.6666666666666665
+          },
+          {
+            "row": 1,
+            "cell_count": 3,
+            "sum_nll": 2.779677093029022,
+            "mean_nll": 0.9265590310096741,
+            "mean_correct_probability": 0.42121224602063495,
+            "mean_correct_rank": 1.3333333333333333
+          },
+          {
+            "row": 2,
+            "cell_count": 3,
+            "sum_nll": 0.17611117170599755,
+            "mean_nll": 0.05870372390199918,
+            "mean_correct_probability": 0.9438272714614868,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 3,
+            "cell_count": 3,
+            "sum_nll": 0.03088493640825618,
+            "mean_nll": 0.01029497880275206,
+            "mean_correct_probability": 0.9898519714673361,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 4,
+            "cell_count": 3,
+            "sum_nll": 3.6714461589399434,
+            "mean_nll": 1.2238153863133145,
+            "mean_correct_probability": 0.6336472338686386,
+            "mean_correct_rank": 1.3333333333333333
+          },
+          {
+            "row": 5,
+            "cell_count": 3,
+            "sum_nll": 0.0004348047477833461,
+            "mean_nll": 0.00014493491592778204,
+            "mean_correct_probability": 0.9998550812403361,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 6,
+            "cell_count": 3,
+            "sum_nll": 0.0008300616755150259,
+            "mean_nll": 0.00027668722517167527,
+            "mean_correct_probability": 0.9997233947118124,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 7,
+            "cell_count": 3,
+            "sum_nll": 3.1590211619914044e-05,
+            "mean_nll": 1.0530070539971348e-05,
+            "mean_correct_probability": 0.9999894698460897,
+            "mean_correct_rank": 1.0
+          },
+          {
+            "row": 8,
+            "cell_count": 3,
+            "sum_nll": 4.514271613639266,
+            "mean_nll": 1.5047572045464221,
+            "mean_correct_probability": 0.6702883069713911,
+            "mean_correct_rank": 1.3333333333333333
+          }
+        ],
+        "tokens": [
+          {
+            "kind": "cell",
+            "row": 0,
+            "column": 0,
+            "token_id": 7,
+            "nll": 12.000041961669922,
+            "correct_probability": 6.143953669379698e-06,
+            "correct_rank": 3
+          },
+          {
+            "kind": "cell",
+            "row": 0,
+            "column": 1,
+            "token_id": 7,
+            "nll": 5.248141288757324,
+            "correct_probability": 0.005257281940430403,
+            "correct_rank": 4
+          },
+          {
+            "kind": "cell",
+            "row": 0,
+            "column": 2,
+            "token_id": 9,
+            "nll": 0.3861050605773926,
+            "correct_probability": 0.6796991229057312,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 0,
+            "token_id": 10,
+            "nll": 1.0013530300057027e-05,
+            "correct_probability": 0.9999899864196777,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 1,
+            "column": 0,
+            "token_id": 7,
+            "nll": 1.3321367502212524,
+            "correct_probability": 0.26391276717185974,
+            "correct_rank": 2
+          },
+          {
+            "kind": "cell",
+            "row": 1,
+            "column": 1,
+            "token_id": 2,
+            "nll": 0.9713793992996216,
+            "correct_probability": 0.37856048345565796,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 1,
+            "column": 2,
+            "token_id": 9,
+            "nll": 0.4761609435081482,
+            "correct_probability": 0.6211634874343872,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 1,
+            "token_id": 10,
+            "nll": 2.861018856492592e-06,
+            "correct_probability": 0.9999971389770508,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 2,
+            "column": 0,
+            "token_id": 7,
+            "nll": 0.07924926280975342,
+            "correct_probability": 0.9238096475601196,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 2,
+            "column": 1,
+            "token_id": 2,
+            "nll": 0.09676285088062286,
+            "correct_probability": 0.9077712297439575,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 2,
+            "column": 2,
+            "token_id": 9,
+            "nll": 9.905801562126726e-05,
+            "correct_probability": 0.9999009370803833,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 2,
+            "token_id": 10,
+            "nll": 3.576278118089249e-07,
+            "correct_probability": 0.9999996423721313,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 3,
+            "column": 0,
+            "token_id": 7,
+            "nll": 0.029825976118445396,
+            "correct_probability": 0.9706144332885742,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 3,
+            "column": 1,
+            "token_id": 7,
+            "nll": 0.0009444067254662514,
+            "correct_probability": 0.9990560412406921,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 3,
+            "column": 2,
+            "token_id": 9,
+            "nll": 0.00011455356434453279,
+            "correct_probability": 0.9998854398727417,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 3,
+            "token_id": 10,
+            "nll": 2.3841855067985307e-07,
+            "correct_probability": 0.9999997615814209,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 4,
+            "column": 0,
+            "token_id": 4,
+            "nll": 3.534209728240967,
+            "correct_probability": 0.029181810095906258,
+            "correct_rank": 2
+          },
+          {
+            "kind": "cell",
+            "row": 4,
+            "column": 1,
+            "token_id": 4,
+            "nll": 0.13720352947711945,
+            "correct_probability": 0.8717927932739258,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 4,
+            "column": 2,
+            "token_id": 7,
+            "nll": 3.290122185717337e-05,
+            "correct_probability": 0.999967098236084,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 4,
+            "token_id": 10,
+            "nll": 5.960462772236497e-07,
+            "correct_probability": 0.9999994039535522,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 5,
+            "column": 0,
+            "token_id": 4,
+            "nll": 0.00037329382030293345,
+            "correct_probability": 0.9996267557144165,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 5,
+            "column": 1,
+            "token_id": 4,
+            "nll": 1.9788545614574105e-05,
+            "correct_probability": 0.9999802112579346,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 5,
+            "column": 2,
+            "token_id": 7,
+            "nll": 4.172238186583854e-05,
+            "correct_probability": 0.9999582767486572,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 5,
+            "token_id": 10,
+            "nll": 2.264974000354414e-06,
+            "correct_probability": 0.9999977350234985,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 6,
+            "column": 0,
+            "token_id": 6,
+            "nll": 0.0006688979919999838,
+            "correct_probability": 0.9993313550949097,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 6,
+            "column": 1,
+            "token_id": 6,
+            "nll": 5.2569914259947836e-05,
+            "correct_probability": 0.9999474287033081,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 6,
+            "column": 2,
+            "token_id": 1,
+            "nll": 0.00010859376925509423,
+            "correct_probability": 0.9998914003372192,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 6,
+            "token_id": 10,
+            "nll": 3.6954811548639555e-06,
+            "correct_probability": 0.9999963045120239,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 7,
+            "column": 0,
+            "token_id": 6,
+            "nll": 2.109982233378105e-05,
+            "correct_probability": 0.9999788999557495,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 7,
+            "column": 1,
+            "token_id": 6,
+            "nll": 4.6491513785440475e-06,
+            "correct_probability": 0.9999953508377075,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 7,
+            "column": 2,
+            "token_id": 6,
+            "nll": 5.8412379075889476e-06,
+            "correct_probability": 0.999994158744812,
+            "correct_rank": 1
+          },
+          {
+            "kind": "newline",
+            "after_row": 7,
+            "token_id": 10,
+            "nll": 2.1457441107486375e-05,
+            "correct_probability": 0.9999785423278809,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 8,
+            "column": 0,
+            "token_id": 1,
+            "nll": 4.51418399810791,
+            "correct_probability": 0.01095253974199295,
+            "correct_rank": 2
+          },
+          {
+            "kind": "cell",
+            "row": 8,
+            "column": 1,
+            "token_id": 6,
+            "nll": 8.093983342405409e-05,
+            "correct_probability": 0.999919056892395,
+            "correct_rank": 1
+          },
+          {
+            "kind": "cell",
+            "row": 8,
+            "column": 2,
+            "token_id": 1,
+            "nll": 6.6756979322235566e-06,
+            "correct_probability": 0.9999933242797852,
+            "correct_rank": 1
+          },
+          {
+            "kind": "eos",
+            "token_id": 15,
+            "nll": 1.4305104514278355e-06,
+            "correct_probability": 0.9999985694885254,
+            "correct_rank": 1
+          }
+        ]
+      },
+      "delta_per_token_nll": 0.3856918478293297
+    },
+    "decoding": {
+      "prompt_condition": "baseline_full_30x30",
+      "normalization": "DFS scores cover generated suffix tokens only. No score is compared across prefix lengths; exact completion is the endpoint.",
+      "conditions": [
+        {
+          "prefix_rows": 0,
+          "exact_completion": false,
+          "budget_seconds": 300,
+          "prefix_token_count": 0,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  9,
+                  1,
+                  3
+                ],
+                [
+                  9,
+                  9,
+                  2
+                ],
+                [
+                  9,
+                  9,
+                  2
+                ],
+                [
+                  9,
+                  1,
+                  3
+                ],
+                [
+                  7,
+                  2,
+                  7
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  1,
+                  6,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  7
+                ],
+                [
+                  1,
+                  5,
+                  4
+                ]
+              ],
+              "suffix_score": 0.32498931884765625,
+              "generated_suffix_tokens": 36,
+              "suffix_mean_score": 0.009027481079101562
+            },
+            {
+              "grid": [
+                [
+                  9,
+                  1,
+                  3
+                ],
+                [
+                  9,
+                  9,
+                  2
+                ],
+                [
+                  9,
+                  9,
+                  2
+                ],
+                [
+                  9,
+                  1,
+                  3
+                ],
+                [
+                  7,
+                  2,
+                  7
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  1,
+                  6,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  1,
+                  5,
+                  4
+                ]
+              ],
+              "suffix_score": 1.3206710815429688,
+              "generated_suffix_tokens": 36,
+              "suffix_mean_score": 0.03668530782063802
+            }
+          ]
+        },
+        {
+          "prefix_rows": 1,
+          "exact_completion": false,
+          "budget_seconds": 300,
+          "prefix_token_count": 4,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": []
+        },
+        {
+          "prefix_rows": 2,
+          "exact_completion": false,
+          "budget_seconds": 300,
+          "prefix_token_count": 8,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  5,
+                  6,
+                  1
+                ]
+              ],
+              "suffix_score": 0.9771270751953125,
+              "generated_suffix_tokens": 28,
+              "suffix_mean_score": 0.03489739554268973
+            },
+            {
+              "grid": [
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  5,
+                  5,
+                  1
+                ]
+              ],
+              "suffix_score": 1.5258407592773438,
+              "generated_suffix_tokens": 28,
+              "suffix_mean_score": 0.054494312831333706
+            }
+          ]
+        },
+        {
+          "prefix_rows": 3,
+          "exact_completion": false,
+          "budget_seconds": 300,
+          "prefix_token_count": 12,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  5,
+                  6,
+                  1
+                ]
+              ],
+              "suffix_score": 0.8128509521484375,
+              "generated_suffix_tokens": 24,
+              "suffix_mean_score": 0.03386878967285156
+            },
+            {
+              "grid": [
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  5,
+                  5,
+                  1
+                ]
+              ],
+              "suffix_score": 1.3615570068359375,
+              "generated_suffix_tokens": 24,
+              "suffix_mean_score": 0.0567315419514974
+            }
+          ]
+        },
+        {
+          "prefix_rows": 4,
+          "exact_completion": false,
+          "budget_seconds": 300,
+          "prefix_token_count": 16,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  5,
+                  6,
+                  1
+                ]
+              ],
+              "suffix_score": 0.7695541381835938,
+              "generated_suffix_tokens": 20,
+              "suffix_mean_score": 0.03847770690917969
+            },
+            {
+              "grid": [
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  5,
+                  5,
+                  1
+                ]
+              ],
+              "suffix_score": 1.3182525634765625,
+              "generated_suffix_tokens": 20,
+              "suffix_mean_score": 0.06591262817382812
+            }
+          ]
+        },
+        {
+          "prefix_rows": 5,
+          "exact_completion": false,
+          "budget_seconds": 300,
+          "prefix_token_count": 20,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  5,
+                  6,
+                  1
+                ]
+              ],
+              "suffix_score": 0.05437469482421875,
+              "generated_suffix_tokens": 16,
+              "suffix_mean_score": 0.003398418426513672
+            }
+          ]
+        },
+        {
+          "prefix_rows": 8,
+          "exact_completion": false,
+          "budget_seconds": 300,
+          "prefix_token_count": 32,
+          "score_scope": "generated_suffix_only",
+          "score_comparability": "scores are comparable only within the same prefix length; cross-prefix raw or mean scores are not compared",
+          "candidates": [
+            {
+              "grid": [
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  2,
+                  9
+                ],
+                [
+                  7,
+                  7,
+                  9
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  4,
+                  4,
+                  7
+                ],
+                [
+                  6,
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  6,
+                  6
+                ],
+                [
+                  5,
+                  6,
+                  1
+                ]
+              ],
+              "suffix_score": 0.0644073486328125,
+              "generated_suffix_tokens": 4,
+              "suffix_mean_score": 0.016101837158203125
+            }
+          ]
+        }
+      ],
+      "smallest_exact_prefix_rows": null
+    }
+  },
+  "limitations": {
+    "oracle_crop_is_ood": true,
+    "transpose_probe_is_capability_test_not_fair_solver": true,
+    "results_require_gpu_execution": false
+  }
+}

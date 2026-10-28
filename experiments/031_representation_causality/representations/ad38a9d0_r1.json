@@ -1,0 +1,419 @@
+{
+  "task_id": "ad38a9d0",
+  "run": "r1",
+  "vocabulary": {
+    "grid": "A rectangular array of integer colors.",
+    "background": "Color 7; cells not belonging to any foreground component.",
+    "foreground": "Color 6 in an input.",
+    "component": "A maximal 4-neighbor-connected set of foreground cells.",
+    "anchor": "The lexicographically smallest row/column corner of a component's bounding box: (minimum row, minimum column).",
+    "normalized_shape": "The set of component coordinates after subtracting the anchor from every coordinate; translation is thereby removed while orientation and reflection are preserved.",
+    "shape_code": "A stable name for one observed normalized_shape.",
+    "recolor": "Replacing every input-6 cell of a component by the output color assigned to its normalized shape, at the same coordinate.",
+    "coordinate": "A zero-based [row, column] pair, with row increasing downward and column increasing rightward."
+  },
+  "extraction": {
+    "grid_dimensions": "Count rows and columns.",
+    "background_and_foreground": "Treat 7 as background and 6 as foreground in every supplied input.",
+    "components": "Scan cells in row-major order. For each unvisited 6, flood-fill through up, down, left, and right neighbors that are also 6. Diagonal contact alone does not connect cells.",
+    "anchor": "For each component C, compute [min(row in C), min(column in C)].",
+    "normalized_shape": "For anchor [r0,c0], sort the set [[r-r0,c-c0] for [r,c] in C] lexicographically.",
+    "shape_codes": {
+      "corner3": [[0, 0], [0, 1], [1, 1]],
+      "vertical3": [[0, 0], [1, 0], [2, 0]],
+      "vertical2": [[0, 0], [1, 0]],
+      "plus5": [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]],
+      "stair4": [[0, 0], [0, 1], [1, 1], [1, 2]],
+      "rectangle2x3": [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2]]
+    },
+    "output_correspondence": "For a train pair, compare each component's input coordinates with the same output coordinates. All cells in each component receive one uniform non-7 color, and every input-7 coordinate remains 7."
+  },
+  "instances": {
+    "train": [
+      {
+        "pair": 0,
+        "dimensions": [9, 9],
+        "input_background_color": 7,
+        "input_foreground_color": 6,
+        "components": [
+          {
+            "id": "tr0_c0",
+            "anchor": [0, 0],
+            "shape_code": "corner3",
+            "normalized_shape": [[0, 0], [0, 1], [1, 1]],
+            "absolute_cells": [[0, 0], [0, 1], [1, 1]],
+            "observed_output_color": 4
+          },
+          {
+            "id": "tr0_c1",
+            "anchor": [0, 4],
+            "shape_code": "stair4",
+            "normalized_shape": [[0, 0], [0, 1], [1, 1], [1, 2]],
+            "absolute_cells": [[0, 4], [0, 5], [1, 5], [1, 6]],
+            "observed_output_color": 8
+          },
+          {
+            "id": "tr0_c2",
+            "anchor": [2, 2],
+            "shape_code": "plus5",
+            "normalized_shape": [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]],
+            "absolute_cells": [[2, 3], [3, 2], [3, 3], [3, 4], [4, 3]],
+            "observed_output_color": 3
+          },
+          {
+            "id": "tr0_c3",
+            "anchor": [2, 8],
+            "shape_code": "vertical3",
+            "normalized_shape": [[0, 0], [1, 0], [2, 0]],
+            "absolute_cells": [[2, 8], [3, 8], [4, 8]],
+            "observed_output_color": 2
+          },
+          {
+            "id": "tr0_c4",
+            "anchor": [3, 6],
+            "shape_code": "vertical2",
+            "normalized_shape": [[0, 0], [1, 0]],
+            "absolute_cells": [[3, 6], [4, 6]],
+            "observed_output_color": 9
+          },
+          {
+            "id": "tr0_c5",
+            "anchor": [4, 1],
+            "shape_code": "vertical3",
+            "normalized_shape": [[0, 0], [1, 0], [2, 0]],
+            "absolute_cells": [[4, 1], [5, 1], [6, 1]],
+            "observed_output_color": 2
+          },
+          {
+            "id": "tr0_c6",
+            "anchor": [6, 7],
+            "shape_code": "corner3",
+            "normalized_shape": [[0, 0], [0, 1], [1, 1]],
+            "absolute_cells": [[6, 7], [6, 8], [7, 8]],
+            "observed_output_color": 4
+          },
+          {
+            "id": "tr0_c7",
+            "anchor": [7, 4],
+            "shape_code": "rectangle2x3",
+            "normalized_shape": [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2]],
+            "absolute_cells": [[7, 4], [7, 5], [7, 6], [8, 4], [8, 5], [8, 6]],
+            "observed_output_color": 5
+          }
+        ],
+        "output_summary": {
+          "dimensions": [9, 9],
+          "background_cells_unchanged": true,
+          "component_geometry_unchanged": true,
+          "component_output_colors_in_component_order": [4, 8, 3, 2, 9, 2, 4, 5]
+        }
+      },
+      {
+        "pair": 1,
+        "dimensions": [9, 9],
+        "input_background_color": 7,
+        "input_foreground_color": 6,
+        "components": [
+          {
+            "id": "tr1_c0",
+            "anchor": [1, 0],
+            "shape_code": "plus5",
+            "normalized_shape": [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]],
+            "absolute_cells": [[1, 1], [2, 0], [2, 1], [2, 2], [3, 1]],
+            "observed_output_color": 3
+          },
+          {
+            "id": "tr1_c1",
+            "anchor": [1, 4],
+            "shape_code": "vertical2",
+            "normalized_shape": [[0, 0], [1, 0]],
+            "absolute_cells": [[1, 4], [2, 4]],
+            "observed_output_color": 9
+          },
+          {
+            "id": "tr1_c2",
+            "anchor": [2, 6],
+            "shape_code": "corner3",
+            "normalized_shape": [[0, 0], [0, 1], [1, 1]],
+            "absolute_cells": [[2, 6], [2, 7], [3, 7]],
+            "observed_output_color": 4
+          },
+          {
+            "id": "tr1_c3",
+            "anchor": [5, 4],
+            "shape_code": "stair4",
+            "normalized_shape": [[0, 0], [0, 1], [1, 1], [1, 2]],
+            "absolute_cells": [[5, 4], [5, 5], [6, 5], [6, 6]],
+            "observed_output_color": 8
+          },
+          {
+            "id": "tr1_c4",
+            "anchor": [6, 8],
+            "shape_code": "vertical3",
+            "normalized_shape": [[0, 0], [1, 0], [2, 0]],
+            "absolute_cells": [[6, 8], [7, 8], [8, 8]],
+            "observed_output_color": 2
+          },
+          {
+            "id": "tr1_c5",
+            "anchor": [7, 1],
+            "shape_code": "rectangle2x3",
+            "normalized_shape": [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2]],
+            "absolute_cells": [[7, 1], [7, 2], [7, 3], [8, 1], [8, 2], [8, 3]],
+            "observed_output_color": 5
+          }
+        ],
+        "output_summary": {
+          "dimensions": [9, 9],
+          "background_cells_unchanged": true,
+          "component_geometry_unchanged": true,
+          "component_output_colors_in_component_order": [3, 9, 4, 8, 2, 5]
+        }
+      }
+    ],
+    "test": [
+      {
+        "test_index": 0,
+        "dimensions": [9, 9],
+        "input_background_color": 7,
+        "input_foreground_color": 6,
+        "components": [
+          {
+            "id": "te0_c0",
+            "anchor": [0, 0],
+            "shape_code": "plus5",
+            "normalized_shape": [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]],
+            "absolute_cells": [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]]
+          },
+          {
+            "id": "te0_c1",
+            "anchor": [0, 4],
+            "shape_code": "stair4",
+            "normalized_shape": [[0, 0], [0, 1], [1, 1], [1, 2]],
+            "absolute_cells": [[0, 4], [0, 5], [1, 5], [1, 6]]
+          },
+          {
+            "id": "te0_c2",
+            "anchor": [2, 8],
+            "shape_code": "vertical3",
+            "normalized_shape": [[0, 0], [1, 0], [2, 0]],
+            "absolute_cells": [[2, 8], [3, 8], [4, 8]]
+          },
+          {
+            "id": "te0_c3",
+            "anchor": [3, 3],
+            "shape_code": "rectangle2x3",
+            "normalized_shape": [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2]],
+            "absolute_cells": [[3, 3], [3, 4], [3, 5], [4, 3], [4, 4], [4, 5]]
+          },
+          {
+            "id": "te0_c4",
+            "anchor": [6, 0],
+            "shape_code": "corner3",
+            "normalized_shape": [[0, 0], [0, 1], [1, 1]],
+            "absolute_cells": [[6, 0], [6, 1], [7, 1]]
+          },
+          {
+            "id": "te0_c5",
+            "anchor": [6, 7],
+            "shape_code": "corner3",
+            "normalized_shape": [[0, 0], [0, 1], [1, 1]],
+            "absolute_cells": [[6, 7], [6, 8], [7, 8]]
+          },
+          {
+            "id": "te0_c6",
+            "anchor": [7, 5],
+            "shape_code": "vertical2",
+            "normalized_shape": [[0, 0], [1, 0]],
+            "absolute_cells": [[7, 5], [8, 5]]
+          }
+        ]
+      }
+    ]
+  },
+  "invariances": {
+    "discarded": [
+      "Absolute component translation: the same normalized shape has the same output color at different anchors.",
+      "Component enumeration order and the number of other components in the grid."
+    ],
+    "preserved": [
+      "Grid dimensions and every cell coordinate.",
+      "Component geometry, orientation, and reflection as represented by the exact normalized coordinate set.",
+      "Separation into maximal 4-connected components.",
+      "Background color 7 and all background positions."
+    ],
+    "not_assumed": [
+      "Rotation invariance.",
+      "Reflection invariance.",
+      "Diagonal connectivity."
+    ]
+  },
+  "candidate_models": [
+    {
+      "name": "exact_normalized_shape_lookup",
+      "rule": "Recolor each 4-connected input-6 component according to its exact translation-normalized coordinate set; preserve its cells and all background cells.",
+      "status": "selected",
+      "support": "Each of the six observed normalized shapes has one stable color across every occurrence and across both train pairs where repeated."
+    },
+    {
+      "name": "component_area_lookup",
+      "rule": "Assign output color using only the number of cells in a component.",
+      "status": "rejected",
+      "contradiction": "Area 3 is insufficient: corner3 is color 4 while vertical3 is color 2."
+    },
+    {
+      "name": "component_position_or_scan_order_palette",
+      "rule": "Assign colors from a fixed sequence based on row-major component order or absolute location.",
+      "status": "rejected",
+      "contradiction": "The same shapes move to different anchors and component indices between train pairs but retain their shape-associated colors; for example plus5 is component 2 in train pair 0 and component 0 in pair 1, always color 3."
+    },
+    {
+      "name": "rotation_reflection_equivalence_lookup",
+      "rule": "Canonicalize shapes up to rotations and/or reflections before color lookup.",
+      "status": "underdetermined_but_unneeded",
+      "support_or_issue": "No training pair presents a rotated or reflected counterpart whose color distinguishes this from exact orientation-preserving matching. Every test shape exactly matches an observed orientation."
+    }
+  ],
+  "train_validation": {
+    "learned_shape_to_color": {
+      "corner3": 4,
+      "vertical3": 2,
+      "vertical2": 9,
+      "plus5": 3,
+      "stair4": 8,
+      "rectangle2x3": 5
+    },
+    "occurrence_checks": [
+      {
+        "shape_code": "corner3",
+        "occurrences": ["tr0_c0", "tr0_c6", "tr1_c2"],
+        "all_observed_colors": [4, 4, 4],
+        "consistent": true
+      },
+      {
+        "shape_code": "vertical3",
+        "occurrences": ["tr0_c3", "tr0_c5", "tr1_c4"],
+        "all_observed_colors": [2, 2, 2],
+        "consistent": true
+      },
+      {
+        "shape_code": "vertical2",
+        "occurrences": ["tr0_c4", "tr1_c1"],
+        "all_observed_colors": [9, 9],
+        "consistent": true
+      },
+      {
+        "shape_code": "plus5",
+        "occurrences": ["tr0_c2", "tr1_c0"],
+        "all_observed_colors": [3, 3],
+        "consistent": true
+      },
+      {
+        "shape_code": "stair4",
+        "occurrences": ["tr0_c1", "tr1_c3"],
+        "all_observed_colors": [8, 8],
+        "consistent": true
+      },
+      {
+        "shape_code": "rectangle2x3",
+        "occurrences": ["tr0_c7", "tr1_c5"],
+        "all_observed_colors": [5, 5],
+        "consistent": true
+      }
+    ],
+    "exact_pair_validation": [
+      {
+        "pair": 0,
+        "foreground_cells_checked": 29,
+        "background_cells_checked": 52,
+        "mismatches": 0
+      },
+      {
+        "pair": 1,
+        "foreground_cells_checked": 23,
+        "background_cells_checked": 58,
+        "mismatches": 0
+      }
+    ],
+    "validation_method": "For every one of the 81 coordinates in each train pair: if the input is 7, predict 7; if it is 6, locate its 4-connected component, normalize that component, look up its learned color, and predict that color. The predicted and supplied output values agree at all 162 coordinates."
+  },
+  "selected_model": {
+    "name": "exact_normalized_shape_lookup",
+    "shape_to_color": {
+      "corner3": 4,
+      "vertical3": 2,
+      "vertical2": 9,
+      "plus5": 3,
+      "stair4": 8,
+      "rectangle2x3": 5
+    },
+    "transformation": "Preserve dimensions and positions. Replace each component's 6s uniformly with the color associated with its exact normalized shape. Leave all 7s unchanged."
+  },
+  "remaining_ambiguities": [
+    "Training data does not determine whether a previously unseen rotation or reflection should share the original shape's color or be treated as a new shape.",
+    "Training data does not define a color for a normalized shape absent from the lookup table.",
+    "Neither ambiguity affects this test instance because every test component has an exact orientation-preserving match in training."
+  ],
+  "execution_spec": {
+    "test_index": 0,
+    "output_dimensions": [9, 9],
+    "coordinate_convention": "Zero-based [row,column]; row 0 is top, column 0 is left.",
+    "initialization": "Create a 9 by 9 grid and fill every cell with background color 7.",
+    "shape_color_lookup": {
+      "plus5": 3,
+      "stair4": 8,
+      "vertical3": 2,
+      "rectangle2x3": 5,
+      "corner3": 4,
+      "vertical2": 9
+    },
+    "test_components": [
+      {
+        "id": "te0_c0",
+        "shape_code": "plus5",
+        "cells": [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]]
+      },
+      {
+        "id": "te0_c1",
+        "shape_code": "stair4",
+        "cells": [[0, 4], [0, 5], [1, 5], [1, 6]]
+      },
+      {
+        "id": "te0_c2",
+        "shape_code": "vertical3",
+        "cells": [[2, 8], [3, 8], [4, 8]]
+      },
+      {
+        "id": "te0_c3",
+        "shape_code": "rectangle2x3",
+        "cells": [[3, 3], [3, 4], [3, 5], [4, 3], [4, 4], [4, 5]]
+      },
+      {
+        "id": "te0_c4",
+        "shape_code": "corner3",
+        "cells": [[6, 0], [6, 1], [7, 1]]
+      },
+      {
+        "id": "te0_c5",
+        "shape_code": "corner3",
+        "cells": [[6, 7], [6, 8], [7, 8]]
+      },
+      {
+        "id": "te0_c6",
+        "shape_code": "vertical2",
+        "cells": [[7, 5], [8, 5]]
+      }
+    ],
+    "ordered_construction": [
+      "Initialize every output coordinate to 7.",
+      "Process test_components in the listed order.",
+      "For each component, obtain its color from shape_color_lookup using shape_code.",
+      "Write that color at every coordinate in the component's cells list.",
+      "Return the completed 9 by 9 grid."
+    ],
+    "collision_behavior": "The listed test components are pairwise disjoint. If a collision were encountered, require both writes to agree; otherwise signal an invalid representation rather than choosing an overwrite order.",
+    "boundary_behavior": "All listed coordinates are within rows 0 through 8 and columns 0 through 8. Do not clip, wrap, reflect, or create any cell outside those bounds.",
+    "completeness_note": "The dimensions, default background, full test component cell lists, and complete color lookup are included, so execution requires neither the raw challenge nor inference of omitted cells.",
+    "literal_final_test_grid_included": false
+  }
+}
